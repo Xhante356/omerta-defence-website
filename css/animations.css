@@ -1,0 +1,198 @@
+/* ===================================================
+   OMERTA DEFENCE - Animations & Transitions
+   =================================================== */
+
+/* ---------- Keyframes ---------- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* ---------- Scroll Reveal Classes ---------- */
+.reveal-up,
+.reveal-left,
+.reveal-right {
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.reveal-up {
+    transform: translateY(40px);
+}
+
+.reveal-left {
+    transform: translateX(-40px);
+}
+
+.reveal-right {
+    transform: translateX(40px);
+}
+
+.reveal-up.revealed,
+.reveal-left.revealed,
+.reveal-right.revealed {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* ---------- Stagger Delays ---------- */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* ---------- Hero Entrance Animations ---------- */
+.hero .reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.hero .reveal-up.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- Product Card Hover Animations ---------- */
+.product-card {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+}
+
+.product-card .card-image img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Cyber Feature Hover ---------- */
+.cyber-feature {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-feature:hover .feature-icon {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* ---------- Nav Transition ---------- */
+.navbar {
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ---------- Button Ripple Effect ---------- */
+.btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.15) 10%, transparent 70%);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s ease;
+    border-radius: inherit;
+}
+
+.btn:active::after {
+    opacity: 1;
+    transform: scale(2.5);
+    transition: 0s;
+}
+
+/* ---------- Image Frame Hover ---------- */
+.image-frame {
+    transition: all 0.5s ease;
+}
+
+.image-frame:hover {
+    transform: scale(1.02);
+}
+
+/* ---------- Scroll Indicator Pulse ---------- */
+.scroll-indicator {
+    animation: pulse 2s infinite;
+}
+
+/* ---------- Form Focus Animations ---------- */
+.form-group::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--teal-accent);
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+}
+
+.form-group:focus-within::after {
+    width: 100%;
+}
+
+/* ---------- Link Hover Effects ---------- */
+.footer-links a {
+    transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.card-link {
+    transition: color 0.3s ease, gap 0.3s ease;
+}
+
+/* ---------- Prefers Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal-up,
+    .reveal-left,
+    .reveal-right {
+        opacity: 1;
+        transform: none;
+    }
+
+    .hero-particles {
+        display: none;
+    }
+}

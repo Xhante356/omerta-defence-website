@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMERTA DEFENCE | Precision. Power. Protection.</title>
+    <meta name="description" content="OMERTA DEFENCE - Leading provider of advanced defence solutions including Small Arms, Heavy Ordnance, Launchers, Drones & UAVs, and Cyber Security.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <img src="assets/images/logo.jpg" alt="OMERTA DEFENCE Logo">
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#cyber" class="nav-link">Cyber Security</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <a href="#contact" class="nav-cta">Request Quote</a>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Overlay Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-nav-links">
+            <li><a href="#hero" class="mobile-link">Home</a></li>
+            <li><a href="#about" class="mobile-link">About</a></li>
+            <li><a href="#products" class="mobile-link">Products</a></li>
+            <li><a href="#cyber" class="mobile-link">Cyber Security</a></li>
+            <li><a href="#contact" class="mobile-link">Contact</a></li>
+            <li><a href="#contact" class="mobile-cta">Request Quote</a></li>
+        </ul>
+    </div>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1534642960519-11ad79bc19df?w=1920&q=80')"></div>
+        <div class="hero-overlay"></div>
+        <canvas class="hero-particles" id="particleCanvas"></canvas>
+
+        <div class="hero-content">
+            <p class="hero-preheading reveal-up">PRECISION. POWER. PROTECTION.</p>
+            <h1 class="hero-title reveal-up delay-1">OMERTA<br>DEFENCE</h1>
+            <p class="hero-subtitle reveal-up delay-2">Advanced defence solutions engineered for superiority.<br>From tactical systems to cyber warfare — we define the future of security.</p>
+            <div class="hero-buttons reveal-up delay-3">
+                <a href="#products" class="btn btn-primary">Explore Capabilities</a>
+                <a href="#contact" class="btn btn-outline">Contact Us</a>
+            </div>
+        </div>
+
+        <a href="#about" class="scroll-indicator" aria-label="Scroll down">
+            <div class="scroll-chevron"></div>
+        </a>
+    </section>
+
+    <!-- ========== ABOUT SECTION ========== -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <p class="section-label reveal-up">WHO WE ARE</p>
+                    <h2 class="section-title reveal-up delay-1">Defining the Standard<br>in Defence Innovation</h2>
+                    <p class="about-description reveal-up delay-2">
+                        OMERTA DEFENCE stands at the forefront of global security solutions. With decades of expertise in advanced weaponry, unmanned systems, and cyber operations, we deliver uncompromising capability to defence forces and sovereign nations worldwide.
+                    </p>
+                    <p class="about-description reveal-up delay-2">
+                        Our commitment to discretion is matched only by our dedication to precision. Every solution we engineer reflects our core philosophy: silent strength, absolute reliability, and technological dominance on every front.
+                    </p>
+                    <div class="about-stats reveal-up delay-3">
+                        <div class="stat">
+                            <span class="stat-number" data-target="25">0</span><span class="stat-suffix">+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="50">0</span><span class="stat-suffix">+</span>
+                            <span class="stat-label">Countries Served</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="1000">0</span><span class="stat-suffix">+</span>
+                            <span class="stat-label">Solutions Deployed</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image reveal-right delay-2">
+                    <div class="image-frame">
+                        <img src="https://images.unsplash.com/photo-1579912437766-7896df6d3cd3?w=800&q=80" alt="OMERTA DEFENCE Operations" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRODUCTS & SERVICES ========== -->
+    <section class="products section" id="products">
+        <div class="container">
+            <p class="section-label text-center reveal-up">WHAT WE DELIVER</p>
+            <h2 class="section-title text-center reveal-up delay-1">Our Capabilities</h2>
+            <p class="section-subtitle text-center reveal-up delay-2">Comprehensive defence solutions across five critical domains</p>
+
+            <div class="products-grid">
+                <div class="product-card reveal-up delay-1">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=600&q=80" alt="Small Arms & Ammunition" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Small Arms & Ammunition</h3>
+                        <p class="card-text">Precision-engineered firearms and munitions designed for reliability in the most demanding operational environments.</p>
+                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal-up delay-2">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600&q=80" alt="Heavy Ordnance" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Heavy Ordnance</h3>
+                        <p class="card-text">Armoured vehicles, artillery systems, and heavy weapons platforms built for decisive force projection.</p>
+                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal-up delay-3">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1457364559154-aa2644600ebb?w=600&q=80" alt="Launchers" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Launchers</h3>
+                        <p class="card-text">Advanced rocket and missile launch systems providing strategic strike capability with pinpoint accuracy.</p>
+                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal-up delay-1">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80" alt="Drones & UAVs" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Drones & UAVs</h3>
+                        <p class="card-text">Autonomous and remotely piloted systems for surveillance, reconnaissance, and precision strike operations.</p>
+                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal-up delay-2">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80" alt="Cyber Security" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Cyber Security</h3>
+                        <p class="card-text">Military-grade cyber defence solutions protecting critical infrastructure against evolving digital threats.</p>
+                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CYBER SECURITY SECTION ========== -->
+    <section class="cyber section" id="cyber">
+        <div class="cyber-bg" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1920&q=80')"></div>
+        <div class="cyber-overlay"></div>
+
+        <div class="container">
+            <div class="cyber-panel">
+                <p class="section-label reveal-up">DIGITAL WARFARE</p>
+                <h2 class="section-title reveal-up delay-1">Cyber Security Division</h2>
+                <p class="cyber-description reveal-up delay-2">
+                    In an era where digital threats are as critical as physical ones, OMERTA DEFENCE's Cyber Security Division provides sovereign-level protection for national infrastructure, military networks, and classified communications.
+                </p>
+
+                <div class="cyber-features">
+                    <div class="cyber-feature reveal-up delay-1">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Threat Intelligence</h4>
+                        <p class="feature-text">Real-time monitoring and predictive analysis of global cyber threat landscapes.</p>
+                    </div>
+
+                    <div class="cyber-feature reveal-up delay-2">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Network Defence</h4>
+                        <p class="feature-text">Multi-layered intrusion prevention and zero-trust architecture implementation.</p>
+                    </div>
+
+                    <div class="cyber-feature reveal-up delay-3">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Incident Response</h4>
+                        <p class="feature-text">Rapid deployment cyber teams for breach containment and forensic analysis.</p>
+                    </div>
+
+                    <div class="cyber-feature reveal-up delay-4">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Secure Communications</h4>
+                        <p class="feature-text">End-to-end encrypted communication systems for classified operations.</p>
+                    </div>
+                </div>
+
+                <a href="#contact" class="btn btn-primary reveal-up delay-3">Secure Your Infrastructure</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT SECTION ========== -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <p class="section-label text-center reveal-up">GET IN TOUCH</p>
+            <h2 class="section-title text-center reveal-up delay-1">Contact Us</h2>
+
+            <div class="contact-grid">
+                <div class="contact-info reveal-left delay-2">
+                    <h3 class="contact-heading">Let's Discuss Your Requirements</h3>
+                    <p class="contact-description">Our team of defence specialists is ready to provide tailored solutions for your operational needs. All inquiries are handled with the highest level of confidentiality.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="contact-item-label">Headquarters</p>
+                                <p class="contact-item-value">Ankara, Turkey</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="contact-item-label">Email</p>
+                                <p class="contact-item-value">info@omertadefence.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="contact-item-label">Phone</p>
+                                <p class="contact-item-value">+90 (312) 000 0000</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="contact-item-label">Business Hours</p>
+                                <p class="contact-item-value">Mon - Fri: 09:00 - 18:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper reveal-right delay-2">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required autocomplete="name">
+                            <label for="name">Full Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required autocomplete="email">
+                            <label for="email">Email Address</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="company" name="company" autocomplete="organization">
+                            <label for="company">Company / Organization</label>
+                        </div>
+                        <div class="form-group">
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected></option>
+                                <option value="small-arms">Small Arms & Ammunition</option>
+                                <option value="heavy-ordnance">Heavy Ordnance</option>
+                                <option value="launchers">Launchers</option>
+                                <option value="drones">Drones & UAVs</option>
+                                <option value="cyber">Cyber Security</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                            <label for="subject">Subject</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loading" style="display:none;">Sending...</span>
+                        </button>
+                        <div class="form-success" id="formSuccess" style="display:none;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <p>Message sent successfully. We'll respond within 24 hours.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.jpg" alt="OMERTA DEFENCE" class="footer-logo">
+                    <p class="footer-tagline">Silent Strength. Absolute Reliability.</p>
+                    <p class="footer-text">Advanced defence solutions for sovereign nations and security forces worldwide.</p>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#products">Capabilities</a></li>
+                        <li><a href="#cyber">Cyber Security</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4 class="footer-heading">Products</h4>
+                    <ul>
+                        <li><a href="#products">Small Arms & Ammunition</a></li>
+                        <li><a href="#products">Heavy Ordnance</a></li>
+                        <li><a href="#products">Launchers</a></li>
+                        <li><a href="#products">Drones & UAVs</a></li>
+                        <li><a href="#products">Cyber Security</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 OMERTA DEFENCE. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/particles.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
