@@ -5,17 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OMERTA DEFENCE | Precision. Power. Protection.</title>
     <meta name="description" content="OMERTA DEFENCE - Leading provider of advanced defence solutions including Small Arms, Heavy Ordnance, Launchers, Drones & UAVs, and Cyber Security.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com https://*.unsplash.com data:; connect-src 'self';">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
+
+    <!-- ========== LOADING SCREEN ========== -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="assets/images/logo.jpg" alt="OMERTA DEFENCE" class="loading-logo">
+            <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+            <p class="loading-text" data-i18n="loading.text">INITIALIZING SYSTEMS</p>
+        </div>
+    </div>
+
+    <!-- ========== SCROLL PROGRESS ========== -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- ========== NAVIGATION ========== -->
     <nav class="navbar" id="navbar">
@@ -25,14 +38,22 @@
             </a>
 
             <ul class="nav-links" id="navLinks">
-                <li><a href="#hero" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#products" class="nav-link">Products</a></li>
-                <li><a href="#cyber" class="nav-link">Cyber Security</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#hero" class="nav-link active" data-i18n="nav.home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+                <li><a href="#products" class="nav-link" data-i18n="nav.products">Products</a></li>
+                <li><a href="#cyber" class="nav-link" data-i18n="nav.cyber">Cyber Security</a></li>
+                <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
             </ul>
 
-            <a href="#contact" class="nav-cta">Request Quote</a>
+            <!-- Language Switcher -->
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="tr">TR</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+                <button class="lang-btn" data-lang="ar">AR</button>
+            </div>
+
+            <a href="#contact" class="nav-cta" data-i18n="nav.quote">Request Quote</a>
 
             <button class="hamburger" id="hamburger" aria-label="Toggle menu">
                 <span class="hamburger-line"></span>
@@ -45,12 +66,12 @@
     <!-- Mobile Overlay Menu -->
     <div class="mobile-menu" id="mobileMenu">
         <ul class="mobile-nav-links">
-            <li><a href="#hero" class="mobile-link">Home</a></li>
-            <li><a href="#about" class="mobile-link">About</a></li>
-            <li><a href="#products" class="mobile-link">Products</a></li>
-            <li><a href="#cyber" class="mobile-link">Cyber Security</a></li>
-            <li><a href="#contact" class="mobile-link">Contact</a></li>
-            <li><a href="#contact" class="mobile-cta">Request Quote</a></li>
+            <li><a href="#hero" class="mobile-link" data-i18n="nav.home">Home</a></li>
+            <li><a href="#about" class="mobile-link" data-i18n="nav.about">About</a></li>
+            <li><a href="#products" class="mobile-link" data-i18n="nav.products">Products</a></li>
+            <li><a href="#cyber" class="mobile-link" data-i18n="nav.cyber">Cyber Security</a></li>
+            <li><a href="#contact" class="mobile-link" data-i18n="nav.contact">Contact</a></li>
+            <li><a href="#contact" class="mobile-cta" data-i18n="nav.quote">Request Quote</a></li>
         </ul>
     </div>
 
@@ -127,7 +148,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Small Arms & Ammunition</h3>
                         <p class="card-text">Precision-engineered firearms and munitions designed for reliability in the most demanding operational environments.</p>
-                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                        <a href="#/products/small-arms" class="card-link">Learn More <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -138,7 +159,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Heavy Ordnance</h3>
                         <p class="card-text">Armoured vehicles, artillery systems, and heavy weapons platforms built for decisive force projection.</p>
-                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                        <a href="#/products/heavy-ordnance" class="card-link">Learn More <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -149,7 +170,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Launchers</h3>
                         <p class="card-text">Advanced rocket and missile launch systems providing strategic strike capability with pinpoint accuracy.</p>
-                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                        <a href="#/products/launchers" class="card-link">Learn More <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -160,7 +181,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Drones & UAVs</h3>
                         <p class="card-text">Autonomous and remotely piloted systems for surveillance, reconnaissance, and precision strike operations.</p>
-                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                        <a href="#/products/drones" class="card-link">Learn More <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -171,7 +192,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Cyber Security</h3>
                         <p class="card-text">Military-grade cyber defence solutions protecting critical infrastructure against evolving digital threats.</p>
-                        <a href="#contact" class="card-link">Learn More <span>&rarr;</span></a>
+                        <a href="#/products/cyber" class="card-link">Learn More <span>&rarr;</span></a>
                     </div>
                 </div>
             </div>
@@ -244,8 +265,8 @@
     <!-- ========== CONTACT SECTION ========== -->
     <section class="contact section" id="contact">
         <div class="container">
-            <p class="section-label text-center reveal-up">GET IN TOUCH</p>
-            <h2 class="section-title text-center reveal-up delay-1">Contact Us</h2>
+            <p class="section-label text-center reveal-up" data-i18n="contact.label">GET IN TOUCH</p>
+            <h2 class="section-title text-center reveal-up delay-1" data-i18n="contact.title">Contact Us</h2>
 
             <div class="contact-grid">
                 <div class="contact-info reveal-left delay-2">
@@ -261,7 +282,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="contact-item-label">Headquarters</p>
+                                <p class="contact-item-label" data-i18n="contact.hq">Headquarters</p>
                                 <p class="contact-item-value">Ankara, Turkey</p>
                             </div>
                         </div>
@@ -274,7 +295,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="contact-item-label">Email</p>
+                                <p class="contact-item-label" data-i18n="contact.email">Email</p>
                                 <p class="contact-item-value">info@omertadefence.com</p>
                             </div>
                         </div>
@@ -286,7 +307,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="contact-item-label">Phone</p>
+                                <p class="contact-item-label" data-i18n="contact.phone">Phone</p>
                                 <p class="contact-item-value">+90 (312) 000 0000</p>
                             </div>
                         </div>
@@ -299,7 +320,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <p class="contact-item-label">Business Hours</p>
+                                <p class="contact-item-label" data-i18n="contact.hours">Business Hours</p>
                                 <p class="contact-item-value">Mon - Fri: 09:00 - 18:00</p>
                             </div>
                         </div>
@@ -310,34 +331,34 @@
                     <form class="contact-form" id="contactForm">
                         <div class="form-group">
                             <input type="text" id="name" name="name" required autocomplete="name">
-                            <label for="name">Full Name</label>
+                            <label for="name" data-i18n="contact.name">Full Name</label>
                         </div>
                         <div class="form-group">
                             <input type="email" id="email" name="email" required autocomplete="email">
-                            <label for="email">Email Address</label>
+                            <label for="email" data-i18n="contact.emailField">Email Address</label>
                         </div>
                         <div class="form-group">
                             <input type="text" id="company" name="company" autocomplete="organization">
-                            <label for="company">Company / Organization</label>
+                            <label for="company" data-i18n="contact.company">Company / Organization</label>
                         </div>
                         <div class="form-group">
                             <select id="subject" name="subject" required>
                                 <option value="" disabled selected></option>
-                                <option value="small-arms">Small Arms & Ammunition</option>
-                                <option value="heavy-ordnance">Heavy Ordnance</option>
-                                <option value="launchers">Launchers</option>
-                                <option value="drones">Drones & UAVs</option>
-                                <option value="cyber">Cyber Security</option>
-                                <option value="general">General Inquiry</option>
+                                <option value="small-arms" data-i18n="subject.smallArms">Small Arms & Ammunition</option>
+                                <option value="heavy-ordnance" data-i18n="subject.heavyOrdnance">Heavy Ordnance</option>
+                                <option value="launchers" data-i18n="subject.launchers">Launchers</option>
+                                <option value="drones" data-i18n="subject.drones">Drones & UAVs</option>
+                                <option value="cyber" data-i18n="subject.cyber">Cyber Security</option>
+                                <option value="general" data-i18n="subject.general">General Inquiry</option>
                             </select>
-                            <label for="subject">Subject</label>
+                            <label for="subject" data-i18n="contact.subject">Subject</label>
                         </div>
                         <div class="form-group">
                             <textarea id="message" name="message" rows="5" required></textarea>
-                            <label for="message">Your Message</label>
+                            <label for="message" data-i18n="contact.message">Your Message</label>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full">
-                            <span class="btn-text">Send Message</span>
+                            <span class="btn-text" data-i18n="contact.send">Send Message</span>
                             <span class="btn-loading" style="display:none;">Sending...</span>
                         </button>
                         <div class="form-success" id="formSuccess" style="display:none;">
@@ -345,7 +366,7 @@
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                                 <polyline points="22 4 12 14.01 9 11.01"/>
                             </svg>
-                            <p>Message sent successfully. We'll respond within 24 hours.</p>
+                            <p data-i18n="contact.success">Message sent successfully. We'll respond within 24 hours.</p>
                         </div>
                     </form>
                 </div>
@@ -364,24 +385,24 @@
                 </div>
 
                 <div class="footer-links">
-                    <h4 class="footer-heading">Quick Links</h4>
+                    <h4 class="footer-heading" data-i18n="footer.quickLinks">Quick Links</h4>
                     <ul>
-                        <li><a href="#hero">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#products">Capabilities</a></li>
-                        <li><a href="#cyber">Cyber Security</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#hero" data-i18n="nav.home">Home</a></li>
+                        <li><a href="#about" data-i18n="nav.about">About Us</a></li>
+                        <li><a href="#products" data-i18n="nav.products">Capabilities</a></li>
+                        <li><a href="#cyber" data-i18n="nav.cyber">Cyber Security</a></li>
+                        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
-                    <h4 class="footer-heading">Products</h4>
+                    <h4 class="footer-heading" data-i18n="footer.productsHeading">Products</h4>
                     <ul>
-                        <li><a href="#products">Small Arms & Ammunition</a></li>
-                        <li><a href="#products">Heavy Ordnance</a></li>
-                        <li><a href="#products">Launchers</a></li>
-                        <li><a href="#products">Drones & UAVs</a></li>
-                        <li><a href="#products">Cyber Security</a></li>
+                        <li><a href="#/products/small-arms">Small Arms & Ammunition</a></li>
+                        <li><a href="#/products/heavy-ordnance">Heavy Ordnance</a></li>
+                        <li><a href="#/products/launchers">Launchers</a></li>
+                        <li><a href="#/products/drones">Drones & UAVs</a></li>
+                        <li><a href="#/products/cyber">Cyber Security</a></li>
                     </ul>
                 </div>
             </div>
@@ -392,9 +413,16 @@
         </div>
     </footer>
 
+    <!-- ========== DYNAMIC CONTENT (for router pages) ========== -->
+    <div id="dynamicContent" class="dynamic-content" style="display:none;"></div>
+
     <!-- Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/content-loader.js"></script>
     <script src="js/particles.js"></script>
     <script src="js/animations.js"></script>
+    <script src="js/site-router.js"></script>
+    <script src="js/page-renderer.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
