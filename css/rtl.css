@@ -1,0 +1,141 @@
+/* ===================================================
+   OMERTA DEFENCE — RTL Stylesheet
+   Loaded dynamically when Arabic is selected
+   All overrides use [dir="rtl"] selector
+   =================================================== */
+
+/* ── Font ── */
+[dir="rtl"] body {
+    font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+}
+
+/* ── General Direction ── */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* ── Navigation ── */
+[dir="rtl"] .nav-links {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-link::after {
+    left: auto;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+[dir="rtl"] .nav-cta {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+[dir="rtl"] .hero-content {
+    text-align: center;
+}
+
+/* ── About ── */
+[dir="rtl"] .about-grid {
+    direction: rtl;
+}
+
+[dir="rtl"] .about-description {
+    text-align: right;
+}
+
+/* ── Products ── */
+[dir="rtl"] .card-link {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .card-link:hover span {
+    transform: translateX(-4px);
+}
+
+/* ── Cyber ── */
+[dir="rtl"] .cyber-description {
+    text-align: right;
+}
+
+/* ── Contact ── */
+[dir="rtl"] .contact-item {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+[dir="rtl"] .contact-info {
+    text-align: right;
+}
+
+[dir="rtl"] .form-group label {
+    left: auto;
+    right: 16px;
+}
+
+[dir="rtl"] .form-group input,
+[dir="rtl"] .form-group select,
+[dir="rtl"] .form-group textarea {
+    text-align: right;
+}
+
+/* ── Footer ── */
+[dir="rtl"] .footer-grid {
+    direction: rtl;
+}
+
+[dir="rtl"] .footer-links a:hover {
+    padding-left: 0;
+    padding-right: 8px;
+}
+
+/* ── Scroll Indicator ── */
+[dir="rtl"] .scroll-indicator {
+    left: 50%;
+    right: auto;
+}
+
+/* ── Scroll reveals flip ── */
+[dir="rtl"] .reveal-left {
+    transform: translateX(40px);
+}
+
+[dir="rtl"] .reveal-right {
+    transform: translateX(-40px);
+}
+
+[dir="rtl"] .reveal-left.revealed,
+[dir="rtl"] .reveal-right.revealed {
+    transform: translate(0, 0);
+}
+
+/* ── Lang Switcher ── */
+[dir="rtl"] .lang-switcher {
+    margin-left: 0;
+    margin-right: 16px;
+}
+
+/* ── Dynamic Content Pages ── */
+[dir="rtl"] .dynamic-page {
+    text-align: right;
+}
+
+[dir="rtl"] .product-detail-grid {
+    direction: rtl;
+}
+
+[dir="rtl"] .back-link svg {
+    transform: scaleX(-1);
+}
+
+/* ── Mobile Menu ── */
+[dir="rtl"] .mobile-nav-links {
+    text-align: center;
+}
+
+/* ── Form focus line ── */
+[dir="rtl"] .form-group::after {
+    left: auto;
+    right: 50%;
+    transform: translateX(50%);
+}

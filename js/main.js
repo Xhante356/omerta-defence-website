@@ -1,17 +1,18 @@
 /* ===================================================
    OMERTA DEFENCE - Main Script
-   Nav, Mobile Menu, Smooth Scroll, Form, Active Section
+   Nav, Mobile Menu, Smooth Scroll, Form, Active Section,
+   SiteRouter Init
    =================================================== */
 
 (function () {
     // ---------- DOM Elements ----------
-    const navbar = document.getElementById('navbar');
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-cta');
-    const contactForm = document.getElementById('contactForm');
-    const sections = document.querySelectorAll('section[id]');
+    var navbar = document.getElementById('navbar');
+    var hamburger = document.getElementById('hamburger');
+    var mobileMenu = document.getElementById('mobileMenu');
+    var navLinks = document.querySelectorAll('.nav-link');
+    var mobileLinks = document.querySelectorAll('.mobile-link, .mobile-cta');
+    var contactForm = document.getElementById('contactForm');
+    var sections = document.querySelectorAll('section[id]');
 
     // ---------- Navbar Scroll Effect ----------
     function handleNavScroll() {
@@ -27,15 +28,15 @@
 
     // ---------- Active Section Highlighting ----------
     function updateActiveSection() {
-        const scrollPos = window.scrollY + window.innerHeight / 3;
+        var scrollPos = window.scrollY + window.innerHeight / 3;
 
-        sections.forEach(section => {
-            const top = section.offsetTop;
-            const bottom = top + section.offsetHeight;
-            const id = section.getAttribute('id');
+        sections.forEach(function (section) {
+            var top = section.offsetTop;
+            var bottom = top + section.offsetHeight;
+            var id = section.getAttribute('id');
 
             if (scrollPos >= top && scrollPos < bottom) {
-                navLinks.forEach(link => {
+                navLinks.forEach(function (link) {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === '#' + id) {
                         link.classList.add('active');
@@ -63,34 +64,47 @@
 
     hamburger.addEventListener('click', toggleMobileMenu);
 
-    mobileLinks.forEach(link => {
+    mobileLinks.forEach(function (link) {
         link.addEventListener('click', closeMobileMenu);
     });
 
     // Close on Escape
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
             closeMobileMenu();
         }
     });
 
     // ---------- Smooth Scroll ----------
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
         anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
+            var targetId = this.getAttribute('href');
             if (targetId === '#') return;
 
-            const target = document.querySelector(targetId);
+            // Skip router routes — let SiteRouter handle #/ links
+            if (targetId.indexOf('#/') === 0) return;
+
+            var target = document.querySelector(targetId);
             if (!target) return;
 
             e.preventDefault();
-            const navHeight = navbar.offsetHeight;
-            const targetPos = target.offsetTop - navHeight;
+
+            // If we're on a dynamic route, go back to main site first
+            if (window.location.hash.indexOf('#/') === 0) {
+                if (typeof SiteRouter !== 'undefined') SiteRouter.goHome(null);
+            }
+
+            var navHeight = navbar.offsetHeight;
+            var targetPos = target.offsetTop - navHeight;
 
             window.scrollTo({
                 top: targetPos,
                 behavior: 'smooth'
             });
+
+            // Update hash without triggering hashchange scroll
+            history.pushState(null, '', targetId);
+            closeMobileMenu();
         });
     });
 
@@ -99,10 +113,10 @@
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value.trim();
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var subject = document.getElementById('subject').value;
+            var message = document.getElementById('message').value.trim();
 
             // Basic validation
             if (!name || !email || !subject || !message) {
@@ -110,40 +124,63 @@
             }
 
             // Email format check
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 return;
             }
 
             // Show loading
-            const btnText = contactForm.querySelector('.btn-text');
-            const btnLoading = contactForm.querySelector('.btn-loading');
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            var btnText = contactForm.querySelector('.btn-text');
+            var btnLoading = contactForm.querySelector('.btn-loading');
+            var submitBtn = contactForm.querySelector('button[type="submit"]');
             btnText.style.display = 'none';
             btnLoading.style.display = 'inline';
             submitBtn.disabled = true;
 
             // Simulate form submission
-            setTimeout(() => {
+            setTimeout(function () {
                 btnText.style.display = 'inline';
                 btnLoading.style.display = 'none';
                 submitBtn.disabled = false;
 
+                // Persist inquiry to localStorage for admin panel
+                try {
+                    var inquiries = JSON.parse(localStorage.getItem('od_inquiries') || '[]');
+                    inquiries.unshift({
+                        id: 'inq-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+                        name: name,
+                        email: email,
+                        company: document.getElementById('company').value.trim(),
+                        subject: subject,
+                        message: message,
+                        status: 'new',
+                        notes: '',
+                        createdAt: new Date().toISOString()
+                    });
+                    localStorage.setItem('od_inquiries', JSON.stringify(inquiries));
+                } catch (err) { /* localStorage unavailable */ }
+
                 // Show success message
-                const formSuccess = document.getElementById('formSuccess');
+                var formSuccess = document.getElementById('formSuccess');
                 formSuccess.style.display = 'flex';
                 contactForm.reset();
 
                 // Hide success after 5 seconds
-                setTimeout(() => {
+                setTimeout(function () {
                     formSuccess.style.display = 'none';
                 }, 5000);
             }, 1500);
         });
 
-        // Floating label support - add placeholder for CSS :not(:placeholder-shown)
-        contactForm.querySelectorAll('input, textarea').forEach(input => {
+        // Floating label support
+        contactForm.querySelectorAll('input, textarea').forEach(function (input) {
             input.setAttribute('placeholder', ' ');
         });
     }
+
+    // ---------- Init Site Router ----------
+    if (typeof SiteRouter !== 'undefined' && SiteRouter.init) {
+        SiteRouter.init();
+    }
+
 })();

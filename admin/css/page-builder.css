@@ -1,0 +1,388 @@
+/* ==========================================================================
+   OMERTA DEFENCE — Page Builder Styles
+   Admin Panel: Drag-and-drop page builder interface
+   Variables inherited from admin.css
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. Page Builder Layout
+   -------------------------------------------------------------------------- */
+
+.page-builder-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+    min-height: calc(100vh - 200px);
+}
+
+
+/* --------------------------------------------------------------------------
+   2. Block Palette (Sidebar)
+   -------------------------------------------------------------------------- */
+
+.block-palette {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    position: sticky;
+    top: 100px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. Palette Buttons
+   -------------------------------------------------------------------------- */
+
+.palette-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: var(--font-sub);
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-bottom: 6px;
+    transition: all var(--transition-fast);
+}
+
+.palette-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--teal-accent);
+    color: var(--teal-accent);
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Palette Section Label
+   -------------------------------------------------------------------------- */
+
+.palette-label {
+    font-family: var(--font-sub);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin: 16px 0 8px;
+}
+
+.palette-label:first-child {
+    margin-top: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. AI Design Button
+   -------------------------------------------------------------------------- */
+
+.palette-ai-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, var(--teal-primary), rgba(61, 143, 167, 0.3));
+    border: 1px solid var(--teal-accent);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-family: var(--font-sub);
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all var(--transition-fast);
+}
+
+.palette-ai-btn:hover {
+    box-shadow: 0 0 16px var(--teal-glow), 0 0 4px var(--teal-glow);
+}
+
+
+/* --------------------------------------------------------------------------
+   6. Block Canvas (Main Content Area)
+   -------------------------------------------------------------------------- */
+
+.block-canvas {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. Block Card
+   -------------------------------------------------------------------------- */
+
+.block-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+}
+
+.block-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. Block Card Header
+   -------------------------------------------------------------------------- */
+
+.block-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--border-color);
+    cursor: grab;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. Block Drag Handle
+   -------------------------------------------------------------------------- */
+
+.block-drag-handle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: grab;
+    padding: 0 4px;
+    user-select: none;
+}
+
+.block-drag-handle:active {
+    cursor: grabbing;
+}
+
+
+/* --------------------------------------------------------------------------
+   10. Block Type Label
+   -------------------------------------------------------------------------- */
+
+.block-type-label {
+    font-family: var(--font-sub);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--teal-accent);
+}
+
+
+/* --------------------------------------------------------------------------
+   11. Block Actions
+   -------------------------------------------------------------------------- */
+
+.block-actions {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+}
+
+
+/* --------------------------------------------------------------------------
+   12. Block Action Buttons
+   -------------------------------------------------------------------------- */
+
+.block-action-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-muted);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all var(--transition-fast);
+}
+
+.block-action-btn:hover {
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+}
+
+.block-action-btn.delete:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+
+/* --------------------------------------------------------------------------
+   13. Block Fields
+   -------------------------------------------------------------------------- */
+
+.block-fields {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* --------------------------------------------------------------------------
+   14. Block Shared Fields (toggled via JS)
+   -------------------------------------------------------------------------- */
+
+.block-shared-fields {
+    padding: 12px 16px;
+    background: rgba(27, 60, 75, 0.1);
+    border-top: 1px solid var(--border-color);
+    display: none;
+}
+
+.block-shared-fields.visible {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* --------------------------------------------------------------------------
+   15. Drop Indicator
+   -------------------------------------------------------------------------- */
+
+.drop-indicator {
+    height: 3px;
+    background: var(--teal-accent);
+    border-radius: 2px;
+    margin: 4px 0;
+    transition: opacity var(--transition-fast);
+    box-shadow: 0 0 8px var(--teal-glow);
+}
+
+
+/* --------------------------------------------------------------------------
+   16. Block Card — Dragging State
+   -------------------------------------------------------------------------- */
+
+.block-card.dragging {
+    opacity: 0.5;
+    border-color: var(--teal-accent);
+}
+
+
+/* --------------------------------------------------------------------------
+   17. Empty Canvas State
+   -------------------------------------------------------------------------- */
+
+.canvas-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+}
+
+
+/* --------------------------------------------------------------------------
+   18. Canvas Empty Icon
+   -------------------------------------------------------------------------- */
+
+.canvas-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+
+/* --------------------------------------------------------------------------
+   19. Page Meta Section
+   -------------------------------------------------------------------------- */
+
+.page-meta-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+
+/* --------------------------------------------------------------------------
+   20. Page Actions Bar
+   -------------------------------------------------------------------------- */
+
+.page-actions-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+    margin-top: 24px;
+}
+
+
+/* --------------------------------------------------------------------------
+   21. Block Field Group
+   -------------------------------------------------------------------------- */
+
+.block-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+/* --------------------------------------------------------------------------
+   22. Block Field Label
+   -------------------------------------------------------------------------- */
+
+.block-field-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .page-builder-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .block-palette {
+        position: static;
+        max-height: none;
+    }
+
+    .page-meta-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==========================================================================
+   RTL Overrides
+   ========================================================================== */
+
+[dir="rtl"] .block-actions {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+[dir="rtl"] .block-card-header {
+    flex-direction: row-reverse;
+}
