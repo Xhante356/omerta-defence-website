@@ -191,9 +191,8 @@ ul {
 }
 
 .nav-logo img {
-    height: 48px;
+    height: 180px;
     width: auto;
-    mix-blend-mode: screen;
     filter: drop-shadow(0 0 8px rgba(61, 143, 167, 0.3));
     animation: logoEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards,
                logoGlow 3s ease-in-out 1.2s infinite;
@@ -982,15 +981,11 @@ ul {
 }
 
 .footer-logo {
-    height: 40px;
+    height: 72px;
     width: auto;
     margin-bottom: 16px;
-    mix-blend-mode: screen;
 }
 
-.login-logo, .topbar-logo {
-    mix-blend-mode: screen;
-}
 
 .footer-tagline {
     font-family: var(--font-sub);
@@ -1074,11 +1069,10 @@ ul {
 }
 
 .loading-logo {
-    width: 80px;
-    height: 80px;
+    width: 140px;
+    height: 140px;
     object-fit: contain;
     margin: 0 auto 24px;
-    mix-blend-mode: screen;
     animation: loadingPulse 1.5s ease-in-out infinite;
 }
 

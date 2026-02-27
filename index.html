@@ -21,7 +21,7 @@
     <!-- ========== LOADING SCREEN ========== -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
-            <img src="assets/images/logo.jpg" alt="OMERTA DEFENCE" class="loading-logo">
+            <img src="assets/images/logo.png" alt="OMERTA DEFENCE" class="loading-logo">
             <div class="loading-bar"><div class="loading-bar-fill"></div></div>
             <p class="loading-text" data-i18n="loading.text">INITIALIZING SYSTEMS</p>
         </div>
@@ -34,7 +34,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#hero" class="nav-logo">
-                <img src="assets/images/logo.jpg" alt="OMERTA DEFENCE Logo">
+                <img src="assets/images/logo.png" alt="OMERTA DEFENCE Logo">
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -82,12 +82,12 @@
         <canvas class="hero-particles" id="particleCanvas"></canvas>
 
         <div class="hero-content">
-            <p class="hero-preheading reveal-up">PRECISION. POWER. PROTECTION.</p>
+            <p class="hero-preheading reveal-up" data-i18n="hero.preheading">PRECISION. POWER. PROTECTION.</p>
             <h1 class="hero-title reveal-up delay-1">OMERTA<br>DEFENCE</h1>
             <p class="hero-subtitle reveal-up delay-2">Advanced defence solutions engineered for superiority.<br>From tactical systems to cyber warfare — we define the future of security.</p>
             <div class="hero-buttons reveal-up delay-3">
-                <a href="#products" class="btn btn-primary">Explore Capabilities</a>
-                <a href="#contact" class="btn btn-outline">Contact Us</a>
+                <a href="#products" class="btn btn-primary" data-i18n="hero.btn1">Explore Capabilities</a>
+                <a href="#contact" class="btn btn-outline" data-i18n="hero.btn2">Contact Us</a>
             </div>
         </div>
 
@@ -101,8 +101,8 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-text">
-                    <p class="section-label reveal-up">WHO WE ARE</p>
-                    <h2 class="section-title reveal-up delay-1">Defining the Standard<br>in Defence Innovation</h2>
+                    <p class="section-label reveal-up" data-i18n="about.label">WHO WE ARE</p>
+                    <h2 class="section-title reveal-up delay-1" data-i18n="about.title">Defining the Standard in Defence Innovation</h2>
                     <p class="about-description reveal-up delay-2">
                         OMERTA DEFENCE stands at the forefront of global security solutions. With decades of expertise in advanced weaponry, unmanned systems, and cyber operations, we deliver uncompromising capability to defence forces and sovereign nations worldwide.
                     </p>
@@ -136,9 +136,9 @@
     <!-- ========== PRODUCTS & SERVICES ========== -->
     <section class="products section" id="products">
         <div class="container">
-            <p class="section-label text-center reveal-up">WHAT WE DELIVER</p>
-            <h2 class="section-title text-center reveal-up delay-1">Our Capabilities</h2>
-            <p class="section-subtitle text-center reveal-up delay-2">Comprehensive defence solutions across five critical domains</p>
+            <p class="section-label text-center reveal-up" data-i18n="products.label">WHAT WE DELIVER</p>
+            <h2 class="section-title text-center reveal-up delay-1" data-i18n="products.title">Our Capabilities</h2>
+            <p class="section-subtitle text-center reveal-up delay-2" data-i18n="products.subtitle">Comprehensive defence solutions across five critical domains</p>
 
             <div class="products-grid">
                 <div class="product-card reveal-up delay-1">
@@ -146,9 +146,9 @@
                         <img src="https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=600&q=80" alt="Small Arms & Ammunition" loading="lazy">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Small Arms & Ammunition</h3>
-                        <p class="card-text">Precision-engineered firearms and munitions designed for reliability in the most demanding operational environments.</p>
-                        <a href="#/products/small-arms" class="card-link">Learn More <span>&rarr;</span></a>
+                        <h3 class="card-title" data-i18n="card.smallArms.title">Small Arms & Ammunition</h3>
+                        <p class="card-text" data-i18n="card.smallArms.text">Precision-engineered firearms and munitions designed for reliability in the most demanding operational environments.</p>
+                        <a href="#/products/small-arms" class="card-link"><span data-i18n="products.learnMore">Learn More</span> <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -157,9 +157,9 @@
                         <img src="https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600&q=80" alt="Heavy Ordnance" loading="lazy">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Heavy Ordnance</h3>
-                        <p class="card-text">Armoured vehicles, artillery systems, and heavy weapons platforms built for decisive force projection.</p>
-                        <a href="#/products/heavy-ordnance" class="card-link">Learn More <span>&rarr;</span></a>
+                        <h3 class="card-title" data-i18n="card.heavyOrdnance.title">Heavy Ordnance</h3>
+                        <p class="card-text" data-i18n="card.heavyOrdnance.text">Armoured vehicles, artillery systems, and heavy weapons platforms built for decisive force projection.</p>
+                        <a href="#/products/heavy-ordnance" class="card-link"><span data-i18n="products.learnMore">Learn More</span> <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -168,9 +168,9 @@
                         <img src="https://images.unsplash.com/photo-1457364559154-aa2644600ebb?w=600&q=80" alt="Launchers" loading="lazy">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Launchers</h3>
-                        <p class="card-text">Advanced rocket and missile launch systems providing strategic strike capability with pinpoint accuracy.</p>
-                        <a href="#/products/launchers" class="card-link">Learn More <span>&rarr;</span></a>
+                        <h3 class="card-title" data-i18n="card.launchers.title">Launchers</h3>
+                        <p class="card-text" data-i18n="card.launchers.text">Advanced rocket and missile launch systems providing strategic strike capability with pinpoint accuracy.</p>
+                        <a href="#/products/launchers" class="card-link"><span data-i18n="products.learnMore">Learn More</span> <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -179,9 +179,9 @@
                         <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80" alt="Drones & UAVs" loading="lazy">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Drones & UAVs</h3>
-                        <p class="card-text">Autonomous and remotely piloted systems for surveillance, reconnaissance, and precision strike operations.</p>
-                        <a href="#/products/drones" class="card-link">Learn More <span>&rarr;</span></a>
+                        <h3 class="card-title" data-i18n="card.drones.title">Drones & UAVs</h3>
+                        <p class="card-text" data-i18n="card.drones.text">Autonomous and remotely piloted systems for surveillance, reconnaissance, and precision strike operations.</p>
+                        <a href="#/products/drones" class="card-link"><span data-i18n="products.learnMore">Learn More</span> <span>&rarr;</span></a>
                     </div>
                 </div>
 
@@ -190,9 +190,9 @@
                         <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80" alt="Cyber Security" loading="lazy">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Cyber Security</h3>
-                        <p class="card-text">Military-grade cyber defence solutions protecting critical infrastructure against evolving digital threats.</p>
-                        <a href="#/products/cyber" class="card-link">Learn More <span>&rarr;</span></a>
+                        <h3 class="card-title" data-i18n="card.cyber.title">Cyber Security</h3>
+                        <p class="card-text" data-i18n="card.cyber.text">Military-grade cyber defence solutions protecting critical infrastructure against evolving digital threats.</p>
+                        <a href="#/products/cyber" class="card-link"><span data-i18n="products.learnMore">Learn More</span> <span>&rarr;</span></a>
                     </div>
                 </div>
             </div>
@@ -206,8 +206,8 @@
 
         <div class="container">
             <div class="cyber-panel">
-                <p class="section-label reveal-up">DIGITAL WARFARE</p>
-                <h2 class="section-title reveal-up delay-1">Cyber Security Division</h2>
+                <p class="section-label reveal-up" data-i18n="cyber.label">DIGITAL WARFARE</p>
+                <h2 class="section-title reveal-up delay-1" data-i18n="cyber.title">Cyber Security Division</h2>
                 <p class="cyber-description reveal-up delay-2">
                     In an era where digital threats are as critical as physical ones, OMERTA DEFENCE's Cyber Security Division provides sovereign-level protection for national infrastructure, military networks, and classified communications.
                 </p>
@@ -257,7 +257,7 @@
                     </div>
                 </div>
 
-                <a href="#contact" class="btn btn-primary reveal-up delay-3">Secure Your Infrastructure</a>
+                <a href="#contact" class="btn btn-primary reveal-up delay-3" data-i18n="cyber.cta">Secure Your Infrastructure</a>
             </div>
         </div>
     </section>
@@ -379,7 +379,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="assets/images/logo.jpg" alt="OMERTA DEFENCE" class="footer-logo">
+                    <img src="assets/images/logo.png" alt="OMERTA DEFENCE" class="footer-logo">
                     <p class="footer-tagline">Silent Strength. Absolute Reliability.</p>
                     <p class="footer-text">Advanced defence solutions for sovereign nations and security forces worldwide.</p>
                 </div>
@@ -398,11 +398,11 @@
                 <div class="footer-links">
                     <h4 class="footer-heading" data-i18n="footer.productsHeading">Products</h4>
                     <ul>
-                        <li><a href="#/products/small-arms">Small Arms & Ammunition</a></li>
-                        <li><a href="#/products/heavy-ordnance">Heavy Ordnance</a></li>
-                        <li><a href="#/products/launchers">Launchers</a></li>
-                        <li><a href="#/products/drones">Drones & UAVs</a></li>
-                        <li><a href="#/products/cyber">Cyber Security</a></li>
+                        <li><a href="#/products/small-arms" data-i18n="footer.smallArms">Small Arms & Ammunition</a></li>
+                        <li><a href="#/products/heavy-ordnance" data-i18n="footer.heavyOrdnance">Heavy Ordnance</a></li>
+                        <li><a href="#/products/launchers" data-i18n="footer.launchers">Launchers</a></li>
+                        <li><a href="#/products/drones" data-i18n="footer.drones">Drones & UAVs</a></li>
+                        <li><a href="#/products/cyber" data-i18n="footer.cyber">Cyber Security</a></li>
                     </ul>
                 </div>
             </div>

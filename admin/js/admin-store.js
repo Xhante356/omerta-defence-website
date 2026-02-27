@@ -227,7 +227,7 @@ const AdminStore = (() => {
             ar: { pageTitle: 'أومرتا للدفاع | الدقة. القوة. الحماية.', metaDescription: 'أومرتا للدفاع - المزود الرائد لحلول الدفاع المتقدمة بما في ذلك الأسلحة الخفيفة والأسلحة الثقيلة والقاذفات والطائرات المسيرة والأمن السيبراني.' }
         },
         [KEYS.SETTINGS_BRANDING]: {
-            logoUrl: 'assets/images/logo.jpg',
+            logoUrl: 'assets/images/logo.png',
             primaryColor: '#1B3C4B',
             accentColor: '#3D8FA7'
         },
