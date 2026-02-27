@@ -149,14 +149,14 @@ const AdminAuth = (() => {
     function isAuthenticated() {
         try {
             const raw = sessionStorage.getItem(SESSION_KEY);
-            if (!raw) return false;
-            const session = JSON.parse(raw);
-            if (!session) return false;
-            if (Date.now() > session.expiry) {
+            // Always parse and compare to maintain consistent timing
+            const session = raw ? JSON.parse(raw) : { token: '', expiry: 0 };
+            const now = Date.now();
+            const valid = session && session.token && now <= session.expiry;
+            if (raw && !valid) {
                 sessionStorage.removeItem(SESSION_KEY);
-                return false;
             }
-            return true;
+            return !!valid;
         } catch {
             return false;
         }
