@@ -15,7 +15,9 @@ const AdminSettings = (() => {
     }
 
     function render(container) {
-        const seo = AdminStore.getSEO();
+        const rawSeo = AdminStore.getSEO();
+        // Handle v2 multilang format: flatten to EN for settings display
+        const seo = (rawSeo && rawSeo._v === 2) ? { ...(rawSeo._shared || {}), ...(rawSeo.en || {}) } : (rawSeo || { pageTitle: '', metaDescription: '' });
         const branding = AdminStore.getBranding();
         const aiSettings = AdminStore.getAISettings ? AdminStore.getAISettings() : {};
         const usage = AdminStore.getStorageUsage();
