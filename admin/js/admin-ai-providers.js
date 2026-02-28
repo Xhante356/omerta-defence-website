@@ -1,6 +1,6 @@
 /* ===================================================
    OMERTA DEFENCE — AI Provider Manager
-   Multi-provider: Gemini → Groq → OpenRouter (fallback)
+   Multi-provider: Mistral → Gemini → Groq → OpenRouter (fallback)
    5-min cooldown on failed providers
    =================================================== */
 
@@ -41,6 +41,22 @@ const AIProviderManager = (() => {
             keyPlaceholder: 'gsk_...',
             consoleUrl: 'https://console.groq.com'
         },
+        mistral: {
+            id: 'mistral',
+            name: 'Mistral AI',
+            url: 'https://api.mistral.ai/v1/chat/completions',
+            defaultModel: 'mistral-small-latest',
+            models: [
+                { id: 'mistral-small-latest', name: 'Mistral Small (Fast)' },
+                { id: 'mistral-medium-latest', name: 'Mistral Medium' },
+                { id: 'mistral-large-latest', name: 'Mistral Large (Best)' },
+                { id: 'open-mistral-nemo', name: 'Mistral Nemo (Free)' }
+            ],
+            limit: 'Unlimited (Experiment)',
+            keyPrefix: '',
+            keyPlaceholder: '',
+            consoleUrl: 'https://console.mistral.ai/api-keys'
+        },
         openrouter: {
             id: 'openrouter',
             name: 'OpenRouter',
@@ -59,7 +75,7 @@ const AIProviderManager = (() => {
         }
     };
 
-    const FALLBACK_ORDER = ['gemini', 'groq', 'openrouter'];
+    const FALLBACK_ORDER = ['mistral', 'gemini', 'groq', 'openrouter'];
 
     // Track failed providers with cooldown
     const _failedProviders = {}; // { providerId: timestamp }
@@ -167,6 +183,40 @@ const AIProviderManager = (() => {
         return JSON.parse(content);
     }
 
+    // ── Mistral API call (OpenAI-compatible) ──
+    async function _callMistral(systemPrompt, userPrompt, config) {
+        const provider = PROVIDERS.mistral;
+        const model = config.model || provider.defaultModel;
+
+        const res = await fetch(provider.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${config.apiKey}`
+            },
+            body: JSON.stringify({
+                model,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ],
+                response_format: { type: 'json_object' },
+                temperature: 0.7,
+                max_tokens: 4096
+            })
+        });
+
+        if (!res.ok) {
+            const err = await res.json().catch(() => ({}));
+            throw new Error(err.error?.message || err.message || `Mistral API error ${res.status}`);
+        }
+
+        const data = await res.json();
+        const content = data.choices?.[0]?.message?.content;
+        if (!content) throw new Error('Empty response from Mistral');
+        return JSON.parse(content);
+    }
+
     // ── OpenRouter API call (OpenAI-compatible) ──
     async function _callOpenRouter(systemPrompt, userPrompt, config) {
         const provider = PROVIDERS.openrouter;
@@ -204,6 +254,7 @@ const AIProviderManager = (() => {
     }
 
     const _callers = {
+        mistral: _callMistral,
         gemini: _callGemini,
         groq: _callGroq,
         openrouter: _callOpenRouter

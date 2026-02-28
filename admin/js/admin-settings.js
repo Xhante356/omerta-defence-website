@@ -93,13 +93,15 @@ const AdminSettings = (() => {
                 <div class="form-group">
                     <label class="form-label">Preferred Provider</label>
                     <select class="form-select" id="aiPreferredProvider">
-                        <option value="auto" ${(aiSettings.preferredProvider || 'auto') === 'auto' ? 'selected' : ''}>Auto (Gemini &rarr; Groq &rarr; OpenRouter)</option>
+                        <option value="auto" ${(aiSettings.preferredProvider || 'auto') === 'auto' ? 'selected' : ''}>Auto (Mistral &rarr; Gemini &rarr; Groq &rarr; OpenRouter)</option>
+                        <option value="mistral" ${aiSettings.preferredProvider === 'mistral' ? 'selected' : ''}>Mistral AI</option>
                         <option value="gemini" ${aiSettings.preferredProvider === 'gemini' ? 'selected' : ''}>Google Gemini</option>
                         <option value="groq" ${aiSettings.preferredProvider === 'groq' ? 'selected' : ''}>Groq</option>
                         <option value="openrouter" ${aiSettings.preferredProvider === 'openrouter' ? 'selected' : ''}>OpenRouter</option>
                     </select>
                 </div>
 
+                ${_renderProviderSettings('mistral', 'Mistral AI', aiSettings)}
                 ${_renderProviderSettings('gemini', 'Google Gemini', aiSettings)}
                 ${_renderProviderSettings('groq', 'Groq', aiSettings)}
                 ${_renderProviderSettings('openrouter', 'OpenRouter', aiSettings)}
@@ -233,7 +235,7 @@ const AdminSettings = (() => {
 
         // Save AI (multi-provider)
         document.getElementById('saveAI')?.addEventListener('click', () => {
-            const providerIds = ['gemini', 'groq', 'openrouter'];
+            const providerIds = ['mistral', 'gemini', 'groq', 'openrouter'];
             const providers = {};
             providerIds.forEach(pid => {
                 providers[pid] = {
@@ -256,7 +258,7 @@ const AdminSettings = (() => {
         });
 
         // Test AI Connection (per-provider)
-        ['gemini', 'groq', 'openrouter'].forEach(pid => {
+        ['mistral', 'gemini', 'groq', 'openrouter'].forEach(pid => {
             document.getElementById(`aiTest_${pid}`)?.addEventListener('click', () => {
                 const resultEl = document.getElementById(`aiTestResult_${pid}`);
                 resultEl.textContent = 'Testing...';
@@ -397,7 +399,7 @@ const AdminSettings = (() => {
     }
 
     function _saveCurrentAISettings() {
-        const providerIds = ['gemini', 'groq', 'openrouter'];
+        const providerIds = ['mistral', 'gemini', 'groq', 'openrouter'];
         const providers = {};
         providerIds.forEach(pid => {
             providers[pid] = {
