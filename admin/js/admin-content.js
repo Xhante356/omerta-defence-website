@@ -239,6 +239,21 @@ CRITICAL RULES:
                     <input class="form-input" id="heroBg" value="${escHtml(shared.backgroundImage || '')}">
                     <img id="heroBgPreview" class="form-image-preview mt-16" src="${shared.backgroundImage || ''}" alt="Preview">
                 </div>
+                <div class="form-section-title mt-24">Video Settings</div>
+                ${(() => { const vs = AdminStore.getVideoSettings(); return `
+                <div class="form-group">
+                    <label class="form-label">Hero Video URL (MP4)</label>
+                    <input class="form-input" id="heroVideoUrl" value="${escHtml(vs.heroVideoUrl || '')}" placeholder="https://videos.pexels.com/...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Hero Video Poster Image URL</label>
+                    <input class="form-input" id="heroVideoPoster" value="${escHtml(vs.heroVideoPoster || '')}" placeholder="https://images.unsplash.com/...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About Section Video URL (optional)</label>
+                    <input class="form-input" id="aboutVideoUrl" value="${escHtml(vs.aboutVideoUrl || '')}" placeholder="https://...">
+                </div>
+                `; })()}
             `);
 
             imagePreviewBind('heroBg', 'heroBgPreview');
@@ -273,6 +288,14 @@ CRITICAL RULES:
                 btn2Link: el('heroBtn2Link').value,
                 backgroundImage: el('heroBg').value
             };
+            // Save video settings separately
+            if (el('heroVideoUrl')) {
+                const vs = AdminStore.getVideoSettings();
+                vs.heroVideoUrl = el('heroVideoUrl').value;
+                vs.heroVideoPoster = el('heroVideoPoster') ? el('heroVideoPoster').value : vs.heroVideoPoster;
+                vs.aboutVideoUrl = el('aboutVideoUrl') ? el('aboutVideoUrl').value : vs.aboutVideoUrl;
+                AdminStore.setVideoSettings(vs);
+            }
         }
 
         draw();

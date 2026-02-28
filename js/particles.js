@@ -165,3 +165,83 @@
     init();
     animate();
 })();
+
+
+/* ===================================================
+   MATRIX DIGITAL RAIN - Cyber Section
+   Teal-colored falling ASCII + Japanese characters
+   =================================================== */
+
+(function () {
+    const canvas = document.getElementById('matrixCanvas');
+    if (!canvas) return;
+
+    // Don't run on mobile or reduced motion
+    const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isMobile || prefersReduced) {
+        canvas.style.display = 'none';
+        return;
+    }
+
+    const ctx = canvas.getContext('2d');
+    let width, height, columns, drops;
+    let matrixAnimId = null;
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+    const fontSize = 14;
+    const tealColor = 'rgba(61, 143, 167,';
+
+    function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        width = canvas.width = rect.width;
+        height = canvas.height = rect.height;
+        columns = Math.floor(width / fontSize);
+        drops = new Array(columns).fill(1);
+    }
+
+    function draw() {
+        ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const opacity = 0.3 + Math.random() * 0.5;
+            ctx.fillStyle = tealColor + opacity + ')';
+            ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+
+        matrixAnimId = requestAnimationFrame(draw);
+    }
+
+    // Only run when cyber section is visible
+    const cyberSection = document.getElementById('cyber');
+    if (!cyberSection) return;
+
+    const matrixObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                resize();
+                if (!matrixAnimId) draw();
+            } else {
+                if (matrixAnimId) {
+                    cancelAnimationFrame(matrixAnimId);
+                    matrixAnimId = null;
+                }
+            }
+        });
+    }, { threshold: 0.1 });
+
+    matrixObserver.observe(cyberSection);
+
+    window.addEventListener('resize', () => {
+        if (matrixAnimId) resize();
+    });
+})();

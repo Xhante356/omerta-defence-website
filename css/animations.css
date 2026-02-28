@@ -1,5 +1,6 @@
 /* ===================================================
    OMERTA DEFENCE - Animations & Transitions
+   Premium Redesign with Clip-Path, Focus, 3D Reveals
    =================================================== */
 
 /* ---------- Keyframes ---------- */
@@ -69,13 +70,12 @@
     }
 }
 
-/* ---------- Scroll Reveal Classes ---------- */
+/* ---------- Standard Scroll Reveal Classes ---------- */
 .reveal-up,
 .reveal-left,
 .reveal-right {
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity;
 }
 
 .reveal-up {
@@ -97,6 +97,72 @@
     transform: translate(0, 0);
 }
 
+/* ---------- NEW: Clip-Path Reveal ---------- */
+.reveal-clip {
+    opacity: 0;
+    clip-path: inset(100% 0 0 0);
+    -webkit-clip-path: inset(100% 0 0 0);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                -webkit-clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-clip.revealed {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    -webkit-clip-path: inset(0 0 0 0);
+}
+
+/* ---------- NEW: Camera Focus Reveal ---------- */
+.reveal-focus {
+    opacity: 0;
+    transform: scale(1.1);
+    filter: blur(8px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-focus.revealed {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+}
+
+/* ---------- NEW: 3D Perspective Reveal ---------- */
+.reveal-3d {
+    opacity: 0;
+    transform: perspective(800px) rotateY(-15deg) translateX(-30px);
+    transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-3d.revealed {
+    opacity: 1;
+    transform: perspective(800px) rotateY(0) translateX(0);
+}
+
+/* ---------- NEW: Wipe Reveal ---------- */
+.reveal-wipe {
+    opacity: 0;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-wipe.revealed {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ---------- NEW: Line-by-line Stagger Reveal ---------- */
+.reveal-line {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-line.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* ---------- Stagger Delays ---------- */
 .delay-1 { transition-delay: 0.1s; }
 .delay-2 { transition-delay: 0.2s; }
@@ -115,14 +181,16 @@
 .product-card:nth-child(5) { transition-delay: 0.25s; }
 
 /* ---------- Hero Entrance Animations ---------- */
-.hero .reveal-up {
+.hero .reveal-clip {
     opacity: 0;
-    transform: translateY(30px);
+    clip-path: inset(100% 0 0 0);
+    -webkit-clip-path: inset(100% 0 0 0);
 }
 
-.hero .reveal-up.revealed {
+.hero .reveal-clip.revealed {
     opacity: 1;
-    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+    -webkit-clip-path: inset(0 0 0 0);
 }
 
 /* ---------- Product Card Hover Animations ---------- */
@@ -178,6 +246,16 @@
     transform: scale(1.02);
 }
 
+/* ---------- About Image Clip-Path Reveal ---------- */
+.about-image.reveal-focus .image-frame {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.about-image.reveal-focus.revealed .image-frame {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
 /* ---------- Scroll Indicator Pulse ---------- */
 .scroll-indicator {
     animation: pulse 2s infinite;
@@ -194,6 +272,7 @@
     background: var(--teal-accent);
     transition: all 0.4s ease;
     transform: translateX(-50%);
+    box-shadow: 0 0 8px var(--teal-glow);
 }
 
 .form-group:focus-within::after {
@@ -221,9 +300,17 @@
 
     .reveal-up,
     .reveal-left,
-    .reveal-right {
-        opacity: 1;
-        transform: none;
+    .reveal-right,
+    .reveal-clip,
+    .reveal-focus,
+    .reveal-3d,
+    .reveal-wipe,
+    .reveal-line {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+        -webkit-clip-path: none !important;
+        filter: none !important;
     }
 
     .hero-particles {

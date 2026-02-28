@@ -1,7 +1,7 @@
 /* ===================================================
    OMERTA DEFENCE - Main Script
    Nav, Mobile Menu, Smooth Scroll, Form, Active Section,
-   SiteRouter Init
+   Particle Burst, SiteRouter Init
    =================================================== */
 
 (function () {
@@ -108,6 +108,33 @@
         });
     });
 
+    // ---------- Particle Burst on Form Submit ----------
+    function createParticleBurst(x, y) {
+        var container = document.getElementById('particleBurst');
+        if (!container) return;
+
+        for (var i = 0; i < 20; i++) {
+            var particle = document.createElement('div');
+            particle.className = 'particle-burst';
+            var angle = (Math.PI * 2 * i) / 20 + (Math.random() - 0.5) * 0.5;
+            var distance = 60 + Math.random() * 80;
+            var px = Math.cos(angle) * distance;
+            var py = Math.sin(angle) * distance;
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.setProperty('--px', px + 'px');
+            particle.style.setProperty('--py', py + 'px');
+            particle.style.width = (3 + Math.random() * 4) + 'px';
+            particle.style.height = particle.style.width;
+            container.appendChild(particle);
+
+            // Clean up after animation
+            setTimeout(function () {
+                if (particle.parentNode) particle.parentNode.removeChild(particle);
+            }, 800);
+        }
+    }
+
     // ---------- Contact Form ----------
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
@@ -159,6 +186,10 @@
                     });
                     localStorage.setItem('od_inquiries', JSON.stringify(inquiries));
                 } catch (err) { /* localStorage unavailable */ }
+
+                // Particle burst from submit button
+                var btnRect = submitBtn.getBoundingClientRect();
+                createParticleBurst(btnRect.left + btnRect.width / 2, btnRect.top + btnRect.height / 2);
 
                 // Show success message
                 var formSuccess = document.getElementById('formSuccess');

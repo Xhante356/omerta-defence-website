@@ -31,7 +31,8 @@ const AdminStore = (() => {
         ADMIN_LANG: 'od_admin_lang',
         PAGES: 'od_pages',
         AI_CHAT_HISTORY: 'od_ai_chat_history',
-        AI_SNAPSHOTS: 'od_ai_snapshots'
+        AI_SNAPSHOTS: 'od_ai_snapshots',
+        SETTINGS_VIDEOS: 'od_settings_videos'
     };
 
     const CATALOG_CATEGORIES = {
@@ -237,6 +238,12 @@ const AdminStore = (() => {
             groqApiKey: '',
             model: 'llama-3.3-70b-versatile',
             enabled: false
+        },
+        [KEYS.SETTINGS_VIDEOS]: {
+            heroVideoUrl: '',
+            heroVideoPoster: '',
+            aboutVideoUrl: '',
+            productVideos: {}
         }
     };
 
@@ -557,6 +564,8 @@ const AdminStore = (() => {
     function setBranding(data) { setContent(KEYS.SETTINGS_BRANDING, data); }
     function getAISettings() { return get(KEYS.SETTINGS_AI) || DEFAULTS[KEYS.SETTINGS_AI]; }
     function setAISettings(data) { set(KEYS.SETTINGS_AI, data); auditLog('settings_update', 'Updated AI settings'); }
+    function getVideoSettings() { return get(KEYS.SETTINGS_VIDEOS) || DEFAULTS[KEYS.SETTINGS_VIDEOS]; }
+    function setVideoSettings(data) { set(KEYS.SETTINGS_VIDEOS, data); auditLog('settings_update', 'Updated video settings'); }
 
     // ── Data Import/Export ──
     function exportAll() {
@@ -673,6 +682,7 @@ const AdminStore = (() => {
         auditLog, getAuditLog, clearAuditLog,
         getSEO, setSEO, getBranding, setBranding,
         getAISettings, setAISettings,
+        getVideoSettings, setVideoSettings,
         getSnapshots, createSnapshot, restoreSnapshot, deleteSnapshot,
         getChatHistory, saveChatHistory, clearChatHistory,
         exportAll, importAll, clearAll, getStorageUsage

@@ -2,6 +2,7 @@
    OMERTA DEFENCE — Content Loader
    Reads localStorage (od_*) and patches DOM on main site.
    v2: Multi-language support, resolveContent for v1/v2 formats
+   v3: Video URL support with patchVideos()
    =================================================== */
 
 (function () {
@@ -27,6 +28,15 @@
         if (!url) return '';
         var clean = String(url).replace(/['"()]/g, '');
         if (/^(https?:\/\/|data:image\/)/.test(clean)) {
+            return clean;
+        }
+        return '';
+    }
+
+    function sanitizeVideoUrl(url) {
+        if (!url) return '';
+        var clean = String(url).replace(/['"]/g, '').trim();
+        if (/^(https?:\/\/|blob:)/.test(clean)) {
             return clean;
         }
         return '';
@@ -94,8 +104,8 @@
             tr: {
                 sectionLabel: 'B\u0130Z K\u0130M\u0130Z',
                 title: 'Savunma \u0130novasyonunda<br>Standard\u0131 Belirliyoruz',
-                paragraph1: 'OMERTA SAVUNMA, k\u00FCresel g\u00FCvenlik \u00E7\u00F6z\u00FCmlerinin \u00F6n saflar\u0131nda yer almaktad\u0131r. Geli\u015Fmi\u015F silah, insans\u0131z sistemler ve siber operasyonlardaki onlarca y\u0131ll\u0131k uzmanl\u0131\u011F\u0131m\u0131zla, d\u00FCnya genelindeki savunma kuvvetlerine ve egemen devletlere taviz vermeyen yetenek sunuyoruz.',
-                paragraph2: 'Gizlili\u011Fe olan ba\u011Fl\u0131l\u0131\u011F\u0131m\u0131z, yaln\u0131zca hassasiyete olan adanm\u0131\u015Fl\u0131\u011F\u0131m\u0131zla e\u015Fle\u015Fir. Tasarlad\u0131\u011F\u0131m\u0131z her \u00E7\u00F6z\u00FCm, temel felsefemizi yans\u0131t\u0131r: sessiz g\u00FC\u00E7, mutlak g\u00FCvenilirlik ve her cephede teknolojik \u00FCst\u00FCnl\u00FCk.',
+                paragraph1: 'OMERTA SAVUNMA, k\u00FCresel g\u00FCvenlik \u00E7\u00F6z\u00FCmlerinin \u00F6n saflar\u0131nda yer almaktad\u0131r.',
+                paragraph2: 'Gizlili\u011Fe olan ba\u011Fl\u0131l\u0131\u011F\u0131m\u0131z, yaln\u0131zca hassasiyete olan adanm\u0131\u015Fl\u0131\u011F\u0131m\u0131zla e\u015Fle\u015Fir.',
                 stats: [
                     { label: 'Y\u0131ll\u0131k Deneyim' },
                     { label: '\u00DClkeye Hizmet' },
@@ -105,8 +115,8 @@
             fr: {
                 sectionLabel: 'QUI SOMMES-NOUS',
                 title: "D\u00E9finir la Norme<br>en Innovation de D\u00E9fense",
-                paragraph1: "OMERTA D\u00C9FENCE se situe \u00E0 l'avant-garde des solutions de s\u00E9curit\u00E9 mondiales. Avec des d\u00E9cennies d'expertise en armement avanc\u00E9, syst\u00E8mes autonomes et op\u00E9rations cyber, nous offrons des capacit\u00E9s sans compromis aux forces de d\u00E9fense et nations souveraines du monde entier.",
-                paragraph2: "Notre engagement envers la discr\u00E9tion n'a d'\u00E9gal que notre d\u00E9dication \u00E0 la pr\u00E9cision. Chaque solution que nous concevons refl\u00E8te notre philosophie fondamentale : force silencieuse, fiabilit\u00E9 absolue et dominance technologique sur tous les fronts.",
+                paragraph1: "OMERTA D\u00C9FENCE se situe \u00E0 l'avant-garde des solutions de s\u00E9curit\u00E9 mondiales.",
+                paragraph2: "Notre engagement envers la discr\u00E9tion n'a d'\u00E9gal que notre d\u00E9dication \u00E0 la pr\u00E9cision.",
                 stats: [
                     { label: "Ans d'Exp\u00E9rience" },
                     { label: 'Pays Desservis' },
@@ -116,8 +126,8 @@
             ar: {
                 sectionLabel: '\u0645\u0646 \u0646\u062D\u0646',
                 title: '\u062A\u062D\u062F\u064A\u062F \u0627\u0644\u0645\u0639\u064A\u0627\u0631<br>\u0641\u064A \u0627\u0628\u062A\u0643\u0627\u0631 \u0627\u0644\u062F\u0641\u0627\u0639',
-                paragraph1: '\u062A\u0642\u0641 \u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639 \u0641\u064A \u0637\u0644\u064A\u0639\u0629 \u062D\u0644\u0648\u0644 \u0627\u0644\u0623\u0645\u0646 \u0627\u0644\u0639\u0627\u0644\u0645\u064A\u0629. \u0645\u0639 \u0639\u0642\u0648\u062F \u0645\u0646 \u0627\u0644\u062E\u0628\u0631\u0629 \u0641\u064A \u0627\u0644\u0623\u0633\u0644\u062D\u0629 \u0627\u0644\u0645\u062A\u0642\u062F\u0645\u0629 \u0648\u0627\u0644\u0623\u0646\u0638\u0645\u0629 \u063A\u064A\u0631 \u0627\u0644\u0645\u0623\u0647\u0648\u0644\u0629 \u0648\u0627\u0644\u0639\u0645\u0644\u064A\u0627\u062A \u0627\u0644\u0633\u064A\u0628\u0631\u0627\u0646\u064A\u0629\u060C \u0646\u0642\u062F\u0645 \u0642\u062F\u0631\u0627\u062A \u0644\u0627 \u0647\u0648\u0627\u062F\u0629 \u0641\u064A\u0647\u0627 \u0644\u0642\u0648\u0627\u062A \u0627\u0644\u062F\u0641\u0627\u0639 \u0648\u0627\u0644\u062F\u0648\u0644 \u0630\u0627\u062A \u0627\u0644\u0633\u064A\u0627\u062F\u0629 \u0641\u064A \u062C\u0645\u064A\u0639 \u0623\u0646\u062D\u0627\u0621 \u0627\u0644\u0639\u0627\u0644\u0645.',
-                paragraph2: '\u0627\u0644\u062A\u0632\u0627\u0645\u0646\u0627 \u0628\u0627\u0644\u0633\u0631\u064A\u0629 \u0644\u0627 \u064A\u0636\u0627\u0647\u064A\u0647 \u0633\u0648\u0649 \u062A\u0641\u0627\u0646\u064A\u0646\u0627 \u0641\u064A \u0627\u0644\u062F\u0642\u0629. \u0643\u0644 \u062D\u0644 \u0646\u0635\u0645\u0645\u0647 \u064A\u0639\u0643\u0633 \u0641\u0644\u0633\u0641\u062A\u0646\u0627 \u0627\u0644\u0623\u0633\u0627\u0633\u064A\u0629: \u0627\u0644\u0642\u0648\u0629 \u0627\u0644\u0635\u0627\u0645\u062A\u0629\u060C \u0648\u0627\u0644\u0645\u0648\u062B\u0648\u0642\u064A\u0629 \u0627\u0644\u0645\u0637\u0644\u0642\u0629\u060C \u0648\u0627\u0644\u0647\u064A\u0645\u0646\u0629 \u0627\u0644\u062A\u0643\u0646\u0648\u0644\u0648\u062C\u064A\u0629 \u0639\u0644\u0649 \u0643\u0644 \u062C\u0628\u0647\u0629.',
+                paragraph1: '\u062A\u0642\u0641 \u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639 \u0641\u064A \u0637\u0644\u064A\u0639\u0629 \u062D\u0644\u0648\u0644 \u0627\u0644\u0623\u0645\u0646 \u0627\u0644\u0639\u0627\u0644\u0645\u064A\u0629.',
+                paragraph2: '\u0627\u0644\u062A\u0632\u0627\u0645\u0646\u0627 \u0628\u0627\u0644\u0633\u0631\u064A\u0629 \u0644\u0627 \u064A\u0636\u0627\u0647\u064A\u0647 \u0633\u0648\u0649 \u062A\u0641\u0627\u0646\u064A\u0646\u0627 \u0641\u064A \u0627\u0644\u062F\u0642\u0629.',
                 stats: [
                     { label: '\u0633\u0646\u0648\u0627\u062A \u062E\u0628\u0631\u0629' },
                     { label: '\u062F\u0648\u0644\u0629 \u062A\u0645 \u062E\u062F\u0645\u062A\u0647\u0627' },
@@ -171,25 +181,25 @@
             fr: {
                 sectionLabel: 'GUERRE NUM\u00C9RIQUE',
                 title: 'Division Cybers\u00E9curit\u00E9',
-                description: "\u00C0 une \u00E9poque o\u00F9 les menaces num\u00E9riques sont aussi critiques que les menaces physiques, la Division Cybers\u00E9curit\u00E9 d'OMERTA D\u00C9FENCE offre une protection de niveau souverain pour les infrastructures nationales, les r\u00E9seaux militaires et les communications classifi\u00E9es.",
+                description: "\u00C0 une \u00E9poque o\u00F9 les menaces num\u00E9riques sont aussi critiques que les menaces physiques, la Division Cybers\u00E9curit\u00E9 d'OMERTA D\u00C9FENCE offre une protection de niveau souverain.",
                 ctaText: 'S\u00E9curisez Votre Infrastructure',
                 features: [
-                    { title: 'Renseignement sur les Menaces', text: 'Surveillance en temps r\u00E9el et analyse pr\u00E9dictive des paysages de cybermenaces mondiales.' },
-                    { title: 'D\u00E9fense R\u00E9seau', text: "Pr\u00E9vention d'intrusion multicouche et impl\u00E9mentation d'architecture z\u00E9ro confiance." },
-                    { title: 'R\u00E9ponse aux Incidents', text: "\u00C9quipes cyber de d\u00E9ploiement rapide pour le confinement des violations et l'analyse forensique." },
-                    { title: 'Communications S\u00E9curis\u00E9es', text: 'Syst\u00E8mes de communication chiffr\u00E9s de bout en bout pour les op\u00E9rations classifi\u00E9es.' }
+                    { title: 'Renseignement sur les Menaces', text: 'Surveillance en temps r\u00E9el et analyse pr\u00E9dictive.' },
+                    { title: 'D\u00E9fense R\u00E9seau', text: "Pr\u00E9vention d'intrusion multicouche." },
+                    { title: 'R\u00E9ponse aux Incidents', text: "\u00C9quipes cyber de d\u00E9ploiement rapide." },
+                    { title: 'Communications S\u00E9curis\u00E9es', text: 'Syst\u00E8mes de communication chiffr\u00E9s de bout en bout.' }
                 ]
             },
             ar: {
                 sectionLabel: '\u0627\u0644\u062D\u0631\u0628 \u0627\u0644\u0631\u0642\u0645\u064A\u0629',
                 title: '\u0642\u0633\u0645 \u0627\u0644\u0623\u0645\u0646 \u0627\u0644\u0633\u064A\u0628\u0631\u0627\u0646\u064A',
-                description: '\u0641\u064A \u0639\u0635\u0631 \u062A\u0639\u062A\u0628\u0631 \u0641\u064A\u0647 \u0627\u0644\u062A\u0647\u062F\u064A\u062F\u0627\u062A \u0627\u0644\u0631\u0642\u0645\u064A\u0629 \u0628\u0646\u0641\u0633 \u0623\u0647\u0645\u064A\u0629 \u0627\u0644\u062A\u0647\u062F\u064A\u062F\u0627\u062A \u0627\u0644\u0645\u0627\u062F\u064A\u0629\u060C \u064A\u0648\u0641\u0631 \u0642\u0633\u0645 \u0627\u0644\u0623\u0645\u0646 \u0627\u0644\u0633\u064A\u0628\u0631\u0627\u0646\u064A \u0641\u064A \u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639 \u062D\u0645\u0627\u064A\u0629 \u0639\u0644\u0649 \u0645\u0633\u062A\u0648\u0649 \u0627\u0644\u0633\u064A\u0627\u062F\u0629 \u0644\u0644\u0628\u0646\u064A\u0629 \u0627\u0644\u062A\u062D\u062A\u064A\u0629 \u0627\u0644\u0648\u0637\u0646\u064A\u0629 \u0648\u0627\u0644\u0634\u0628\u0643\u0627\u062A \u0627\u0644\u0639\u0633\u0643\u0631\u064A\u0629 \u0648\u0627\u0644\u0627\u062A\u0635\u0627\u0644\u0627\u062A \u0627\u0644\u0633\u0631\u064A\u0629.',
+                description: '\u0641\u064A \u0639\u0635\u0631 \u062A\u0639\u062A\u0628\u0631 \u0641\u064A\u0647 \u0627\u0644\u062A\u0647\u062F\u064A\u062F\u0627\u062A \u0627\u0644\u0631\u0642\u0645\u064A\u0629 \u0628\u0646\u0641\u0633 \u0623\u0647\u0645\u064A\u0629 \u0627\u0644\u062A\u0647\u062F\u064A\u062F\u0627\u062A \u0627\u0644\u0645\u0627\u062F\u064A\u0629.',
                 ctaText: '\u0623\u0645\u0651\u0646 \u0628\u0646\u064A\u062A\u0643 \u0627\u0644\u062A\u062D\u062A\u064A\u0629',
                 features: [
-                    { title: '\u0627\u0633\u062A\u062E\u0628\u0627\u0631\u0627\u062A \u0627\u0644\u062A\u0647\u062F\u064A\u062F\u0627\u062A', text: '\u0645\u0631\u0627\u0642\u0628\u0629 \u0641\u0648\u0631\u064A\u0629 \u0648\u062A\u062D\u0644\u064A\u0644 \u062A\u0646\u0628\u0624\u064A \u0644\u0645\u0634\u0647\u062F \u0627\u0644\u062A\u0647\u062F\u064A\u062F\u0627\u062A \u0627\u0644\u0633\u064A\u0628\u0631\u0627\u0646\u064A\u0629 \u0627\u0644\u0639\u0627\u0644\u0645\u064A\u0629.' },
-                    { title: '\u0627\u0644\u062F\u0641\u0627\u0639 \u0639\u0646 \u0627\u0644\u0634\u0628\u0643\u0627\u062A', text: '\u0645\u0646\u0639 \u0627\u0644\u062A\u0633\u0644\u0644 \u0645\u062A\u0639\u062F\u062F \u0627\u0644\u0637\u0628\u0642\u0627\u062A \u0648\u062A\u0637\u0628\u064A\u0642 \u0628\u0646\u064A\u0629 \u0627\u0646\u0639\u062F\u0627\u0645 \u0627\u0644\u062B\u0642\u0629.' },
-                    { title: '\u0627\u0644\u0627\u0633\u062A\u062C\u0627\u0628\u0629 \u0644\u0644\u062D\u0648\u0627\u062F\u062B', text: '\u0641\u0631\u0642 \u0633\u064A\u0628\u0631\u0627\u0646\u064A\u0629 \u0633\u0631\u064A\u0639\u0629 \u0627\u0644\u0627\u0646\u062A\u0634\u0627\u0631 \u0644\u0627\u062D\u062A\u0648\u0627\u0621 \u0627\u0644\u0627\u062E\u062A\u0631\u0627\u0642\u0627\u062A \u0648\u0627\u0644\u062A\u062D\u0644\u064A\u0644 \u0627\u0644\u062C\u0646\u0627\u0626\u064A.' },
-                    { title: '\u0627\u0644\u0627\u062A\u0635\u0627\u0644\u0627\u062A \u0627\u0644\u0622\u0645\u0646\u0629', text: '\u0623\u0646\u0638\u0645\u0629 \u0627\u062A\u0635\u0627\u0644\u0627\u062A \u0645\u0634\u0641\u0631\u0629 \u0645\u0646 \u0637\u0631\u0641 \u0625\u0644\u0649 \u0637\u0631\u0641 \u0644\u0644\u0639\u0645\u0644\u064A\u0627\u062A \u0627\u0644\u0633\u0631\u064A\u0629.' }
+                    { title: '\u0627\u0633\u062A\u062E\u0628\u0627\u0631\u0627\u062A \u0627\u0644\u062A\u0647\u062F\u064A\u062F\u0627\u062A', text: '\u0645\u0631\u0627\u0642\u0628\u0629 \u0641\u0648\u0631\u064A\u0629 \u0648\u062A\u062D\u0644\u064A\u0644 \u062A\u0646\u0628\u0624\u064A.' },
+                    { title: '\u0627\u0644\u062F\u0641\u0627\u0639 \u0639\u0646 \u0627\u0644\u0634\u0628\u0643\u0627\u062A', text: '\u0645\u0646\u0639 \u0627\u0644\u062A\u0633\u0644\u0644 \u0645\u062A\u0639\u062F\u062F \u0627\u0644\u0637\u0628\u0642\u0627\u062A.' },
+                    { title: '\u0627\u0644\u0627\u0633\u062A\u062C\u0627\u0628\u0629 \u0644\u0644\u062D\u0648\u0627\u062F\u062B', text: '\u0641\u0631\u0642 \u0633\u064A\u0628\u0631\u0627\u0646\u064A\u0629 \u0633\u0631\u064A\u0639\u0629 \u0627\u0644\u0627\u0646\u062A\u0634\u0627\u0631.' },
+                    { title: '\u0627\u0644\u0627\u062A\u0635\u0627\u0644\u0627\u062A \u0627\u0644\u0622\u0645\u0646\u0629', text: '\u0623\u0646\u0638\u0645\u0629 \u0627\u062A\u0635\u0627\u0644\u0627\u062A \u0645\u0634\u0641\u0631\u0629.' }
                 ]
             }
         },
@@ -197,23 +207,23 @@
             _v: 2,
             _shared: { headquarters: 'Ankara, Turkey', email: 'info@omertadefence.com', phone: '+90 (312) 000 0000', hours: 'Mon - Fri: 09:00 - 18:00' },
             en: { heading: "Let's Discuss Your Requirements", description: 'Our team of defence specialists is ready to provide tailored solutions for your operational needs. All inquiries are handled with the highest level of confidentiality.' },
-            tr: { heading: 'Gereksinimlerinizi Konu\u015Fal\u0131m', description: 'Savunma uzmanlar\u0131 ekibimiz, operasyonel ihtiya\u00E7lar\u0131n\u0131z i\u00E7in \u00F6zelle\u015Fmi\u015F \u00E7\u00F6z\u00FCmler sunmaya haz\u0131rd\u0131r. T\u00FCm sorular en \u00FCst d\u00FCzeyde gizlilikle i\u015Flenir.' },
-            fr: { heading: 'Discutons de Vos Besoins', description: "Notre \u00E9quipe de sp\u00E9cialistes de la d\u00E9fense est pr\u00EAte \u00E0 fournir des solutions sur mesure pour vos besoins op\u00E9rationnels. Toutes les demandes sont trait\u00E9es avec le plus haut niveau de confidentialit\u00E9." },
-            ar: { heading: '\u0644\u0646\u0646\u0627\u0642\u0634 \u0645\u062A\u0637\u0644\u0628\u0627\u062A\u0643\u0645', description: '\u0641\u0631\u064A\u0642\u0646\u0627 \u0645\u0646 \u0645\u062A\u062E\u0635\u0635\u064A \u0627\u0644\u062F\u0641\u0627\u0639 \u062C\u0627\u0647\u0632 \u0644\u062A\u0642\u062F\u064A\u0645 \u062D\u0644\u0648\u0644 \u0645\u062E\u0635\u0635\u0629 \u0644\u0627\u062D\u062A\u064A\u0627\u062C\u0627\u062A\u0643\u0645 \u0627\u0644\u062A\u0634\u063A\u064A\u0644\u064A\u0629. \u064A\u062A\u0645 \u0627\u0644\u062A\u0639\u0627\u0645\u0644 \u0645\u0639 \u062C\u0645\u064A\u0639 \u0627\u0644\u0627\u0633\u062A\u0641\u0633\u0627\u0631\u0627\u062A \u0628\u0623\u0639\u0644\u0649 \u0645\u0633\u062A\u0648\u0649 \u0645\u0646 \u0627\u0644\u0633\u0631\u064A\u0629.' }
+            tr: { heading: 'Gereksinimlerinizi Konu\u015Fal\u0131m', description: 'Savunma uzmanlar\u0131 ekibimiz, operasyonel ihtiya\u00E7lar\u0131n\u0131z i\u00E7in \u00F6zelle\u015Fmi\u015F \u00E7\u00F6z\u00FCmler sunmaya haz\u0131rd\u0131r.' },
+            fr: { heading: 'Discutons de Vos Besoins', description: "Notre \u00E9quipe de sp\u00E9cialistes de la d\u00E9fense est pr\u00EAte \u00E0 fournir des solutions sur mesure." },
+            ar: { heading: '\u0644\u0646\u0646\u0627\u0642\u0634 \u0645\u062A\u0637\u0644\u0628\u0627\u062A\u0643\u0645', description: '\u0641\u0631\u064A\u0642\u0646\u0627 \u0645\u0646 \u0645\u062A\u062E\u0635\u0635\u064A \u0627\u0644\u062F\u0641\u0627\u0639 \u062C\u0627\u0647\u0632 \u0644\u062A\u0642\u062F\u064A\u0645 \u062D\u0644\u0648\u0644 \u0645\u062E\u0635\u0635\u0629.' }
         },
         od_content_footer: {
             _v: 2, _shared: {},
             en: { tagline: 'Silent Strength. Absolute Reliability.', text: 'Advanced defence solutions for sovereign nations and security forces worldwide.', copyright: '&copy; 2026 OMERTA DEFENCE. All rights reserved.' },
             tr: { tagline: 'Sessiz G\u00FC\u00E7. Mutlak G\u00FCvenilirlik.', text: 'D\u00FCnya genelindeki egemen devletler ve g\u00FCvenlik kuvvetleri i\u00E7in geli\u015Fmi\u015F savunma \u00E7\u00F6z\u00FCmleri.', copyright: '&copy; 2026 OMERTA SAVUNMA. T\u00FCm haklar\u0131 sakl\u0131d\u0131r.' },
-            fr: { tagline: 'Force Silencieuse. Fiabilit\u00E9 Absolue.', text: 'Solutions de d\u00E9fense avanc\u00E9es pour les nations souveraines et les forces de s\u00E9curit\u00E9 du monde entier.', copyright: '&copy; 2026 OMERTA D\u00C9FENCE. Tous droits r\u00E9serv\u00E9s.' },
-            ar: { tagline: '\u0627\u0644\u0642\u0648\u0629 \u0627\u0644\u0635\u0627\u0645\u062A\u0629. \u0627\u0644\u0645\u0648\u062B\u0648\u0642\u064A\u0629 \u0627\u0644\u0645\u0637\u0644\u0642\u0629.', text: '\u062D\u0644\u0648\u0644 \u062F\u0641\u0627\u0639\u064A\u0629 \u0645\u062A\u0642\u062F\u0645\u0629 \u0644\u0644\u062F\u0648\u0644 \u0630\u0627\u062A \u0627\u0644\u0633\u064A\u0627\u062F\u0629 \u0648\u0642\u0648\u0627\u062A \u0627\u0644\u0623\u0645\u0646 \u0641\u064A \u062C\u0645\u064A\u0639 \u0623\u0646\u062D\u0627\u0621 \u0627\u0644\u0639\u0627\u0644\u0645.', copyright: '&copy; 2026 \u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639. \u062C\u0645\u064A\u0639 \u0627\u0644\u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638\u0629.' }
+            fr: { tagline: 'Force Silencieuse. Fiabilit\u00E9 Absolue.', text: 'Solutions de d\u00E9fense avanc\u00E9es.', copyright: '&copy; 2026 OMERTA D\u00C9FENCE. Tous droits r\u00E9serv\u00E9s.' },
+            ar: { tagline: '\u0627\u0644\u0642\u0648\u0629 \u0627\u0644\u0635\u0627\u0645\u062A\u0629. \u0627\u0644\u0645\u0648\u062B\u0648\u0642\u064A\u0629 \u0627\u0644\u0645\u0637\u0644\u0642\u0629.', text: '\u062D\u0644\u0648\u0644 \u062F\u0641\u0627\u0639\u064A\u0629 \u0645\u062A\u0642\u062F\u0645\u0629.', copyright: '&copy; 2026 \u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639. \u062C\u0645\u064A\u0639 \u0627\u0644\u062D\u0642\u0648\u0642 \u0645\u062D\u0641\u0648\u0638\u0629.' }
         },
         od_settings_seo: {
             _v: 2, _shared: {},
             en: { pageTitle: 'OMERTA DEFENCE | Precision. Power. Protection.', metaDescription: 'OMERTA DEFENCE - Leading provider of advanced defence solutions including Small Arms, Heavy Ordnance, Launchers, Drones & UAVs, and Cyber Security.' },
-            tr: { pageTitle: 'OMERTA SAVUNMA | Hassasiyet. G\u00FC\u00E7. Koruma.', metaDescription: 'OMERTA SAVUNMA - Hafif Silahlar, A\u011F\u0131r Silahlar, F\u0131rlat\u0131c\u0131lar, Dronlar ve Siber G\u00FCvenlik dahil geli\u015Fmi\u015F savunma \u00E7\u00F6z\u00FCmlerinin lider sa\u011Flay\u0131c\u0131s\u0131.' },
-            fr: { pageTitle: 'OMERTA D\u00C9FENCE | Pr\u00E9cision. Puissance. Protection.', metaDescription: "OMERTA D\u00C9FENCE - Fournisseur leader de solutions de d\u00E9fense avanc\u00E9es incluant Armes L\u00E9g\u00E8res, Armement Lourd, Lanceurs, Drones et Cybers\u00E9curit\u00E9." },
-            ar: { pageTitle: '\u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639 | \u0627\u0644\u062F\u0642\u0629. \u0627\u0644\u0642\u0648\u0629. \u0627\u0644\u062D\u0645\u0627\u064A\u0629.', metaDescription: '\u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639 - \u0627\u0644\u0645\u0632\u0648\u062F \u0627\u0644\u0631\u0627\u0626\u062F \u0644\u062D\u0644\u0648\u0644 \u0627\u0644\u062F\u0641\u0627\u0639 \u0627\u0644\u0645\u062A\u0642\u062F\u0645\u0629 \u0628\u0645\u0627 \u0641\u064A \u0630\u0644\u0643 \u0627\u0644\u0623\u0633\u0644\u062D\u0629 \u0627\u0644\u062E\u0641\u064A\u0641\u0629 \u0648\u0627\u0644\u0623\u0633\u0644\u062D\u0629 \u0627\u0644\u062B\u0642\u064A\u0644\u0629 \u0648\u0627\u0644\u0642\u0627\u0630\u0641\u0627\u062A \u0648\u0627\u0644\u0637\u0627\u0626\u0631\u0627\u062A \u0627\u0644\u0645\u0633\u064A\u0631\u0629 \u0648\u0627\u0644\u0623\u0645\u0646 \u0627\u0644\u0633\u064A\u0628\u0631\u0627\u0646\u064A.' }
+            tr: { pageTitle: 'OMERTA SAVUNMA | Hassasiyet. G\u00FC\u00E7. Koruma.', metaDescription: 'OMERTA SAVUNMA - Geli\u015Fmi\u015F savunma \u00E7\u00F6z\u00FCmlerinin lider sa\u011Flay\u0131c\u0131s\u0131.' },
+            fr: { pageTitle: 'OMERTA D\u00C9FENCE | Pr\u00E9cision. Puissance. Protection.', metaDescription: "OMERTA D\u00C9FENCE - Fournisseur leader de solutions de d\u00E9fense avanc\u00E9es." },
+            ar: { pageTitle: '\u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639 | \u0627\u0644\u062F\u0642\u0629. \u0627\u0644\u0642\u0648\u0629. \u0627\u0644\u062D\u0645\u0627\u064A\u0629.', metaDescription: '\u0623\u0648\u0645\u0631\u062A\u0627 \u0644\u0644\u062F\u0641\u0627\u0639 - \u0627\u0644\u0645\u0632\u0648\u062F \u0627\u0644\u0631\u0627\u0626\u062F.' }
         }
     };
 
@@ -225,7 +235,6 @@
         } catch { return null; }
     }
 
-    // Return localStorage data if present, otherwise fall back to SITE_DEFAULTS
     function getContent(key) {
         const stored = getLS(key);
         if (stored) return stored;
@@ -240,7 +249,6 @@
         try { return localStorage.getItem('od_site_lang') || 'en'; } catch { return 'en'; }
     }
 
-    // Resolve a field that might be a string (v1) or lang object (v2)
     function resolveLangField(field, lang) {
         if (field === null || field === undefined) return '';
         if (typeof field === 'string') return field;
@@ -250,12 +258,10 @@
         return String(field);
     }
 
-    // Resolve v1/v2 content into flat object for current lang
     function resolveContent(key) {
         const data = getContent(key);
         if (!data) return null;
 
-        // v2 format: merge _shared + lang data
         if (data._v === 2) {
             const lang = getLang();
             const shared = data._shared || {};
@@ -263,11 +269,10 @@
             return { ...shared, ...langData, _v: 2, _raw: data };
         }
 
-        // v1 format: return as-is
         return data;
     }
 
-    // SVG icon map (same as cyber section uses)
+    // SVG icon map
     const ICONS = {
         'alert-circle': '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
         'lock': '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
@@ -286,18 +291,26 @@
 
     // ── Patch Functions ──
 
+    // Remove data-i18n so the i18n engine won't overwrite content-loader values
+    function claimElement(el) {
+        if (el) {
+            el.removeAttribute('data-i18n');
+            el.removeAttribute('data-i18n-html');
+        }
+    }
+
     function patchHero() {
         const data = resolveContent('od_content_hero');
         if (!data) return;
 
-        if (data.preheading) { const e = qs('.hero-preheading'); if (e) e.textContent = data.preheading; }
-        if (data.title) { const e = qs('.hero-title'); if (e) e.innerHTML = sanitizeHTML(data.title); }
-        if (data.subtitle) { const e = qs('.hero-subtitle'); if (e) e.innerHTML = sanitizeHTML(data.subtitle); }
+        if (data.preheading) { const e = qs('.hero-preheading'); if (e) { e.textContent = data.preheading; claimElement(e); } }
+        if (data.title) { const e = qs('.hero-title'); if (e) { e.innerHTML = sanitizeHTML(data.title); claimElement(e); } }
+        if (data.subtitle) { const e = qs('.hero-subtitle'); if (e) { e.innerHTML = sanitizeHTML(data.subtitle); claimElement(e); } }
         if (data.backgroundImage) { const e = qs('.hero-bg'); const url = sanitizeBackgroundUrl(data.backgroundImage); if (e && url) e.style.backgroundImage = "url('" + url + "')"; }
 
         const btns = qsa('.hero-buttons .btn');
-        if (btns[0] && data.btn1Text) { btns[0].textContent = data.btn1Text; if (data.btn1Link) btns[0].href = data.btn1Link; }
-        if (btns[1] && data.btn2Text) { btns[1].textContent = data.btn2Text; if (data.btn2Link) btns[1].href = data.btn2Link; }
+        if (btns[0] && data.btn1Text) { btns[0].textContent = data.btn1Text; claimElement(btns[0]); if (data.btn1Link) btns[0].href = data.btn1Link; }
+        if (btns[1] && data.btn2Text) { btns[1].textContent = data.btn2Text; claimElement(btns[1]); if (data.btn2Link) btns[1].href = data.btn2Link; }
     }
 
     function patchAbout() {
@@ -314,7 +327,6 @@
             const langData = raw[lang] || raw.en || {};
             data = { ...shared, ...langData };
 
-            // Merge stats: shared stats have number/suffix, lang stats have label
             if (shared.stats && langData.stats) {
                 data.stats = shared.stats.map((s, i) => ({
                     ...s,
@@ -325,12 +337,12 @@
             data = raw;
         }
 
-        if (data.sectionLabel) { const e = qs('.section-label', section); if (e) e.textContent = data.sectionLabel; }
-        if (data.title) { const e = qs('.section-title', section); if (e) e.innerHTML = sanitizeHTML(data.title); }
+        if (data.sectionLabel) { const e = qs('.section-label', section); if (e) { e.textContent = data.sectionLabel; claimElement(e); } }
+        if (data.title) { const e = qs('.section-title', section); if (e) { e.innerHTML = sanitizeHTML(data.title); claimElement(e); } }
 
         const descs = qsa('.about-description', section);
-        if (descs[0] && data.paragraph1) descs[0].textContent = data.paragraph1;
-        if (descs[1] && data.paragraph2) descs[1].textContent = data.paragraph2;
+        if (descs[0] && data.paragraph1) { descs[0].textContent = data.paragraph1; claimElement(descs[0]); }
+        if (descs[1] && data.paragraph2) { descs[1].textContent = data.paragraph2; claimElement(descs[1]); }
 
         if (data.imageUrl) {
             const img = qs('.about-image img', section);
@@ -346,7 +358,7 @@
                     const lbl = qs('.stat-label', stats[i]);
                     if (num && s.number !== undefined) { num.setAttribute('data-target', s.number); num.textContent = '0'; }
                     if (suf && s.suffix !== undefined) suf.textContent = s.suffix;
-                    if (lbl && s.label) lbl.textContent = s.label;
+                    if (lbl && s.label) { lbl.textContent = s.label; claimElement(lbl); }
                 }
             });
         }
@@ -359,9 +371,9 @@
         const lang = getLang();
 
         if (data) {
-            if (data.sectionLabel) { const e = qs('.section-label', section); if (e) e.textContent = data.sectionLabel; }
-            if (data.title) { const e = qs('.section-title', section); if (e) e.innerHTML = sanitizeHTML(data.title); }
-            if (data.subtitle) { const e = qs('.section-subtitle', section); if (e) e.textContent = data.subtitle; }
+            if (data.sectionLabel) { const e = qs('.section-label', section); if (e) { e.textContent = data.sectionLabel; claimElement(e); } }
+            if (data.title) { const e = qs('.section-title', section); if (e) { e.innerHTML = sanitizeHTML(data.title); claimElement(e); } }
+            if (data.subtitle) { const e = qs('.section-subtitle', section); if (e) { e.textContent = data.subtitle; claimElement(e); } }
         }
 
         // Rebuild product cards from featured catalog items
@@ -387,17 +399,26 @@
         allFeatured.forEach((item, i) => {
             const delay = (i % 4) + 1;
             const card = document.createElement('div');
-            card.className = `product-card reveal-up delay-${delay}`;
+            card.className = `product-card reveal-3d delay-${delay}`;
             const name = resolveLangField(item.name, lang);
             const desc = resolveLangField(item.shortDescription, lang);
             card.innerHTML = `
-                <div class="card-image">
-                    <img src="${escapeHTML(item.imageUrl || 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=600&q=80')}" alt="${escapeHTML(name)}" loading="lazy">
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">${escapeHTML(name)}</h3>
-                    <p class="card-text">${escapeHTML(desc)}</p>
-                    <a href="#/products/${escapeHTML(item._category)}" class="card-link">${escapeHTML(learnMoreText)} <span>&rarr;</span></a>
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="card-image">
+                            <img src="${escapeHTML(item.imageUrl || 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?w=600&q=80')}" alt="${escapeHTML(name)}" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">${escapeHTML(name)}</h3>
+                            <p class="card-text">${escapeHTML(desc)}</p>
+                            <a href="#/products/${escapeHTML(item._category)}" class="card-link">${escapeHTML(learnMoreText)} <span>&rarr;</span></a>
+                        </div>
+                    </div>
+                    <div class="card-back">
+                        <h3 class="card-title">${escapeHTML(name)}</h3>
+                        <p class="card-text">${escapeHTML(desc)}</p>
+                        <a href="#/products/${escapeHTML(item._category)}" class="btn btn-primary btn-sm">View Details &rarr;</a>
+                    </div>
                 </div>`;
             grid.appendChild(card);
         });
@@ -416,7 +437,6 @@
             const shared = raw._shared || {};
             const langData = raw[lang] || raw.en || {};
             data = { ...shared, ...langData };
-            // Merge features
             if (shared.features && langData.features) {
                 data.features = shared.features.map((s, i) => ({
                     ...s,
@@ -427,14 +447,14 @@
             data = raw;
         }
 
-        if (data.sectionLabel) { const e = qs('.section-label', section); if (e) e.textContent = data.sectionLabel; }
-        if (data.title) { const e = qs('.section-title', section); if (e) e.innerHTML = sanitizeHTML(data.title); }
-        if (data.description) { const e = qs('.cyber-description', section); if (e) e.textContent = data.description; }
+        if (data.sectionLabel) { const e = qs('.section-label', section); if (e) { e.textContent = data.sectionLabel; claimElement(e); } }
+        if (data.title) { const e = qs('.section-title', section); if (e) { e.innerHTML = sanitizeHTML(data.title); claimElement(e); } }
+        if (data.description) { const e = qs('.cyber-description', section); if (e) { e.textContent = data.description; e.dataset.originalText = data.description; claimElement(e); } }
         if (data.backgroundImage) { const e = qs('.cyber-bg', section); const url = sanitizeBackgroundUrl(data.backgroundImage); if (e && url) e.style.backgroundImage = "url('" + url + "')"; }
 
-        const ctaBtn = qs('.cyber-panel > .btn', section);
+        const ctaBtn = qs('.cyber-panel > .btn, .gradient-border-box > .btn', section);
         if (ctaBtn) {
-            if (data.ctaText) ctaBtn.textContent = data.ctaText;
+            if (data.ctaText) { ctaBtn.textContent = data.ctaText; claimElement(ctaBtn); }
             if (data.ctaLink) ctaBtn.href = data.ctaLink;
         }
 
@@ -446,8 +466,8 @@
                     const titleEl = qs('.feature-title', featureEls[i]);
                     const textEl = qs('.feature-text', featureEls[i]);
                     if (iconEl && f.icon) iconEl.innerHTML = svgIcon(f.icon);
-                    if (titleEl && f.title) titleEl.textContent = f.title;
-                    if (textEl && f.text) textEl.textContent = f.text;
+                    if (titleEl && f.title) { titleEl.textContent = f.title; claimElement(titleEl); }
+                    if (textEl && f.text) { textEl.textContent = f.text; claimElement(textEl); }
                 }
             });
         }
@@ -460,8 +480,8 @@
         const section = qs('#contact');
         if (!section) return;
 
-        if (data.heading) { const e = qs('.contact-heading', section); if (e) e.textContent = data.heading; }
-        if (data.description) { const e = qs('.contact-description', section); if (e) e.textContent = data.description; }
+        if (data.heading) { const e = qs('.contact-heading', section); if (e) { e.textContent = data.heading; claimElement(e); } }
+        if (data.description) { const e = qs('.contact-description', section); if (e) { e.textContent = data.description; claimElement(e); } }
 
         const values = qsa('.contact-item-value', section);
         if (values[0] && data.headquarters) values[0].textContent = data.headquarters;
@@ -477,9 +497,9 @@
         const footer = qs('.footer');
         if (!footer) return;
 
-        if (data.tagline) { const e = qs('.footer-tagline', footer); if (e) e.textContent = data.tagline; }
-        if (data.text) { const e = qs('.footer-text', footer); if (e) e.textContent = data.text; }
-        if (data.copyright) { const e = qs('.footer-bottom p', footer); if (e) e.innerHTML = sanitizeHTML(data.copyright); }
+        if (data.tagline) { const e = qs('.footer-tagline', footer); if (e) { e.textContent = data.tagline; claimElement(e); } }
+        if (data.text) { const e = qs('.footer-text', footer); if (e) { e.textContent = data.text; claimElement(e); } }
+        if (data.copyright) { const e = qs('.footer-bottom p', footer); if (e) { e.innerHTML = sanitizeHTML(data.copyright); claimElement(e); } }
     }
 
     function patchSEO() {
@@ -502,6 +522,48 @@
         }
     }
 
+    // ── Video Patching (Phase 8) ──
+    function patchVideos() {
+        const videoSettings = getLS('od_settings_videos');
+        if (!videoSettings) return;
+
+        // Hero video
+        var heroVideo = qs('#heroVideo');
+        if (heroVideo && videoSettings.heroVideoUrl) {
+            var url = sanitizeVideoUrl(videoSettings.heroVideoUrl);
+            if (url) {
+                heroVideo.src = url;
+                heroVideo.style.display = '';
+            }
+        }
+
+        // Hero video poster
+        if (heroVideo && videoSettings.heroVideoPoster) {
+            heroVideo.poster = sanitizeBackgroundUrl(videoSettings.heroVideoPoster);
+        }
+    }
+
+    // ── Re-observe reveals for dynamically patched content ──
+    function reobserveReveals() {
+        // After patching, some elements may not have been observed yet
+        // (e.g. dynamically created cards) or observer may have missed them.
+        // Re-trigger the reveal observer if available, or force-reveal visible elements.
+        var revealEls = document.querySelectorAll('.reveal-up:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed), .reveal-clip:not(.revealed), .reveal-focus:not(.revealed), .reveal-3d:not(.revealed), .reveal-wipe:not(.revealed), .reveal-line:not(.revealed)');
+
+        if (revealEls.length === 0) return;
+
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        revealEls.forEach(function (el) { obs.observe(el); });
+    }
+
     // ── Run All Patches ──
     function patchAll() {
         patchSEO();
@@ -512,6 +574,9 @@
         patchCyber();
         patchContact();
         patchFooter();
+        patchVideos();
+        // Re-observe reveals after DOM patches (catches dynamically created elements)
+        setTimeout(reobserveReveals, 50);
     }
 
     // Run on DOMContentLoaded
