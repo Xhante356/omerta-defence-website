@@ -251,8 +251,9 @@ const AdminAIChat = (() => {
             const pill = e.target.closest('.ai-suggestion-pill');
             if (pill) {
                 const text = pill.dataset.suggestion;
-                document.getElementById('aiInput').value = text;
-                _handleSend();
+                const input = document.getElementById('aiInput');
+                input.value = text;
+                input.focus();
             }
         });
 
