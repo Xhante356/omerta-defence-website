@@ -137,7 +137,11 @@ const AdminSettings = (() => {
     }
 
     function _renderProviderSettings(providerId, label, aiSettings) {
-        const providers = aiSettings.providers || {};
+        let providers = aiSettings.providers || {};
+        // Backward compat: migrate old groqApiKey
+        if (!aiSettings.providers && aiSettings.groqApiKey && providerId === 'groq') {
+            providers = { groq: { apiKey: aiSettings.groqApiKey, model: aiSettings.model || '' } };
+        }
         const config = providers[providerId] || {};
         let providerInfo = null;
         if (typeof AIProviderManager !== 'undefined') {

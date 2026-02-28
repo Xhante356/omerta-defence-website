@@ -65,7 +65,17 @@ const AIProviderManager = (() => {
     const _failedProviders = {}; // { providerId: timestamp }
 
     function _getSettings() {
-        return AdminStore.getAISettings ? AdminStore.getAISettings() : {};
+        const settings = AdminStore.getAISettings ? AdminStore.getAISettings() : {};
+        // Backward compatibility: migrate old groqApiKey to providers format
+        if (!settings.providers && settings.groqApiKey) {
+            settings.providers = {
+                groq: {
+                    apiKey: settings.groqApiKey,
+                    model: settings.model || PROVIDERS.groq.defaultModel
+                }
+            };
+        }
+        return settings;
     }
 
     function _getProviderConfig(providerId) {
