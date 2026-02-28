@@ -20,8 +20,12 @@ const AdminContent = (() => {
 
     // ── Language Tabs Component ──
     function langTabs(activeTab) {
-        return `<div class="lang-tabs" id="langTabs">
+        return `<div class="lang-tabs" id="langTabs" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             ${LANGS.map(l => `<button type="button" class="lang-tab ${l === activeTab ? 'active' : ''}" data-lang="${l}">${LANG_LABELS[l]}</button>`).join('')}
+            <button type="button" class="btn btn-outline btn-sm" id="translateAllBtn" style="margin-left:auto;font-size:0.75rem;padding:4px 12px;">
+                Translate to All Languages
+            </button>
+            <span id="translateStatus" style="font-size:0.75rem;color:var(--text-muted);"></span>
         </div>`;
     }
 
@@ -35,6 +39,69 @@ const AdminContent = (() => {
             btn.classList.add('active');
             onChange(btn.dataset.lang);
         });
+    }
+
+    // ── Translation Engine ──
+    const LANG_NAMES = { en: 'English', tr: 'Turkish', fr: 'French', ar: 'Arabic' };
+
+    async function translateToAllLangs(data, activeLang, saveCurrent, draw) {
+        if (typeof AIProviderManager === 'undefined') {
+            toast('AI Provider not configured. Go to Settings to add an API key.', 'error');
+            return;
+        }
+
+        saveCurrent();
+
+        const sourceLangData = data[activeLang];
+        if (!sourceLangData) {
+            toast('No content to translate', 'error');
+            return;
+        }
+
+        const targetLangs = LANGS.filter(l => l !== activeLang);
+        const statusEl = document.getElementById('translateStatus');
+        const btn = document.getElementById('translateAllBtn');
+
+        btn.disabled = true;
+        btn.textContent = 'Translating...';
+
+        let successCount = 0;
+
+        for (const targetLang of targetLangs) {
+            if (statusEl) statusEl.textContent = `Translating to ${LANG_NAMES[targetLang]}...`;
+
+            try {
+                const systemPrompt = `You are a professional translator. Translate the given JSON values from ${LANG_NAMES[activeLang]} to ${LANG_NAMES[targetLang]}.
+
+RULES:
+- Translate ONLY the string values, keep all JSON keys exactly the same.
+- Maintain HTML tags like <br> unchanged.
+- Keep brand names (OMERTA, DEFENCE) unchanged.
+- For Arabic, use proper RTL text.
+- If a value contains technical/military terms, use the standard ${LANG_NAMES[targetLang]} terminology.
+- Return ONLY valid JSON with the same structure as input. No markdown, no code blocks.`;
+
+                const userPrompt = JSON.stringify(sourceLangData);
+                const { result } = await AIProviderManager.send(systemPrompt, userPrompt);
+
+                if (result && typeof result === 'object') {
+                    data[targetLang] = result;
+                    successCount++;
+                }
+            } catch (err) {
+                console.warn(`Translation to ${targetLang} failed:`, err.message);
+                toast(`${LANG_NAMES[targetLang]} translation failed: ${err.message}`, 'error');
+            }
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'Translate to All Languages';
+        if (statusEl) statusEl.textContent = '';
+
+        if (successCount > 0) {
+            toast(`Translated to ${successCount} language(s) successfully!`, 'success');
+            draw();
+        }
     }
 
     // ── Generic editor builder ──
@@ -140,6 +207,7 @@ const AdminContent = (() => {
 
             imagePreviewBind('heroBg', 'heroBgPreview');
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => translateToAllLangs(data, activeLang, saveCurrent, draw));
 
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -211,6 +279,7 @@ const AdminContent = (() => {
 
             imagePreviewBind('aboutImg', 'aboutImgPreview');
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => translateToAllLangs(data, activeLang, saveCurrent, draw));
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('About section saved!', 'success');
             });
@@ -277,6 +346,7 @@ const AdminContent = (() => {
             `);
 
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => translateToAllLangs(data, activeLang, saveCurrent, draw));
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Products overview saved!', 'success');
             });
@@ -339,6 +409,7 @@ const AdminContent = (() => {
 
             imagePreviewBind('cyberBg', 'cyberBgPreview');
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => translateToAllLangs(data, activeLang, saveCurrent, draw));
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Cyber section saved!', 'success');
             });
@@ -397,6 +468,7 @@ const AdminContent = (() => {
             `);
 
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => translateToAllLangs(data, activeLang, saveCurrent, draw));
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Contact section saved!', 'success');
             });
@@ -434,6 +506,7 @@ const AdminContent = (() => {
             `);
 
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => translateToAllLangs(data, activeLang, saveCurrent, draw));
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Footer saved!', 'success');
             });
