@@ -167,7 +167,7 @@ const AIProviderManager = (() => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${config.apiKey}`,
-                'HTTP-Referer': window.location.origin,
+                'HTTP-Referer': window.location.origin || 'https://omertadefence.com',
                 'X-Title': 'OMERTA DEFENCE Admin'
             },
             body: JSON.stringify({

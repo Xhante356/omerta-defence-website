@@ -45,16 +45,25 @@ const AdminContent = (() => {
     const LANG_NAMES = { en: 'English', tr: 'Turkish', fr: 'French', ar: 'Arabic' };
 
     async function translateToAllLangs(data, activeLang, saveCurrent, draw) {
+        // Check if AI module exists
         if (typeof AIProviderManager === 'undefined') {
-            toast('AI Provider not configured. Go to Settings to add an API key.', 'error');
+            toast('AI Provider module not loaded.', 'error');
+            return;
+        }
+
+        // Check if any provider has an API key
+        const statuses = AIProviderManager.getProviderStatuses();
+        const hasAnyKey = statuses.some(s => s.hasKey);
+        if (!hasAnyKey) {
+            toast('No AI API key configured. Go to Settings → AI Integration to add a key.', 'error');
             return;
         }
 
         saveCurrent();
 
         const sourceLangData = data[activeLang];
-        if (!sourceLangData) {
-            toast('No content to translate', 'error');
+        if (!sourceLangData || Object.keys(sourceLangData).length === 0) {
+            toast('No content to translate in current language.', 'error');
             return;
         }
 
@@ -62,45 +71,52 @@ const AdminContent = (() => {
         const statusEl = document.getElementById('translateStatus');
         const btn = document.getElementById('translateAllBtn');
 
-        btn.disabled = true;
-        btn.textContent = 'Translating...';
+        if (btn) { btn.disabled = true; btn.textContent = 'Translating...'; }
 
         let successCount = 0;
+        const errors = [];
 
         for (const targetLang of targetLangs) {
-            if (statusEl) statusEl.textContent = `Translating to ${LANG_NAMES[targetLang]}...`;
+            if (statusEl) statusEl.textContent = `→ ${LANG_NAMES[targetLang]}...`;
 
             try {
-                const systemPrompt = `You are a professional translator. Translate the given JSON values from ${LANG_NAMES[activeLang]} to ${LANG_NAMES[targetLang]}.
+                const systemPrompt = `You are a professional translator. Translate the given JSON object's string values from ${LANG_NAMES[activeLang]} to ${LANG_NAMES[targetLang]}.
 
-RULES:
-- Translate ONLY the string values, keep all JSON keys exactly the same.
-- Maintain HTML tags like <br> unchanged.
-- Keep brand names (OMERTA, DEFENCE) unchanged.
-- For Arabic, use proper RTL text.
-- If a value contains technical/military terms, use the standard ${LANG_NAMES[targetLang]} terminology.
-- Return ONLY valid JSON with the same structure as input. No markdown, no code blocks.`;
+CRITICAL RULES:
+- Return a JSON object with the EXACT SAME keys/structure as the input.
+- Only translate the string values, never change key names.
+- Keep HTML tags like <br>, &copy; etc. unchanged.
+- Keep brand names like "OMERTA", "DEFENCE" unchanged.
+- If values are inside arrays of objects, translate each object's string values.
+- For Arabic: use proper Arabic text.
+- Return ONLY the JSON object. No explanation, no markdown, no code fences.`;
 
-                const userPrompt = JSON.stringify(sourceLangData);
-                const { result } = await AIProviderManager.send(systemPrompt, userPrompt);
+                const userPrompt = `Translate this JSON from ${LANG_NAMES[activeLang]} to ${LANG_NAMES[targetLang]}:\n${JSON.stringify(sourceLangData, null, 1)}`;
+                const response = await AIProviderManager.send(systemPrompt, userPrompt);
+                const result = response.result;
 
                 if (result && typeof result === 'object') {
                     data[targetLang] = result;
                     successCount++;
+                } else {
+                    errors.push(`${LANG_NAMES[targetLang]}: Invalid response format`);
                 }
             } catch (err) {
-                console.warn(`Translation to ${targetLang} failed:`, err.message);
-                toast(`${LANG_NAMES[targetLang]} translation failed: ${err.message}`, 'error');
+                const msg = err.message || 'Unknown error';
+                errors.push(`${LANG_NAMES[targetLang]}: ${msg}`);
+                console.error(`Translation to ${targetLang} failed:`, msg);
             }
         }
 
-        btn.disabled = false;
-        btn.textContent = 'Translate to All Languages';
+        if (btn) { btn.disabled = false; btn.textContent = 'Translate to All Languages'; }
         if (statusEl) statusEl.textContent = '';
 
         if (successCount > 0) {
-            toast(`Translated to ${successCount} language(s) successfully!`, 'success');
+            toast(`Translated to ${successCount} language(s)!`, 'success');
             draw();
+        }
+        if (errors.length > 0) {
+            errors.forEach(e => toast(e, 'error'));
         }
     }
 
