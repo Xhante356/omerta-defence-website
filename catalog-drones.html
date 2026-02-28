@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMERTA DEFENCE | UAV & Robotics Catalog</title>
+    <meta name="description" content="OMERTA DEFENCE UAV & Robotics Catalog - FPV Drones, Multirotor UAVs, Fixed-Wing UAVs, VTOL Systems, Ground Vehicles, Stabilization Platforms and Ground Control.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==============================================================
+           RESET & CUSTOM PROPERTIES
+           ============================================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0e0e0e;
+            --bg-tertiary: #111111;
+            --bg-card: rgba(255,255,255,0.03);
+            --bg-card-hover: rgba(255,255,255,0.055);
+            --border-subtle: rgba(255,255,255,0.08);
+            --border-hover: rgba(61,143,167,0.35);
+            --teal-primary: #1B3C4B;
+            --teal-accent: #3D8FA7;
+            --teal-glow: rgba(61,143,167,0.15);
+            --teal-bright: #5BC0DE;
+            --text-primary: #E8E8E8;
+            --text-secondary: #999999;
+            --text-heading: #FFFFFF;
+            --text-muted: #555555;
+            --font-heading: 'Orbitron', monospace, sans-serif;
+            --font-sub: 'Rajdhani', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow-card: 0 4px 30px rgba(0,0,0,0.4);
+            --shadow-glow: 0 0 40px rgba(61,143,167,0.08);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-med: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 140px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ==============================================================
+           SCROLL PROGRESS BAR
+           ============================================================== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--teal-primary), var(--teal-accent), var(--teal-bright));
+            z-index: 10000;
+            transition: width 0.1s linear;
+        }
+
+        /* ==============================================================
+           HEXAGONAL PATTERN OVERLAY (SVG-based)
+           ============================================================== */
+        .hex-pattern {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%233D8FA7' stroke-width='0.5'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%233D8FA7' stroke-width='0.5'/%3E%3C/svg%3E");
+            background-size: 56px 100px;
+        }
+
+        .hex-pattern-dense {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.06;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z' fill='%233D8FA7' fill-opacity='0.4'/%3E%3C/svg%3E");
+            background-size: 28px 49px;
+        }
+
+        /* ==============================================================
+           TOP NAVIGATION BAR
+           ============================================================== */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 60px;
+            background: rgba(10,10,10,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background var(--transition-fast);
+        }
+        .top-nav.scrolled {
+            background: rgba(10,10,10,0.97);
+        }
+        .top-nav-logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .top-nav-logo img {
+            height: 28px;
+            width: auto;
+        }
+        .top-nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .top-nav-links a {
+            font-family: var(--font-sub);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+        .top-nav-links a:hover { color: var(--teal-accent); }
+        .top-nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--teal-accent);
+            transition: width var(--transition-fast);
+        }
+        .top-nav-links a:hover::after { width: 100%; }
+
+        .lang-switcher { display: flex; gap: 4px; margin-left: 8px; padding-left: 12px; border-left: 1px solid rgba(255,255,255,0.1); }
+        .lang-btn { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: var(--text-secondary); font-family: var(--font-sub); font-size: 0.7rem; font-weight: 600; padding: 4px 8px; cursor: pointer; border-radius: var(--radius-sm); transition: all var(--transition-fast); letter-spacing: 1px; }
+        .lang-btn:hover { border-color: var(--teal-accent); color: var(--teal-accent); }
+        .lang-btn.active { background: var(--teal-accent); border-color: var(--teal-accent); color: #fff; }
+
+        /* ==============================================================
+           HERO HEADER
+           ============================================================== */
+        .hero {
+            position: relative;
+            min-height: 75vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(27,60,75,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(61,143,167,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(27,60,75,0.12) 0%, transparent 50%),
+                linear-gradient(180deg, #060608 0%, #0a0a0a 50%, #0e0e10 100%);
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--bg-primary), transparent);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-label {
+            font-family: var(--font-sub);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.4s forwards;
+        }
+        .hero-title span {
+            background: linear-gradient(135deg, var(--teal-accent), var(--teal-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-family: var(--font-sub);
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.6s forwards;
+        }
+        .hero-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--teal-accent), transparent);
+            margin: 24px auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.7s forwards;
+        }
+        .hero-tagline {
+            font-family: var(--font-sub);
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--teal-bright);
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.9s forwards;
+        }
+
+        /* HUD decoration lines in hero */
+        .hero-hud-line {
+            position: absolute;
+            z-index: 1;
+        }
+        .hero-hud-line--left {
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, var(--teal-accent), transparent);
+            opacity: 0.3;
+        }
+        .hero-hud-line--right {
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, var(--teal-accent), transparent);
+            opacity: 0.3;
+        }
+        .hero-hud-line--bottom {
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--teal-accent), transparent);
+            opacity: 0.2;
+            z-index: 2;
+        }
+
+        /* Floating orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-orb-1 {
+            width: 400px; height: 400px;
+            background: rgba(27,60,75,0.2);
+            top: -100px; left: -100px;
+            animation: orbFloat1 12s ease-in-out infinite;
+        }
+        .hero-orb-2 {
+            width: 300px; height: 300px;
+            background: rgba(61,143,167,0.1);
+            bottom: -50px; right: -50px;
+            animation: orbFloat2 10s ease-in-out infinite;
+        }
+        .hero-orb-3 {
+            width: 250px; height: 250px;
+            background: rgba(91,192,222,0.06);
+            top: 30%; right: 20%;
+            animation: orbFloat1 15s ease-in-out infinite reverse;
+        }
+
+        /* Scanning line animation */
+        .hero-scan-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(61,143,167,0.3) 30%, rgba(61,143,167,0.6) 50%, rgba(61,143,167,0.3) 70%, transparent 100%);
+            z-index: 1;
+            animation: scanDown 8s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes scanDown {
+            0% { top: 0; opacity: 0; }
+            5% { opacity: 0.4; }
+            95% { opacity: 0.4; }
+            100% { top: 100%; opacity: 0; }
+        }
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 20px); }
+        }
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -30px); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ==============================================================
+           CATEGORY NAVIGATION (Sticky)
+           ============================================================== */
+        .cat-nav {
+            position: sticky;
+            top: 60px;
+            z-index: 9998;
+            background: rgba(10,10,10,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .cat-nav::-webkit-scrollbar { display: none; }
+        .cat-nav-inner {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding: 0 20px;
+            min-width: max-content;
+            margin: 0 auto;
+            justify-content: center;
+        }
+        .cat-nav-link {
+            font-family: var(--font-sub);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            padding: 16px 20px;
+            white-space: nowrap;
+            transition: all var(--transition-fast);
+            position: relative;
+            border-bottom: 2px solid transparent;
+        }
+        .cat-nav-link:hover {
+            color: var(--teal-accent);
+        }
+        .cat-nav-link.active {
+            color: var(--teal-bright);
+            border-bottom-color: var(--teal-accent);
+        }
+        .cat-nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--teal-accent);
+            transition: width var(--transition-fast);
+        }
+        .cat-nav-link:hover::before {
+            width: 60%;
+        }
+        .cat-nav-link.active::before {
+            width: 100%;
+        }
+
+        /* ==============================================================
+           SECTION HEADERS
+           ============================================================== */
+        .section-category {
+            padding: 100px 0 40px;
+            position: relative;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-sub);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            padding: 8px 24px;
+            border: 1px solid rgba(61,143,167,0.25);
+            border-radius: 50px;
+            margin-bottom: 20px;
+            background: rgba(61,143,167,0.05);
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            margin-bottom: 12px;
+        }
+        .section-desc {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        .section-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--teal-accent), transparent);
+            margin: 16px auto 0;
+        }
+
+        /* ==============================================================
+           PRODUCT GRID CONTAINER
+           ============================================================== */
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ==============================================================
+           PRODUCT CARD (Glassmorphic HUD Style)
+           ============================================================== */
+        .product-card {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--teal-accent);
+            border-radius: var(--radius-lg);
+            padding: 0;
+            margin-bottom: 60px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: all var(--transition-med);
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        .product-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .product-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+            transform: translateY(-4px);
+        }
+        .product-card.revealed:hover {
+            transform: translateY(-4px);
+        }
+
+        /* HUD corner decorations */
+        .product-card::before,
+        .product-card::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--teal-accent);
+            border-style: solid;
+            opacity: 0.3;
+            transition: opacity var(--transition-fast);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .product-card::before {
+            top: 8px;
+            right: 8px;
+            border-width: 1px 1px 0 0;
+        }
+        .product-card::after {
+            bottom: 8px;
+            left: 8px;
+            border-width: 0 0 1px 1px;
+        }
+        .product-card:hover::before,
+        .product-card:hover::after {
+            opacity: 0.6;
+        }
+
+        /* Additional HUD corners via inner element */
+        .hud-corner-tl,
+        .hud-corner-br {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-color: var(--teal-accent);
+            border-style: solid;
+            opacity: 0.3;
+            transition: opacity var(--transition-fast);
+            z-index: 5;
+            pointer-events: none;
+        }
+        .hud-corner-tl {
+            top: 8px;
+            left: 8px;
+            border-width: 1px 0 0 1px;
+        }
+        .hud-corner-br {
+            bottom: 8px;
+            right: 8px;
+            border-width: 0 1px 1px 0;
+        }
+        .product-card:hover .hud-corner-tl,
+        .product-card:hover .hud-corner-br {
+            opacity: 0.6;
+        }
+
+        /* Card inner layout */
+        .product-card-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        /* Image area */
+        .product-images {
+            position: relative;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .product-img-main {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            transition: all var(--transition-med);
+            cursor: pointer;
+        }
+        .product-img-main:hover {
+            transform: scale(1.02);
+            filter: brightness(1.15);
+        }
+        .product-img-thumbs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .product-img-thumb {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+        .product-img-thumb:hover {
+            border-color: var(--teal-accent);
+            transform: scale(1.03);
+            filter: brightness(1.15);
+        }
+
+        /* Content area */
+        .product-info {
+            padding: 32px 32px 32px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .product-model-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-sub);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--teal-bright);
+            background: rgba(61,143,167,0.1);
+            border: 1px solid rgba(61,143,167,0.2);
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+        .product-name {
+            font-family: var(--font-heading);
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .product-desc {
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* Specs grid */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 16px;
+            margin-bottom: 20px;
+        }
+        .spec-item {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            font-family: var(--font-sub);
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .spec-icon {
+            color: var(--teal-accent);
+            font-size: 0.6rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .spec-label {
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .spec-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Quote button */
+        .btn-quote {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-sub);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--teal-bright);
+            background: transparent;
+            border: 1px solid rgba(61,143,167,0.3);
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            width: fit-content;
+            margin-top: auto;
+        }
+        .btn-quote:hover {
+            background: rgba(61,143,167,0.12);
+            border-color: var(--teal-accent);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(61,143,167,0.15);
+        }
+
+        /* ==============================================================
+           COMPARISON TABLE
+           ============================================================== */
+        .comparison-section {
+            padding: 100px 30px;
+            position: relative;
+        }
+        .comparison-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-family: var(--font-sub);
+            min-width: 700px;
+        }
+        .comparison-table thead th {
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--teal-bright);
+            background: rgba(27,60,75,0.2);
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 2px solid rgba(61,143,167,0.2);
+            white-space: nowrap;
+        }
+        .comparison-table thead th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+        .comparison-table thead th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+        }
+        .comparison-table tbody td {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            padding: 14px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            background: var(--bg-card);
+            letter-spacing: 0.5px;
+        }
+        .comparison-table tbody tr:hover td {
+            background: var(--bg-card-hover);
+        }
+        .comparison-table tbody td:first-child {
+            font-family: var(--font-heading);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--teal-accent);
+        }
+        .comparison-table tbody tr:last-child td:first-child {
+            border-radius: 0 0 0 var(--radius-md);
+        }
+        .comparison-table tbody tr:last-child td:last-child {
+            border-radius: 0 0 var(--radius-md) 0;
+        }
+
+        /* ==============================================================
+           FOOTER
+           ============================================================== */
+        .footer {
+            position: relative;
+            padding: 60px 40px 30px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .footer-brand-name {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--text-heading);
+            margin-bottom: 12px;
+        }
+        .footer-brand-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 350px;
+        }
+        .footer-col-title {
+            font-family: var(--font-sub);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            margin-bottom: 16px;
+        }
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-links a {
+            font-family: var(--font-sub);
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+            letter-spacing: 0.5px;
+        }
+        .footer-links a:hover {
+            color: var(--teal-accent);
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 20px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .footer-location {
+            font-family: var(--font-sub);
+            letter-spacing: 1px;
+        }
+
+        /* ==============================================================
+           SCROLL REVEAL ANIMATION
+           ============================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==============================================================
+           REDUCED MOTION
+           ============================================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+            .product-card { opacity: 1; transform: none; }
+            .reveal { opacity: 1; transform: none; }
+            .hero-label, .hero-title, .hero-subtitle, .hero-divider, .hero-tagline {
+                opacity: 1;
+                animation: none;
+            }
+        }
+
+        /* ==============================================================
+           RESPONSIVE
+           ============================================================== */
+        @media (max-width: 1024px) {
+            .product-card-inner {
+                grid-template-columns: 1fr;
+            }
+            .product-info {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                padding: 0 16px;
+            }
+            .top-nav-links {
+                gap: 12px;
+            }
+            .top-nav-links a {
+                font-size: 0.72rem;
+                letter-spacing: 1px;
+            }
+            .hero {
+                padding: 100px 20px 60px;
+                min-height: 60vh;
+            }
+            .cat-nav-inner {
+                justify-content: flex-start;
+            }
+            .cat-nav-link {
+                font-size: 0.7rem;
+                padding: 14px 14px;
+                letter-spacing: 1.5px;
+            }
+            .section-category {
+                padding: 60px 0 20px;
+            }
+            .products-container {
+                padding: 0 16px;
+            }
+            .product-images {
+                padding: 16px;
+            }
+            .product-info {
+                padding: 16px;
+            }
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-card {
+                margin-bottom: 40px;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+            .comparison-section {
+                padding: 60px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-nav-links a:not(:first-child):not(:last-child) {
+                display: none;
+            }
+            .hero-title {
+                letter-spacing: 3px;
+            }
+            .hero-tagline {
+                letter-spacing: 4px;
+                font-size: 1rem;
+            }
+            .product-img-thumbs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==============================================================
+           SECTION DIVIDER
+           ============================================================== */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), rgba(61,143,167,0.15), var(--border-subtle), transparent);
+            margin: 0;
+        }
+
+        /* ==============================================================
+           QUOTE CTA BANNER
+           ============================================================== */
+        .cta-banner {
+            text-align: center;
+            padding: 80px 30px;
+            position: relative;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(27,60,75,0.15) 0%, transparent 70%),
+                var(--bg-secondary);
+        }
+        .cta-banner-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            margin-bottom: 16px;
+        }
+        .cta-banner-desc {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 28px;
+            line-height: 1.7;
+        }
+        .btn-cta-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-sub);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-accent));
+            border: none;
+            padding: 16px 40px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .btn-cta-main:hover {
+            box-shadow: 0 0 30px rgba(61,143,167,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================================================
+           BACK TO TOP
+           ============================================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(27,60,75,0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(61,143,167,0.2);
+            border-radius: 50%;
+            color: var(--teal-bright);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            z-index: 9990;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .back-to-top:hover {
+            background: rgba(61,143,167,0.4);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- TOP NAVIGATION -->
+    <nav class="top-nav" id="topNav">
+        <a href="index.html" class="top-nav-logo">
+            <img src="assets/images/logo.png" alt="OMERTA DEFENCE">
+            OMERTA DEFENCE
+        </a>
+        <div class="top-nav-links">
+            <a href="index.html" data-t="nav.home">Home</a>
+            <a href="catalog-weapons.html" data-t="nav.weapons">Weapons Catalog</a>
+            <a href="index.html#contact" data-t="nav.contact">Contact</a>
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="tr">TR</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+                <button class="lang-btn" data-lang="ar">AR</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================================================================
+         HERO SECTION
+         ================================================================ -->
+    <section class="hero" id="hero">
+        <div class="hex-pattern"></div>
+        <div class="hero-scan-line"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <div class="hero-hud-line hero-hud-line--left"></div>
+        <div class="hero-hud-line hero-hud-line--right"></div>
+        <div class="hero-hud-line hero-hud-line--bottom"></div>
+        <div class="hero-content">
+            <p class="hero-label" data-t="hero.label">OMERTA DEFENCE</p>
+            <h1 class="hero-title" data-t="hero.title1">UAV & ROBOTICS <span data-t="hero.title2">CATALOG</span></h1>
+            <p class="hero-subtitle" data-t="hero.subtitle">Unmanned Systems Division</p>
+            <div class="hero-divider"></div>
+            <p class="hero-tagline" data-t="hero.tagline">Innovation Takes Flight</p>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         CATEGORY NAVIGATION
+         ================================================================ -->
+    <nav class="cat-nav" id="catNav">
+        <div class="cat-nav-inner">
+            <a href="#fpv-drones" class="cat-nav-link" data-section="fpv-drones" data-t="cat.fpv">FPV Drones</a>
+            <a href="#multirotor" class="cat-nav-link" data-section="multirotor" data-t="cat.multirotor">Multirotor UAVs</a>
+            <a href="#fixed-wing" class="cat-nav-link" data-section="fixed-wing" data-t="cat.fixedwing">Fixed-Wing UAVs</a>
+            <a href="#vtol" class="cat-nav-link" data-section="vtol" data-t="cat.vtol">VTOL Systems</a>
+            <a href="#recon" class="cat-nav-link" data-section="recon" data-t="cat.recon">Reconnaissance</a>
+            <a href="#ground-vehicles" class="cat-nav-link" data-section="ground-vehicles" data-t="cat.ground">Ground Vehicles</a>
+            <a href="#stabilization" class="cat-nav-link" data-section="stabilization" data-t="cat.stabilization">Stabilization Platforms</a>
+            <a href="#ground-control" class="cat-nav-link" data-section="ground-control" data-t="cat.gcs">Ground Control</a>
+        </div>
+    </nav>
+
+
+    <!-- ================================================================
+         A. FPV DRONES
+         ================================================================ -->
+    <section class="section-category" id="fpv-drones">
+        <div class="hex-pattern-dense"></div>
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category A</div>
+            <h2 class="section-title" data-t="cat.fpv">FPV Drones</h2>
+            <p class="section-desc">High-performance first-person-view platforms for manual flight, freestyle, long-range operations, and mission-critical applications.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 1: R-FPV -->
+            <article class="product-card" id="product-rfpv">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p3_2.jpeg" alt="R-FPV multi-purpose FPV UAV" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p3_3.jpeg" alt="R-FPV detail view" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p3_4.jpeg" alt="R-FPV components" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-FPV</div>
+                        <h3 class="product-name">R-FPV</h3>
+                        <p class="product-desc">Multi-purpose FPV UAV engineered for high-performance manual and assisted flight. Supports freestyle, long-range, cinematic, and mission-oriented FPV operations. Modular architecture enables flexible propulsion, power systems, and payload integration.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.frame">Frame Size</span>
+                                <span class="spec-value">7-15 inch</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.config">Configuration</span>
+                                <span class="spec-value">Quadcopter</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.battery">Battery Type</span>
+                                <span class="spec-value">LiPo / Li-ion</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">20 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.flight">Max Flight Time</span>
+                                <span class="spec-value">10-40 min</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">2-8 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.fpvsys">FPV System</span>
+                                <span class="spec-value">Analog / Digital HD</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.commlink">Communication Link</span>
+                                <span class="spec-value">Wireless / Fiber-optic</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PRODUCT 2: R-PROTECTED DRONE -->
+            <article class="product-card" id="product-rprotected">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p4_2.jpeg" alt="R-PROTECTED DRONE" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p4_3.jpeg" alt="R-PROTECTED DRONE detail" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p4_4.jpeg" alt="R-PROTECTED DRONE GCS" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-PROTECTED</div>
+                        <h3 class="product-name">R-Protected Drone</h3>
+                        <p class="product-desc">Rigid frame drone designed for R&D, educational, and training purposes. Features an in-house developed Ground Control Station with off-edge AI processing delivering up to 67 TOPS of computational power for advanced autonomous operations.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">5 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.flight">Max Flight Time</span>
+                                <span class="spec-value">25 min</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.commlink">Communication Link</span>
+                                <span class="spec-value">Dual-Band Encrypted</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">1.5 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.transmission">Transmission Range</span>
+                                <span class="spec-value">20 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.weight">Weight</span>
+                                <span class="spec-value">1.63 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.sensor">Image Sensor</span>
+                                <span class="spec-value">Sony IMX415</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.resolution">Video Resolution</span>
+                                <span class="spec-value">3840x2160 @20fps</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         B. MULTIROTOR UAVs
+         ================================================================ -->
+    <section class="section-category" id="multirotor">
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category B</div>
+            <h2 class="section-title" data-t="cat.multirotor">Multirotor UAVs</h2>
+            <p class="section-desc">Heavy-lift, high-endurance multirotor platforms built for the most demanding operational environments.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 3: R-OQAB -->
+            <article class="product-card" id="product-roqab">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p5_2.jpeg" alt="R-OQAB foldable quadcopter" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p5_3.jpeg" alt="R-OQAB in flight" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p5_4.jpeg" alt="R-OQAB payload" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-OQAB</div>
+                        <h3 class="product-name">R-OQAB</h3>
+                        <p class="product-desc">Foldable high-performance multipurpose quadcopter delivering long endurance and heavy-lift capability in the most challenging conditions. Exceptional wind resistance and stable hovering make it ideal for critical operations.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.altitude">Max Altitude</span>
+                                <span class="spec-value">1000 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.speed">Max Speed</span>
+                                <span class="spec-value">60 km/h</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.hover">Max Hover Time</span>
+                                <span class="spec-value">50 min</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.weight">Weight</span>
+                                <span class="spec-value">5.5 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.hoverPayload">Hover Time with Payload</span>
+                                <span class="spec-value">22 min</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.maxdist">Max Distance with Payload</span>
+                                <span class="spec-value">20 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.wind">Wind Resistance</span>
+                                <span class="spec-value">Level 7</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.config">Configuration</span>
+                                <span class="spec-value">Foldable Quad</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         C. STABILIZATION PLATFORMS
+         ================================================================ -->
+    <section class="section-category" id="stabilization">
+        <div class="hex-pattern-dense"></div>
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category C</div>
+            <h2 class="section-title" data-t="cat.stabilization">Stabilization Platforms</h2>
+            <p class="section-desc">High-precision stabilization systems for aerial payloads including cameras, weapons, and specialized equipment.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 4: R-AEROSNIPER -->
+            <article class="product-card" id="product-raerosniper">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p6_2.jpeg" alt="R-AEROSNIPER stabilization platform" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p6_3.jpeg" alt="R-AEROSNIPER mounted view" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-AEROSNIPER</div>
+                        <h3 class="product-name">R-AeroSniper</h3>
+                        <p class="product-desc">High-precision stabilization platform engineered for drone-mounted operations. Carries payloads up to 5 kg including machine guns, water pumps, and cameras with precise aiming during flight. Designed for military, reconnaissance, and fire-extinguishing applications.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.weight">Weight</span>
+                                <span class="spec-value">2.5 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">5 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.config">Configuration</span>
+                                <span class="spec-value">Modular</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.dimensions">Dimensions</span>
+                                <span class="spec-value">22x25x21 cm</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         D. FIXED-WING UAVs
+         ================================================================ -->
+    <section class="section-category" id="fixed-wing">
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category D</div>
+            <h2 class="section-title" data-t="cat.fixedwing">Fixed-Wing UAVs</h2>
+            <p class="section-desc">Long-range, high-endurance fixed-wing platforms for reconnaissance, strike missions, and beyond-line-of-sight operations.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 5: R-SAHAB -->
+            <article class="product-card" id="product-rsahab">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p7_2.jpeg" alt="R-SAHAB fixed-wing UAV" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p7_3.jpeg" alt="R-SAHAB side profile" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p7_4.jpeg" alt="R-SAHAB 3D printed components" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-SAHAB</div>
+                        <h3 class="product-name">R-SAHAB</h3>
+                        <p class="product-desc">Lightweight fixed-wing UAV leveraging advanced 3D-printed technology for rapid production and deployment. Offers efficient long-range, high-endurance capability with flexible payload integration. Optimized for one-way attack (kamikaze) missions.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">40-50 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.wingspan">Wingspan</span>
+                                <span class="spec-value">1.8 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">1.5 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.endurance">Flight Endurance</span>
+                                <span class="spec-value">60 min</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.control">Control Range</span>
+                                <span class="spec-value">30 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.engine">Engine Type</span>
+                                <span class="spec-value">Electric Motor</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PRODUCT 6: R-TAREQ -->
+            <article class="product-card" id="product-rtareq">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p8_2.jpeg" alt="R-TAREQ fixed-wing VTOL UAV" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p8_3.jpeg" alt="R-TAREQ in flight" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p8_4.jpeg" alt="R-TAREQ payload detail" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-TAREQ</div>
+                        <h3 class="product-name">R-TAREQ</h3>
+                        <p class="product-desc">Fixed-wing VTOL UAV that combines the efficiency of winged flight with the versatility of vertical takeoff and landing. Engineered for one-way attack missions against hardened structures. Non-VTOL variant available with extended 50 km range.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">30-40 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.wingspan">Wingspan</span>
+                                <span class="spec-value">1 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.endurance">Flight Endurance</span>
+                                <span class="spec-value">25 min</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.control">Control Range</span>
+                                <span class="spec-value">40 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.altitude">Max Altitude</span>
+                                <span class="spec-value">1000 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.speed">Max Speed</span>
+                                <span class="spec-value">40 m/s</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">1.5 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.launch">Launching</span>
+                                <span class="spec-value">VTOL / Conventional</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         E. VTOL SYSTEMS
+         ================================================================ -->
+    <section class="section-category" id="vtol">
+        <div class="hex-pattern-dense"></div>
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category E</div>
+            <h2 class="section-title" data-t="cat.vtol">VTOL Systems</h2>
+            <p class="section-desc">Vertical takeoff and landing flying wings combining rotorcraft flexibility with fixed-wing efficiency for extended mission profiles.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 7: R-HURR -->
+            <article class="product-card" id="product-rhurr">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p9_2.jpeg" alt="R-HURR VTOL flying wing" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p9_3.jpeg" alt="R-HURR in flight" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p9_4.jpeg" alt="R-HURR payload configuration" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-HURR</div>
+                        <h3 class="product-name">R-HURR</h3>
+                        <p class="product-desc">Multipurpose flying wing VTOL platform equipped for electro-optical payloads, fire detection, wildlife protection, and wide-area surveillance. Exceptional range and endurance with vertical launch capability eliminates the need for runway infrastructure.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">100 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.flight">Max Flight Time</span>
+                                <span class="spec-value">150 min</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.control">Control Range</span>
+                                <span class="spec-value">30 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">3 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.altitude">Max Altitude</span>
+                                <span class="spec-value">2000 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.wingspan">Wingspan</span>
+                                <span class="spec-value">2.4 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.launch">Launching</span>
+                                <span class="spec-value">VTOL</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.wind">Wind Resistance</span>
+                                <span class="spec-value">Level 7</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         F. LONG-RANGE RECONNAISSANCE
+         ================================================================ -->
+    <section class="section-category" id="recon">
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category F</div>
+            <h2 class="section-title" data-t="cat.recon">Reconnaissance</h2>
+            <p class="section-desc">Extended-range unmanned aerial systems for high-endurance surveillance, mapping, and strategic reconnaissance over vast operational areas.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 8: R-AL-KASER -->
+            <article class="product-card" id="product-ralkaser">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p10_2.jpeg" alt="R-AL-KASER long-range UAV" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p10_3.jpeg" alt="R-AL-KASER wingspan" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p10_4.jpeg" alt="R-AL-KASER payload bay" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-AL-KASER</div>
+                        <h3 class="product-name">R-AL-KASER</h3>
+                        <p class="product-desc">Long-range UAV engineered for high-endurance missions including surveillance, mapping, and remote-area operations. Dual-engine configuration supports both civilian and security applications with exceptional operational flexibility.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">700 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.wingspan">Wingspan</span>
+                                <span class="spec-value">4 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">20 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.endurance">Flight Endurance</span>
+                                <span class="spec-value">7 hours</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.control">Control Range</span>
+                                <span class="spec-value">100 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.altitude">Max Altitude</span>
+                                <span class="spec-value">3000 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.engine">Engine Type</span>
+                                <span class="spec-value">Electric / Gasoline</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.role">Primary Role</span>
+                                <span class="spec-value">Civilian / Security</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PRODUCT 9: R-SHIHAB -->
+            <article class="product-card" id="product-rshihab">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p11_2.jpeg" alt="R-SHIHAB multi-role long-range UAV" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p11_3.jpeg" alt="R-SHIHAB ground assembly" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p11_4.jpeg" alt="R-SHIHAB specifications" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-SHIHAB</div>
+                        <h3 class="product-name">R-SHIHAB</h3>
+                        <p class="product-desc">Multi-role long-range UAV built for long-endurance reconnaissance and surveillance. Features a large wingspan with gasoline propulsion and modular payload and powertrain configurations. Optional kamikaze mission profile available.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">800-1000 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.wingspan">Wingspan</span>
+                                <span class="spec-value">6.5 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">30 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.endurance">Flight Endurance</span>
+                                <span class="spec-value">12h (18h mod)</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.control">Control Range</span>
+                                <span class="spec-value">100 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.altitude">Max Altitude</span>
+                                <span class="spec-value">5000 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.engine">Engine Type</span>
+                                <span class="spec-value">Gasoline</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label">Mission</span>
+                                <span class="spec-value">Recon / Kamikaze</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         G. GROUND CONTROL
+         ================================================================ -->
+    <section class="section-category" id="ground-control">
+        <div class="hex-pattern-dense"></div>
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category G</div>
+            <h2 class="section-title" data-t="cat.gcs">Ground Control</h2>
+            <p class="section-desc">Portable ground control stations with integrated AI computing for real-time UAV command, telemetry, and video streaming.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 10: R-GCS -->
+            <article class="product-card" id="product-rgcs">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p12_2.jpeg" alt="R-GCS Ground Control Station" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p12_3.jpeg" alt="R-GCS interface" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p12_4.jpeg" alt="R-GCS internals" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-GCS</div>
+                        <h3 class="product-name">R-GCS</h3>
+                        <p class="product-desc">Portable wireless Ground Control Station enabling real-time communication with UAVs and drones. Features real-time telemetry, video streaming, and command transmission with integrated AI computing and off-edge processing capabilities.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.commlink">Communication Link</span>
+                                <span class="spec-value">Dual-Band Encrypted</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.range">Range</span>
+                                <span class="spec-value">20 km LOS</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label">AI Power</span>
+                                <span class="spec-value">67 TOPS</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.runtime">Runtime</span>
+                                <span class="spec-value">2-3 hours</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label">MCU</span>
+                                <span class="spec-value">STM32F765 + ATMEGA32U4</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label">CPU</span>
+                                <span class="spec-value">BCM2711 + N5105</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label">AI Core</span>
+                                <span class="spec-value">6-core ARM Cortex-A78AE</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.os">Operating Systems</span>
+                                <span class="spec-value">Windows / Linux</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         H. GROUND VEHICLES
+         ================================================================ -->
+    <section class="section-category" id="ground-vehicles">
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Category H</div>
+            <h2 class="section-title" data-t="cat.ground">Ground Vehicles</h2>
+            <p class="section-desc">Rugged unmanned ground vehicles for reconnaissance, surveillance, payload transport, and autonomous operations in hostile environments.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="products-container">
+
+            <!-- PRODUCT 11: R-UGV -->
+            <article class="product-card" id="product-rugv">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p13_2.jpeg" alt="R-UGV Unmanned Ground Vehicle" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p13_3.jpeg" alt="R-UGV traversing terrain" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p13_4.jpeg" alt="R-UGV payload bay" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-UGV</div>
+                        <h3 class="product-name">R-UGV</h3>
+                        <p class="product-desc">Rugged Unmanned Ground Vehicle engineered for reconnaissance, surveillance, and heavy payload transport. Features long-range operation, high payload capacity, and real-time video for security and industrial applications.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.endurance">Flight Endurance</span>
+                                <span class="spec-value">75 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">100 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.speed">Max Speed</span>
+                                <span class="spec-value">19 km/h</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label">Comms Range</span>
+                                <span class="spec-value">15 km</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.runtime">Runtime</span>
+                                <span class="spec-value">3-4 hours</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.dimensions">Dimensions</span>
+                                <span class="spec-value">120x85x45 cm</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.camera">Camera Resolution</span>
+                                <span class="spec-value">1080p</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.weight">Weight</span>
+                                <span class="spec-value">100 kg</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PRODUCT 12: R-Ground Unit X2 -->
+            <article class="product-card" id="product-rgroundx2">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p14_2.jpeg" alt="R-Ground Unit X2 stabilization" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p14_3.jpeg" alt="R-Ground Unit X2 mounted" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p14_4.jpeg" alt="R-Ground Unit X2 detail" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-GROUND UNIT X2</div>
+                        <h3 class="product-name">R-Ground Unit X2</h3>
+                        <p class="product-desc">Two-axis weapon stabilization system designed for REVO-UGV integration or standalone deployment. Enables automated control of lightweight machine guns with precise pan/tilt motion and wireless remote operation. Suited for firefighting, police, surveillance, and reconnaissance applications.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.dimensions">Dimensions</span>
+                                <span class="spec-value">60x30x53 cm</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.weight">Weight</span>
+                                <span class="spec-value">30 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.axes">Axes of Motion</span>
+                                <span class="spec-value">2-axis Pan/Tilt</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">20 kg</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PRODUCT 13: R-Ground Unit X -->
+            <article class="product-card" id="product-rgroundx">
+                <div class="hud-corner-tl"></div>
+                <div class="hud-corner-br"></div>
+                <div class="product-card-inner">
+                    <div class="product-images">
+                        <img src="catalog-assets/drone/img_p15_2.jpeg" alt="R-Ground Unit X heavy stabilization" class="product-img-main" loading="lazy">
+                        <div class="product-img-thumbs">
+                            <img src="catalog-assets/drone/img_p15_3.jpeg" alt="R-Ground Unit X deployed" class="product-img-thumb" loading="lazy">
+                            <img src="catalog-assets/drone/img_p15_4.jpeg" alt="R-Ground Unit X platform" class="product-img-thumb" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-model-badge">&#9670; Model R-GROUND UNIT X</div>
+                        <h3 class="product-name">R-Ground Unit X</h3>
+                        <p class="product-desc">Heavy-duty two-axis weapon stabilization platform built for the highest payload demands. Shares the same operational purpose as the X2 variant but supports significantly heavier armaments and equipment for maximum tactical flexibility.</p>
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.dimensions">Dimensions</span>
+                                <span class="spec-value">81x57x35 cm</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.weight">Weight</span>
+                                <span class="spec-value">30 kg</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.axes">Axes of Motion</span>
+                                <span class="spec-value">2-axis Pan/Tilt</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-icon">&#9670;</span>
+                                <span class="spec-label" data-t="spec.payload">Max Payload</span>
+                                <span class="spec-value">50 kg</span>
+                            </div>
+                        </div>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">&#9655; Request Quote</a>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         COMPARISON TABLE
+         ================================================================ -->
+    <section class="comparison-section" id="comparison">
+        <div class="hex-pattern-dense"></div>
+        <div class="section-header reveal">
+            <div class="section-badge">&#9673; Comparison</div>
+            <h2 class="section-title" data-t="ui.compare">UAV Comparison</h2>
+            <p class="section-desc">Side-by-side performance overview of our fixed-wing and VTOL aerial platforms.</p>
+            <div class="section-line"></div>
+        </div>
+
+        <div class="comparison-wrapper reveal">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th data-t="cmp.model">Model</th>
+                        <th data-t="cmp.type">Type</th>
+                        <th data-t="cmp.range">Range</th>
+                        <th data-t="cmp.endurance">Endurance</th>
+                        <th data-t="cmp.payload">Payload</th>
+                        <th data-t="cmp.altitude">Max Altitude</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>R-SAHAB</td>
+                        <td data-t="cmp.fixedwing">Fixed-Wing</td>
+                        <td>40-50 km</td>
+                        <td>60 min</td>
+                        <td>1.5 kg</td>
+                        <td>--</td>
+                    </tr>
+                    <tr>
+                        <td>R-TAREQ</td>
+                        <td data-t="cmp.vtol">VTOL Fixed-Wing</td>
+                        <td>30-40 km</td>
+                        <td>25 min</td>
+                        <td>1.5 kg</td>
+                        <td>1,000 m</td>
+                    </tr>
+                    <tr>
+                        <td>R-HURR</td>
+                        <td data-t="cmp.flyingwing">Flying Wing VTOL</td>
+                        <td>100 km</td>
+                        <td>150 min</td>
+                        <td>3 kg</td>
+                        <td>2,000 m</td>
+                    </tr>
+                    <tr>
+                        <td>R-AL-KASER</td>
+                        <td>Long-Range UAV</td>
+                        <td>700 km</td>
+                        <td>7 hours</td>
+                        <td>20 kg</td>
+                        <td>3,000 m</td>
+                    </tr>
+                    <tr>
+                        <td>R-SHIHAB</td>
+                        <td>Multi-Role UAV</td>
+                        <td>800-1000 km</td>
+                        <td>12-18 hours</td>
+                        <td>30 kg</td>
+                        <td>5,000 m</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ================================================================
+         CTA BANNER
+         ================================================================ -->
+    <section class="cta-banner">
+        <div class="hex-pattern"></div>
+        <div class="reveal" style="position:relative;z-index:2;">
+            <h2 class="cta-banner-title" data-t="ui.readydeploy">Ready to Deploy?</h2>
+            <p class="cta-banner-desc">Contact our unmanned systems division for detailed specifications, custom configurations, and procurement inquiries.</p>
+            <a href="index.html#contact" class="btn-cta-main" data-t="ui.quote">&#9655; Request Quote</a>
+        </div>
+    </section>
+
+    <!-- ================================================================
+         FOOTER
+         ================================================================ -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="footer-brand-name">OMERTA DEFENCE</div>
+                <p class="footer-brand-desc">Pioneering unmanned systems technology for defence, security, and industrial applications. Innovation takes flight.</p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title" data-t="ui.quicklinks">Quick Links</div>
+                <div class="footer-links">
+                    <a href="index.html" data-t="nav.home">Home</a>
+                    <a href="catalog-weapons.html" data-t="nav.weapons">Weapons Catalog</a>
+                    <a href="index.html#products">Products</a>
+                    <a href="index.html#contact" data-t="nav.contact">Contact</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title" data-t="ui.contactus">Contact Us</div>
+                <div class="footer-links">
+                    <a href="mailto:info@omertadefence.com">info@omertadefence.com</a>
+                    <a href="#">Istanbul, Turkey</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 OMERTA DEFENCE. <span data-t="ui.rights">All rights reserved.</span></span>
+            <span class="footer-location">Istanbul, Turkey</span>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+    <!-- ================================================================
+         JAVASCRIPT
+         ================================================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* ----------------------------------------------------------
+           SCROLL PROGRESS BAR
+           ---------------------------------------------------------- */
+        var progressBar = document.getElementById('scrollProgress');
+
+        function updateProgress() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        }
+
+        /* ----------------------------------------------------------
+           TOP NAV SCROLL STATE
+           ---------------------------------------------------------- */
+        var topNav = document.getElementById('topNav');
+
+        function updateNav() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 50) {
+                topNav.classList.add('scrolled');
+            } else {
+                topNav.classList.remove('scrolled');
+            }
+        }
+
+        /* ----------------------------------------------------------
+           BACK TO TOP BUTTON
+           ---------------------------------------------------------- */
+        var backToTop = document.getElementById('backToTop');
+
+        function updateBackToTop() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > 600) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ----------------------------------------------------------
+           CATEGORY NAV ACTIVE HIGHLIGHTING
+           ---------------------------------------------------------- */
+        var catLinks = document.querySelectorAll('.cat-nav-link');
+        var sections = [];
+
+        catLinks.forEach(function(link) {
+            var sectionId = link.getAttribute('data-section');
+            var sectionEl = document.getElementById(sectionId);
+            if (sectionEl) {
+                sections.push({ id: sectionId, el: sectionEl, link: link });
+            }
+        });
+
+        function updateActiveSection() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            var offset = 200;
+            var current = '';
+
+            for (var i = 0; i < sections.length; i++) {
+                var rect = sections[i].el.getBoundingClientRect();
+                if (rect.top <= offset) {
+                    current = sections[i].id;
+                }
+            }
+
+            catLinks.forEach(function(link) {
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        /* ----------------------------------------------------------
+           SCROLL REVEAL (IntersectionObserver)
+           ---------------------------------------------------------- */
+        var revealElements = document.querySelectorAll('.product-card, .reveal');
+
+        if ('IntersectionObserver' in window) {
+            var revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealElements.forEach(function(el) {
+                revealObserver.observe(el);
+            });
+        } else {
+            /* Fallback: reveal everything */
+            revealElements.forEach(function(el) {
+                el.classList.add('revealed');
+            });
+        }
+
+        /* ----------------------------------------------------------
+           PARALLAX ON HERO (subtle)
+           ---------------------------------------------------------- */
+        var hero = document.querySelector('.hero');
+        var heroContent = document.querySelector('.hero-content');
+
+        function updateParallax() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop < window.innerHeight) {
+                var rate = scrollTop * 0.3;
+                heroContent.style.transform = 'translateY(' + rate + 'px)';
+                heroContent.style.opacity = 1 - (scrollTop / (window.innerHeight * 0.8));
+            }
+        }
+
+        /* ----------------------------------------------------------
+           COMBINED SCROLL HANDLER (throttled with rAF)
+           ---------------------------------------------------------- */
+        var ticking = false;
+
+        function onScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateProgress();
+                    updateNav();
+                    updateBackToTop();
+                    updateActiveSection();
+                    updateParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        /* Initial call */
+        updateProgress();
+        updateNav();
+        updateBackToTop();
+        updateActiveSection();
+
+        /* ----------------------------------------------------------
+           SMOOTH SCROLL FOR CATEGORY NAV
+           ---------------------------------------------------------- */
+        catLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('href').substring(1);
+                var targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        /* ----------------------------------------------------------
+           REDUCED MOTION CHECK
+           ---------------------------------------------------------- */
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (prefersReducedMotion.matches) {
+            /* Disable parallax */
+            heroContent.style.transform = 'none';
+            heroContent.style.opacity = '1';
+            /* Reveal all immediately */
+            revealElements.forEach(function(el) {
+                el.classList.add('revealed');
+            });
+        }
+
+    })();
+
+    // ---------- Full Translation System ----------
+    (function(){var SK='od_lang',D={tr:{'nav.home':'Ana Sayfa','nav.weapons':'Silah Kataloğu','nav.contact':'İletişim','hero.title1':'İHA & ROBOTİK','hero.title2':'KATALOG','hero.subtitle':'İnsansız Sistemler Birimi','hero.tagline':'İnovasyon Kanatlanıyor','cat.fpv':'FPV Dronelar','cat.multirotor':'Çok Rotorlu İHA','cat.fixedwing':'Sabit Kanatlı İHA','cat.vtol':'VTOL Sistemler','cat.recon':'Keşif','cat.ground':'Kara Araçları','cat.stabilization':'Stabilizasyon Platformları','cat.gcs':'Yer Kontrol','spec.frame':'Çerçeve Boyutu','spec.config':'Konfigürasyon','spec.battery':'Batarya Tipi','spec.range':'Menzil','spec.flight':'Azami Uçuş Süresi','spec.payload':'Azami Faydalı Yük','spec.fpvsys':'FPV Sistemi','spec.commlink':'Haberleşme Bağlantısı','spec.transmission':'İletim Mesafesi','spec.weight':'Ağırlık','spec.sensor':'Görüntü Sensörü','spec.resolution':'Video Çözünürlüğü','spec.altitude':'Azami İrtifa','spec.speed':'Azami Hız','spec.hover':'Azami Havada Kalma','spec.hoverPayload':'Yüklü Havada Kalma','spec.maxdist':'Yüklü Azami Mesafe','spec.wind':'Rüzgar Dayanımı','spec.dimensions':'Boyutlar','spec.wingspan':'Kanat Açıklığı','spec.endurance':'Uçuş Dayanıklılığı','spec.control':'Kontrol Mesafesi','spec.engine':'Motor Tipi','spec.launch':'Kalkış Tipi','spec.role':'Ana Görev','spec.runtime':'Kullanım Süresi','spec.os':'İşletim Sistemleri','spec.camera':'Kamera Çözünürlüğü','spec.axes':'Hareket Eksenleri','ui.quote':'\u25b9 Teklif İste','ui.compare':'İHA Karşılaştırma','ui.readydeploy':'Kullanıma Hazır mısınız?','ui.quicklinks':'Hızlı Bağlantılar','ui.contactus':'Bize Ulaşın','ui.rights':'Tüm hakları saklıdır.','cmp.model':'Model','cmp.type':'Tip','cmp.range':'Menzil','cmp.endurance':'Dayanıklılık','cmp.payload':'Faydalı Yük','cmp.altitude':'Azami İrtifa','cmp.fixedwing':'Sabit Kanat','cmp.vtol':'VTOL Sabit Kanat','cmp.flyingwing':'Uçan Kanat VTOL'},fr:{'nav.home':'Accueil','nav.weapons':'Catalogue Armes','nav.contact':'Contact','hero.title1':'UAV & ROBOTIQUE','hero.title2':'CATALOGUE','hero.subtitle':'Division Systèmes Sans Pilote','hero.tagline':'L\'Innovation Prend Son Envol','cat.fpv':'Drones FPV','cat.multirotor':'UAV Multirotor','cat.fixedwing':'UAV à Voilure Fixe','cat.vtol':'Systèmes VTOL','cat.recon':'Reconnaissance','cat.ground':'Véhicules Terrestres','cat.stabilization':'Plateformes de Stabilisation','cat.gcs':'Contrôle au Sol','spec.frame':'Taille Châssis','spec.config':'Configuration','spec.battery':'Type Batterie','spec.range':'Portée','spec.flight':'Temps de Vol Max','spec.payload':'Charge Utile Max','spec.fpvsys':'Système FPV','spec.commlink':'Lien Communication','spec.transmission':'Portée Transmission','spec.weight':'Poids','spec.sensor':'Capteur Image','spec.resolution':'Résolution Vidéo','spec.altitude':'Altitude Max','spec.speed':'Vitesse Max','spec.hover':'Vol Stationnaire Max','spec.hoverPayload':'Vol Stationnaire avec Charge','spec.maxdist':'Distance Max avec Charge','spec.wind':'Résistance au Vent','spec.dimensions':'Dimensions','spec.wingspan':'Envergure','spec.endurance':'Endurance de Vol','spec.control':'Portée de Contrôle','spec.engine':'Type Moteur','spec.launch':'Type Lancement','spec.role':'Rôle Principal','spec.runtime':'Autonomie','spec.os':'Systèmes d\'Exploitation','spec.camera':'Résolution Caméra','spec.axes':'Axes de Mouvement','ui.quote':'\u25b9 Demander un Devis','ui.compare':'Comparaison UAV','ui.readydeploy':'Prêt à Déployer?','ui.quicklinks':'Liens Rapides','ui.contactus':'Contactez-nous','ui.rights':'Tous droits réservés.','cmp.model':'Modèle','cmp.type':'Type','cmp.range':'Portée','cmp.endurance':'Endurance','cmp.payload':'Charge','cmp.altitude':'Altitude Max','cmp.fixedwing':'Voilure Fixe','cmp.vtol':'VTOL Voilure Fixe','cmp.flyingwing':'Aile Volante VTOL'},ar:{'nav.home':'الرئيسية','nav.weapons':'كتالوج الأسلحة','nav.contact':'اتصل بنا','hero.title1':'طائرات بدون طيار','hero.title2':'كتالوج','hero.subtitle':'قسم الأنظمة غير المأهولة','hero.tagline':'الابتكار يحلق','cat.fpv':'طائرات FPV','cat.multirotor':'طائرات متعددة الدوارات','cat.fixedwing':'طائرات ثابتة الجناح','cat.vtol':'أنظمة الإقلاع العمودي','cat.recon':'استطلاع','cat.ground':'مركبات أرضية','cat.stabilization':'منصات التثبيت','cat.gcs':'التحكم الأرضي','spec.frame':'حجم الإطار','spec.config':'التكوين','spec.battery':'نوع البطارية','spec.range':'المدى','spec.flight':'أقصى وقت طيران','spec.payload':'أقصى حمولة','spec.fpvsys':'نظام FPV','spec.commlink':'رابط الاتصال','spec.transmission':'مدى الإرسال','spec.weight':'الوزن','spec.sensor':'مستشعر الصورة','spec.resolution':'دقة الفيديو','spec.altitude':'أقصى ارتفاع','spec.speed':'أقصى سرعة','spec.hover':'أقصى وقت تحليق','spec.hoverPayload':'تحليق بحمولة','spec.maxdist':'أقصى مسافة بحمولة','spec.wind':'مقاومة الرياح','spec.dimensions':'الأبعاد','spec.wingspan':'باع الجناح','spec.endurance':'قدرة التحمل','spec.control':'مدى التحكم','spec.engine':'نوع المحرك','spec.launch':'نوع الإطلاق','spec.role':'الدور الرئيسي','spec.runtime':'وقت التشغيل','spec.os':'أنظمة التشغيل','spec.camera':'دقة الكاميرا','spec.axes':'محاور الحركة','ui.quote':'\u25b9 طلب عرض أسعار','ui.compare':'مقارنة الطائرات','ui.readydeploy':'هل أنت مستعد للنشر؟','ui.quicklinks':'روابط سريعة','ui.contactus':'اتصل بنا','ui.rights':'جميع الحقوق محفوظة.','cmp.model':'الموديل','cmp.type':'النوع','cmp.range':'المدى','cmp.endurance':'التحمل','cmp.payload':'الحمولة','cmp.altitude':'أقصى ارتفاع','cmp.fixedwing':'ثابت الجناح','cmp.vtol':'إقلاع عمودي','cmp.flyingwing':'جناح طائر'}},orig={},btns=document.querySelectorAll('.lang-btn[data-lang]'),st='en';try{st=localStorage.getItem(SK)||'en';}catch(e){}
+    document.querySelectorAll('[data-t]').forEach(function(el){var k=el.getAttribute('data-t');if(!orig[k])orig[k]=el.textContent;});
+    function apply(lang){var d=D[lang]||{};document.querySelectorAll('[data-t]').forEach(function(el){var k=el.getAttribute('data-t');if(lang==='en'){if(orig[k])el.textContent=orig[k];}else if(d[k])el.textContent=d[k];});btns.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';}
+    btns.forEach(function(b){b.addEventListener('click',function(){var l=b.getAttribute('data-lang');try{localStorage.setItem(SK,l);}catch(e){}apply(l);});});
+    if(st!=='en')apply(st);else btns.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')==='en');});})();
+    </script>
+
+</body>
+</html>

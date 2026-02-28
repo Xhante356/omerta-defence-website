@@ -11,31 +11,11 @@
     var isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // ---------- Boot Terminal ----------
-    // Delay boot terminal start until after bullet transition
+    // ---------- Boot Terminal ---------- (hidden instantly, only bullet matters)
     var bulletTransitionEl = document.getElementById('bulletTransition');
-    var bootStartDelay = (bulletTransitionEl && !prefersReducedMotion && !isMobile) ? 1400 : 0;
-
     (function initBootTerminal() {
         var terminal = document.getElementById('bootTerminal');
-        if (!terminal) return;
-
-        var lines = terminal.querySelectorAll('.boot-line');
-        var delay = 0;
-
-        setTimeout(function () {
-            lines.forEach(function (line, i) {
-                delay = (i + 1) * 250;
-                setTimeout(function () {
-                    line.classList.add('visible');
-                }, delay);
-            });
-
-            // Hide terminal after all lines shown
-            setTimeout(function () {
-                terminal.classList.add('hidden');
-            }, delay + 800);
-        }, bootStartDelay);
+        if (terminal) terminal.classList.add('hidden');
     })();
 
     // ---------- Loading Screen Dismiss ----------
@@ -55,10 +35,9 @@
             if (loadingReady && timerDone) dismiss();
         }
 
-        // Wait for bullet transition + boot terminal to finish first
-        var hasBullet = document.getElementById('bulletTransition') && !prefersReducedMotion && !isMobile;
-        var bootDelay = document.getElementById('bootTerminal') ? 2800 : 1800;
-        if (hasBullet) bootDelay += 1400;
+        // Only wait for bullet transition (short delay)
+        var hasBullet = bulletTransitionEl && !prefersReducedMotion && !isMobile;
+        var bootDelay = hasBullet ? 1400 : 300;
         setTimeout(function () { timerDone = true; tryDismiss(); }, bootDelay);
 
         if (document.readyState === 'complete') {
@@ -133,8 +112,7 @@
 
     // Trigger hero elements immediately after bullet+boot+loading
     var hasBulletTrans = document.getElementById('bulletTransition') && !prefersReducedMotion && !isMobile;
-    var heroRevealDelay = document.getElementById('bootTerminal') ? 3500 : 300;
-    if (hasBulletTrans) heroRevealDelay += 1400;
+    var heroRevealDelay = hasBulletTrans ? 1500 : 300;
     setTimeout(function () {
         document.querySelectorAll('.hero .reveal-clip, .hero .reveal-up').forEach(function (el) {
             el.classList.add('revealed');
@@ -195,20 +173,19 @@
     }
 
     // Run scramble after loading completes
-    var scrambleDelay = document.getElementById('bootTerminal') ? 4000 : 2000;
-    if (hasBulletTrans) scrambleDelay += 1400;
+    var scrambleDelay = hasBulletTrans ? 1800 : 800;
     setTimeout(scrambleHeroText, scrambleDelay);
 
     // ---------- Odometer Stat Counter Animation ----------
-    var statNumbers = document.querySelectorAll('.stat-number[data-target]');
     var countersStarted = false;
 
     function animateCounters() {
-        if (countersStarted) return;
+        var statNumbers = document.querySelectorAll('.stat-number[data-target]');
         countersStarted = true;
 
         statNumbers.forEach(function (counter) {
             var target = parseInt(counter.getAttribute('data-target'));
+            if (isNaN(target) || target === 0) return;
             var duration = 2000;
             var startTime = performance.now();
 
@@ -251,6 +228,14 @@
 
         statsObserver.observe(statsSection);
     }
+
+    // Re-animate counters when language changes (content-loader resets them to 0)
+    window.addEventListener('langchange', function () {
+        setTimeout(function () {
+            countersStarted = false;
+            animateCounters();
+        }, 200);
+    });
 
     // ---------- SVG Stat Rings Animation ----------
     function animateStatRings() {
@@ -548,43 +533,41 @@
             sparks.appendChild(spark);
         }
 
-        // Animation timeline
+        // Animation timeline (fast version)
         var timeline = [
             // Phase 1: Bullet enters from left (0ms)
             { time: 0, fn: function () {
                 transition.classList.add('active');
                 shell.classList.add('fly');
-                // Activate trails
                 trails.forEach(function (t) { t.classList.add('active'); });
             }},
-            // Phase 2: Muzzle flash (50ms)
-            { time: 50, fn: function () {
+            // Phase 2: Muzzle flash (30ms)
+            { time: 30, fn: function () {
                 flash.classList.add('fire');
                 smoke.classList.add('active');
             }},
-            // Phase 3: Impact on center (450ms - bullet crosses screen fast)
-            { time: 450, fn: function () {
+            // Phase 3: Impact (300ms)
+            { time: 300, fn: function () {
                 shell.classList.add('hit');
                 impact.classList.add('active');
                 sparks.classList.add('active');
-                // Screen shake
                 transition.classList.add('shake');
             }},
-            // Phase 4: Shutter close / wipe (650ms)
-            { time: 650, fn: function () {
+            // Phase 4: Shutter close (450ms)
+            { time: 450, fn: function () {
                 shutter.classList.add('close');
                 transition.classList.remove('shake');
             }},
-            // Phase 5: Shutter open revealing site (1200ms)
-            { time: 1200, fn: function () {
+            // Phase 5: Shutter open (800ms)
+            { time: 800, fn: function () {
                 shutter.classList.add('open');
             }},
-            // Phase 6: Clean up (2000ms)
-            { time: 2000, fn: function () {
+            // Phase 6: Clean up (1300ms)
+            { time: 1300, fn: function () {
                 transition.classList.add('done');
                 setTimeout(function () {
                     transition.style.display = 'none';
-                }, 500);
+                }, 300);
             }}
         ];
 

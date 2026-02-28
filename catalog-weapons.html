@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMERTA DEFENCE | Weapons & Ordnance Catalog</title>
+    <meta name="description" content="OMERTA DEFENCE Product Catalog - Small Arms, Heavy Ordnance, Ammunition, Armored Vehicles and Training Solutions.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ======================================================
+           RESET & BASE
+           ====================================================== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #0e0e0e;
+            --bg-tertiary: #111111;
+            --bg-card: rgba(255,255,255,0.03);
+            --bg-card-hover: rgba(255,255,255,0.055);
+            --border-subtle: rgba(255,255,255,0.08);
+            --border-hover: rgba(61,143,167,0.35);
+            --teal-primary: #1B3C4B;
+            --teal-accent: #3D8FA7;
+            --teal-glow: rgba(61,143,167,0.15);
+            --teal-bright: #5BC0DE;
+            --text-primary: #E8E8E8;
+            --text-secondary: #999999;
+            --text-heading: #FFFFFF;
+            --text-muted: #555555;
+            --font-heading: 'Orbitron', sans-serif;
+            --font-sub: 'Rajdhani', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --shadow-card: 0 4px 30px rgba(0,0,0,0.4);
+            --shadow-glow: 0 0 40px rgba(61,143,167,0.08);
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-med: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 140px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ======================================================
+           SCROLL PROGRESS BAR
+           ====================================================== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--teal-primary), var(--teal-accent), var(--teal-bright));
+            z-index: 10000;
+            transition: width 0.1s linear;
+        }
+
+        /* ======================================================
+           GRID PATTERN BACKGROUND
+           ====================================================== */
+        .grid-bg {
+            position: relative;
+        }
+        .grid-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(61,143,167,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(61,143,167,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ======================================================
+           TOP NAV BAR (back to main site)
+           ====================================================== */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            height: 60px;
+            background: rgba(10,10,10,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background var(--transition-fast);
+        }
+        .top-nav.scrolled {
+            background: rgba(10,10,10,0.97);
+        }
+        .top-nav-logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .top-nav-logo img {
+            height: 28px;
+            width: auto;
+        }
+        .top-nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+        .top-nav-links a {
+            font-family: var(--font-sub);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+        .top-nav-links a:hover { color: var(--teal-accent); }
+        .top-nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--teal-accent);
+            transition: width var(--transition-fast);
+        }
+        .top-nav-links a:hover::after { width: 100%; }
+
+        .lang-switcher { display: flex; gap: 4px; margin-left: 8px; padding-left: 12px; border-left: 1px solid rgba(255,255,255,0.1); }
+        .lang-btn { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: var(--text-secondary); font-family: var(--font-sub); font-size: 0.7rem; font-weight: 600; padding: 4px 8px; cursor: pointer; border-radius: var(--radius-sm); transition: all var(--transition-fast); letter-spacing: 1px; }
+        .lang-btn:hover { border-color: var(--teal-accent); color: var(--teal-accent); }
+        .lang-btn.active { background: var(--teal-accent); border-color: var(--teal-accent); color: #fff; }
+
+        /* ======================================================
+           HERO HEADER
+           ====================================================== */
+        .hero {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 40px 80px;
+            overflow: hidden;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(27,60,75,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(61,143,167,0.08) 0%, transparent 60%),
+                linear-gradient(180deg, #060608 0%, #0a0a0a 50%, #0e0e10 100%);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(61,143,167,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(61,143,167,0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.6;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--bg-primary), transparent);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero-label {
+            font-family: var(--font-sub);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            line-height: 1.1;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.4s forwards;
+        }
+        .hero-title span {
+            background: linear-gradient(135deg, var(--teal-accent), var(--teal-bright));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-family: var(--font-sub);
+            font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.6s forwards;
+        }
+        .hero-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--teal-accent), transparent);
+            margin: 24px auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.7s forwards;
+        }
+        .hero-desc {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.8s forwards;
+        }
+
+        /* Floating orbs decoration */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(27,60,75,0.2);
+            top: -100px;
+            left: -100px;
+            animation: orbFloat1 12s ease-in-out infinite;
+        }
+        .hero-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: rgba(61,143,167,0.1);
+            bottom: -50px;
+            right: -50px;
+            animation: orbFloat2 10s ease-in-out infinite;
+        }
+        @keyframes orbFloat1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 20px); }
+        }
+        @keyframes orbFloat2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -30px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ======================================================
+           CATEGORY STICKY NAV
+           ====================================================== */
+        .cat-nav {
+            position: sticky;
+            top: 60px;
+            z-index: 999;
+            background: rgba(10,10,10,0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .cat-nav::-webkit-scrollbar { display: none; }
+        .cat-nav-inner {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            min-width: max-content;
+            padding: 0 20px;
+        }
+        .cat-nav-link {
+            font-family: var(--font-sub);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            padding: 16px 20px;
+            white-space: nowrap;
+            position: relative;
+            transition: color var(--transition-fast);
+        }
+        .cat-nav-link:hover { color: var(--teal-accent); }
+        .cat-nav-link.active {
+            color: var(--teal-accent);
+        }
+        .cat-nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 2px;
+            background: var(--teal-accent);
+            border-radius: 2px 2px 0 0;
+        }
+
+        /* ======================================================
+           SECTION HEADERS
+           ====================================================== */
+        .section {
+            padding: 80px 0 40px;
+            position: relative;
+        }
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .section-header {
+            margin-bottom: 50px;
+        }
+        .section-eyebrow {
+            font-family: var(--font-sub);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background: var(--teal-accent);
+            margin-top: 12px;
+        }
+        .section-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 12px;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+            margin: 20px 0 0;
+        }
+
+        /* ======================================================
+           PRODUCT GRID
+           ====================================================== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+        }
+
+        /* ======================================================
+           PRODUCT CARD
+           ====================================================== */
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--teal-primary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            transition: all var(--transition-med);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .product-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .product-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            border-left-color: var(--teal-accent);
+            box-shadow: var(--shadow-card), var(--shadow-glow);
+            transform: translateY(-4px);
+        }
+        .product-card.revealed:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Card Image */
+        .card-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            background: #080808;
+        }
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease;
+            filter: brightness(0.85) contrast(1.05);
+        }
+        .product-card:hover .card-img-wrap img {
+            transform: scale(1.06);
+            filter: brightness(0.95) contrast(1.05);
+        }
+        .card-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(10,10,10,0.8) 100%);
+            pointer-events: none;
+        }
+        .card-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            font-family: var(--font-sub);
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--teal-bright);
+            background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(8px);
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(61,143,167,0.2);
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 24px;
+        }
+        .card-manufacturer {
+            font-family: var(--font-sub);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            margin-bottom: 6px;
+        }
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .card-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 18px;
+        }
+
+        /* Specs Table */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .specs-table tr:nth-child(odd) {
+            background: rgba(255,255,255,0.015);
+        }
+        .specs-table td {
+            padding: 7px 10px;
+            font-size: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            vertical-align: top;
+        }
+        .specs-table td:first-child {
+            font-family: var(--font-sub);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            width: 42%;
+            white-space: nowrap;
+        }
+        .specs-table td:last-child {
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+
+        /* Quote Button */
+        .btn-quote {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-sub);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            background: rgba(61,143,167,0.08);
+            border: 1px solid rgba(61,143,167,0.2);
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .btn-quote:hover {
+            background: rgba(61,143,167,0.18);
+            border-color: var(--teal-accent);
+            color: var(--teal-bright);
+            box-shadow: 0 0 20px rgba(61,143,167,0.1);
+        }
+        .btn-quote svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        /* ======================================================
+           FULL-WIDTH IMAGE CARD (for catalog page renders)
+           ====================================================== */
+        .product-card-wide {
+            grid-column: 1 / -1;
+        }
+        .product-card-wide .card-img-wrap {
+            height: 400px;
+        }
+        .product-card-wide .card-body {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .product-card-wide .card-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        .product-card-wide .card-specs-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        /* ======================================================
+           CATALOG PAGE IMAGE CARD (shows full page)
+           ====================================================== */
+        .card-img-wrap.page-render img {
+            object-fit: contain;
+            background: #0a0a0a;
+            padding: 8px;
+        }
+
+        /* ======================================================
+           ADDITIONAL SHOTGUN MODELS GRID
+           ====================================================== */
+        .shotgun-pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .page-thumb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all var(--transition-med);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .page-thumb-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .page-thumb-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-card);
+            transform: translateY(-3px);
+        }
+        .page-thumb-card.revealed:hover {
+            transform: translateY(-3px);
+        }
+        .page-thumb-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            background: #080808;
+            padding: 4px;
+            transition: filter 0.4s ease;
+            filter: brightness(0.9);
+        }
+        .page-thumb-card:hover img { filter: brightness(1); }
+        .page-thumb-label {
+            padding: 12px 16px;
+            font-family: var(--font-sub);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* ======================================================
+           FOOTER
+           ====================================================== */
+        .footer {
+            background: #060606;
+            border-top: 1px solid var(--border-subtle);
+            padding: 60px 40px 30px;
+            margin-top: 60px;
+        }
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-heading);
+            margin-bottom: 12px;
+        }
+        .footer-brand-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 360px;
+        }
+        .footer-col-title {
+            font-family: var(--font-sub);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--teal-accent);
+            margin-bottom: 16px;
+        }
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        .footer-links a {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+        }
+        .footer-links a:hover { color: var(--teal-accent); }
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer-copy {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        .footer-location {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* ======================================================
+           BACK-TO-TOP
+           ====================================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            background: rgba(27,60,75,0.85);
+            border: 1px solid rgba(61,143,167,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-fast);
+            z-index: 900;
+            backdrop-filter: blur(8px);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: var(--teal-accent);
+            box-shadow: 0 0 20px rgba(61,143,167,0.3);
+        }
+        .back-to-top svg {
+            width: 18px;
+            height: 18px;
+            fill: #fff;
+        }
+
+        /* ======================================================
+           ANIMATIONS / REDUCED MOTION
+           ====================================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+            .product-card, .page-thumb-card {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ======================================================
+           RESPONSIVE
+           ====================================================== */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            .product-card-wide .card-img-wrap { height: 320px; }
+        }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 0 20px; }
+            .top-nav-links { gap: 14px; }
+            .top-nav-links a { font-size: 0.72rem; letter-spacing: 1px; }
+            .hero { padding: 100px 20px 60px; min-height: 55vh; }
+            .section-container { padding: 0 20px; }
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .product-card-wide .card-img-wrap { height: 260px; }
+            .product-card-wide .card-body {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .shotgun-pages-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .cat-nav-link {
+                padding: 14px 14px;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { letter-spacing: 3px; }
+            .hero-subtitle { letter-spacing: 2px; }
+            .card-img-wrap { height: 200px; }
+            .card-body { padding: 18px; }
+            .top-nav-links a:not(:first-child):not(:last-child) {
+                display: none;
+            }
+        }
+
+        /* ======================================================
+           HORIZONTAL RULE BETWEEN SECTIONS
+           ====================================================== */
+        .section-break {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        .section-break hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(61,143,167,0.12), transparent);
+        }
+
+        /* ======================================================
+           SCANLINE FLICKER (subtle CRT effect on hero)
+           ====================================================== */
+        .hero-scanlines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.015) 0px,
+                rgba(0,0,0,0.015) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ======================================================
+           COUNT / STAT BADGES
+           ====================================================== */
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 0.8s 1s forwards;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat-num {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--teal-accent);
+        }
+        .hero-stat-label {
+            font-family: var(--font-sub);
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ======================================================
+           IMAGE LIGHTBOX
+           ====================================================== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 100000;
+            background: rgba(0,0,0,0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            cursor: zoom-out;
+            backdrop-filter: blur(10px);
+        }
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            box-shadow: 0 0 60px rgba(0,0,0,0.6);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- ========== TOP NAVIGATION ========== -->
+    <nav class="top-nav" id="topNav">
+        <a href="index.html" class="top-nav-logo">
+            <img src="assets/images/logo.png" alt="OMERTA DEFENCE" onerror="this.style.display='none'">
+            OMERTA DEFENCE
+        </a>
+        <div class="top-nav-links">
+            <a href="index.html" data-t="nav.main">Main Site</a>
+            <a href="catalog-drones.html" data-t="nav.drones">Drone Catalog</a>
+            <a href="index.html#contact" data-t="nav.contact">Contact</a>
+            <div class="lang-switcher" id="langSwitcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="tr">TR</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+                <button class="lang-btn" data-lang="ar">AR</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO HEADER ========== -->
+    <header class="hero grid-bg" id="hero">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-scanlines"></div>
+        <div class="hero-content">
+            <div class="hero-label" data-t="hero.label">Omerta Defence</div>
+            <h1 class="hero-title" data-t="hero.title">Product <span>Catalog</span></h1>
+            <div class="hero-subtitle" data-t="hero.subtitle">Small Arms &amp; Heavy Ordnance</div>
+            <div class="hero-divider"></div>
+            <p class="hero-desc">
+                Comprehensive overview of our defence portfolio spanning infantry weapons,
+                tactical shotguns, crew-served weapons, ammunition systems, armored vehicles,
+                and professional training programs.
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">9</div>
+                    <div class="hero-stat-label" data-t="hero.categories">Categories</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">30+</div>
+                    <div class="hero-stat-label" data-t="hero.products">Products</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">5</div>
+                    <div class="hero-stat-label" data-t="hero.brands">Partner Brands</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== CATEGORY NAVIGATION ========== -->
+    <nav class="cat-nav" id="catNav">
+        <div class="cat-nav-inner">
+            <a href="#assault-rifles" class="cat-nav-link active" data-section="assault-rifles" data-t="cat.assault">Assault Rifles</a>
+            <a href="#tactical-shotguns" class="cat-nav-link" data-section="tactical-shotguns" data-t="cat.shotguns">Tactical Shotguns</a>
+            <a href="#submachine-guns" class="cat-nav-link" data-section="submachine-guns" data-t="cat.smg">Submachine Guns</a>
+            <a href="#machine-guns" class="cat-nav-link" data-section="machine-guns" data-t="cat.mg">Machine Guns</a>
+            <a href="#grenade-launchers" class="cat-nav-link" data-section="grenade-launchers" data-t="cat.launchers">Grenade Launchers</a>
+            <a href="#ammunition" class="cat-nav-link" data-section="ammunition" data-t="cat.ammo">Ammunition</a>
+            <a href="#optics" class="cat-nav-link" data-section="optics" data-t="cat.optics">Optics &amp; Accessories</a>
+            <a href="#armored-vehicles" class="cat-nav-link" data-section="armored-vehicles" data-t="cat.vehicles">Armored Vehicles</a>
+            <a href="#training" class="cat-nav-link" data-section="training" data-t="cat.training">Training</a>
+        </div>
+    </nav>
+
+    <!-- ================================================================
+         SECTION A: ASSAULT RIFLES
+         ================================================================ -->
+    <section class="section grid-bg" id="assault-rifles">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category A</div>
+                <h2 class="section-title" data-t="cat.assault">Assault Rifles</h2>
+                <p class="section-desc" data-t="desc.assault">Battle-proven infantry rifles manufactured by Hedef Arms and Daglioglu. From the legendary AK platform to modern NATO-standard systems, engineered for reliability in extreme conditions.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- AK47 -->
+                <div class="product-card">
+                    <div class="card-img-wrap">
+                        <img src="catalog-assets/main/products/p004_1.jpeg" alt="AK47 Assault Rifle" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Hedef Arms</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Hedef Arms / Daglioglu</div>
+                        <h3 class="card-title">AK47</h3>
+                        <p class="card-desc" data-t="desc.ak47">The iconic 7.62x39mm gas-operated assault rifle. Renowned for unmatched reliability, simplicity of operation, and proven combat effectiveness across all environments.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.caliber">Caliber</td><td>7.62x39mm</td></tr>
+                            <tr><td data-t="spec.action">Action</td><td>Gas Piston, Rotating Bolt</td></tr>
+                            <tr><td data-t="spec.fireMode">Fire Modes</td><td>Semi-Auto / Full-Auto</td></tr>
+                            <tr><td data-t="spec.capacity">Magazine</td><td>30 Round</td></tr>
+                            <tr><td data-t="spec.barrel">Barrel Length</td><td>16.14" (410mm)</td></tr>
+                            <tr><td data-t="spec.velocity">Muzzle Velocity</td><td>700 m/s</td></tr>
+                            <tr><td data-t="spec.rpm">Rate of Fire</td><td>~650 rpm</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AK47 Variant 2 -->
+                <div class="product-card">
+                    <div class="card-img-wrap">
+                        <img src="catalog-assets/main/products/p005_1.jpeg" alt="AK47 Variant 2" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Hedef Arms</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Hedef Arms / Daglioglu</div>
+                        <h3 class="card-title">AK47 &mdash; Tactical Stock Variant</h3>
+                        <p class="card-desc" data-t="desc.ak47v2">Enhanced AK47 variant featuring modernized polymer/folding stock configuration, improved ergonomics, and Picatinny rail integration for optics and accessories.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.caliber">Caliber</td><td>7.62x39mm</td></tr>
+                            <tr><td data-t="spec.action">Action</td><td>Gas Piston, Rotating Bolt</td></tr>
+                            <tr><td data-t="spec.fireMode">Fire Modes</td><td>Semi-Auto / Full-Auto</td></tr>
+                            <tr><td data-t="spec.capacity">Magazine</td><td>30 Round</td></tr>
+                            <tr><td data-t="spec.stock">Stock</td><td>Folding / Collapsible Tactical</td></tr>
+                            <tr><td data-t="spec.rail">Rail System</td><td>Picatinny Top Rail</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- MAR556 (Full-width) -->
+                <div class="product-card product-card-wide">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_120.png" alt="MAR556 Infantry Rifle" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">NATO Standard</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="card-manufacturer">Infantry Rifle Platform</div>
+                            <h3 class="card-title">MAR556 Infantry Rifle</h3>
+                            <p class="card-desc" data-t="desc.mar556">NATO-standard 5.56x45mm modular assault rifle system. Available in five barrel length configurations to suit varied operational requirements from CQB to designated marksman roles. Fully compatible with NATO STANAG magazines and accessories.</p>
+                        </div>
+                        <div class="card-specs-col">
+                            <table class="specs-table">
+                                <tr><td data-t="spec.caliber">Caliber</td><td>5.56x45mm NATO</td></tr>
+                                <tr><td data-t="spec.barrel">Barrel Options</td><td>5 configurations</td></tr>
+                                <tr><td data-t="spec.capacity">Magazine</td><td>STANAG compatible</td></tr>
+                                <tr><td data-t="spec.standard">Standard</td><td>NATO interoperable</td></tr>
+                                <tr><td data-t="spec.rail">Rail System</td><td>Full-length Picatinny</td></tr>
+                            </table>
+                            <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION B: TACTICAL SHOTGUNS
+         ================================================================ -->
+    <section class="section" id="tactical-shotguns">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category B</div>
+                <h2 class="section-title" data-t="cat.shotguns">Tactical Shotguns</h2>
+                <p class="section-desc" data-t="desc.shotguns">Omega Arms tactical and combat shotguns. Semi-automatic, pump-action, and inertia-driven platforms for law enforcement, military, and security applications.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- AR 12T -->
+                <div class="product-card">
+                    <div class="card-img-wrap">
+                        <img src="catalog-assets/main/products/p009_1.jpeg" alt="AR 12T Tactical Shotgun" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Omega Arms</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Omega Arms</div>
+                        <h3 class="card-title">AR 12T</h3>
+                        <p class="card-desc" data-t="desc.ar12t">Semi-automatic tactical shotgun with adjustable gas system. Purpose-built for law enforcement and tactical operations with rapid follow-up capability.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.action">Action</td><td>Semi-Automatic (Gas)</td></tr>
+                            <tr><td data-t="spec.gauge">Gauge</td><td>12 GA</td></tr>
+                            <tr><td data-t="spec.chamber">Chamber</td><td>76mm (3")</td></tr>
+                            <tr><td data-t="spec.capacity">Capacity</td><td>2+1 / 5+1</td></tr>
+                            <tr><td data-t="spec.stock">Stock</td><td>Polymer, Adjustable</td></tr>
+                            <tr><td data-t="spec.gas">Gas System</td><td>Adjustable</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- P12D -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_020.png" alt="P12D Pump Action Shotgun" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Omega Arms</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Omega Arms</div>
+                        <h3 class="card-title">P12D</h3>
+                        <p class="card-desc" data-t="desc.p12d">Pump-action combat shotgun. Available in standard Black and corrosion-resistant Marine Chrome finishes for maritime and humid operating environments.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.action">Action</td><td>Pump Action</td></tr>
+                            <tr><td data-t="spec.gauge">Gauge</td><td>12 GA</td></tr>
+                            <tr><td data-t="spec.chamber">Chamber</td><td>3" (76mm)</td></tr>
+                            <tr><td data-t="spec.barrel">Barrel</td><td>51cm (20")</td></tr>
+                            <tr><td data-t="spec.capacity">Capacity</td><td>4+1</td></tr>
+                            <tr><td data-t="spec.weight">Weight</td><td>2.8 kg</td></tr>
+                            <tr><td data-t="spec.finish">Finish</td><td>Black / Marine Chrome</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- S12 S Flash Hider -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_030.png" alt="S12 S Flash Hider Shotgun" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Omega Arms</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Omega Arms</div>
+                        <h3 class="card-title">S12 S Flash Hider</h3>
+                        <p class="card-desc" data-t="desc.s12s">Semi-automatic inertia-driven shotgun with integrated flash hider. Designed for low-signature tactical operations with superior cycling reliability.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.action">Action</td><td>Semi-Auto (Inertia)</td></tr>
+                            <tr><td data-t="spec.gauge">Gauge</td><td>12 GA</td></tr>
+                            <tr><td data-t="spec.chamber">Chamber</td><td>3" (76mm)</td></tr>
+                            <tr><td data-t="spec.barrel">Barrel</td><td>71cm (28")</td></tr>
+                            <tr><td data-t="spec.capacity">Capacity</td><td>4+1</td></tr>
+                            <tr><td data-t="spec.weight">Weight</td><td>2.8 kg</td></tr>
+                            <tr><td data-t="spec.feature">Feature</td><td>Integrated Flash Hider</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Additional Shotgun Models from Catalog Pages -->
+            <div style="margin-top: 50px;">
+                <h3 style="font-family: var(--font-sub); font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;">Additional Models &mdash; Full Catalog Pages</h3>
+                <div class="shotgun-pages-grid">
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_006.png" alt="Shotgun Catalog Page 6" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 06</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_010.png" alt="Shotgun Catalog Page 10" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 10</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_012.png" alt="Shotgun Catalog Page 12" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 12</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_015.png" alt="Shotgun Catalog Page 15" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 15</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_018.png" alt="Shotgun Catalog Page 18" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 18</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_022.png" alt="Shotgun Catalog Page 22" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 22</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_025.png" alt="Shotgun Catalog Page 25" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 25</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_028.png" alt="Shotgun Catalog Page 28" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 28</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_032.png" alt="Shotgun Catalog Page 32" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 32</div>
+                    </div>
+                    <div class="page-thumb-card">
+                        <img src="catalog-assets/main/page_035.png" alt="Shotgun Catalog Page 35" loading="lazy">
+                        <div class="page-thumb-label">Catalog Page 35</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION C: SUBMACHINE GUNS
+         ================================================================ -->
+    <section class="section grid-bg" id="submachine-guns">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category C</div>
+                <h2 class="section-title" data-t="cat.smg">Submachine Guns</h2>
+                <p class="section-desc" data-t="desc.smg">Compact, high-rate-of-fire personal defence and close quarters battle weapons chambered in pistol calibers for maximum controllability.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- MSG-9 -->
+                <div class="product-card product-card-wide">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_130.png" alt="MSG-9 Submachine Gun" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">SMG Platform</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="card-manufacturer">Small Arms Division</div>
+                            <h3 class="card-title">MSG-9</h3>
+                            <p class="card-desc" data-t="desc.msg9">9mm submachine gun designed for special operations and vehicle crew defence. Compact form factor with folding stock enables concealed carry and rapid deployment in confined spaces. High cyclic rate for decisive close-quarters engagements.</p>
+                        </div>
+                        <div class="card-specs-col">
+                            <table class="specs-table">
+                                <tr><td data-t="spec.caliber">Caliber</td><td>9x19mm Parabellum</td></tr>
+                                <tr><td data-t="spec.action">Action</td><td>Blowback, Closed Bolt</td></tr>
+                                <tr><td data-t="spec.fireMode">Fire Modes</td><td>Semi / Full-Auto</td></tr>
+                                <tr><td data-t="spec.application">Application</td><td>CQB / PDW</td></tr>
+                                <tr><td data-t="spec.stock">Stock</td><td>Side-folding</td></tr>
+                            </table>
+                            <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION D: MACHINE GUNS
+         ================================================================ -->
+    <section class="section" id="machine-guns">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category D</div>
+                <h2 class="section-title" data-t="cat.mg">Machine Guns</h2>
+                <p class="section-desc" data-t="desc.mg">Crew-served and vehicle-mounted heavy weapon systems. From belt-fed heavy machine guns to autocannon platforms for armored fighting vehicles.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- Heavy Machine Gun -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_090.png" alt="Heavy Machine Gun - Mounted System" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Crew Served</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Heavy Weapons Division</div>
+                        <h3 class="card-title">Heavy Machine Gun &mdash; Mounted</h3>
+                        <p class="card-desc" data-t="desc.hmg">Vehicle and tripod-mounted heavy machine gun system for sustained suppressive fire and area denial. Designed for static emplacements, vehicle turrets, and naval platforms.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.class">Class</td><td>Heavy Machine Gun</td></tr>
+                            <tr><td data-t="spec.mount">Mount</td><td>Tripod / Vehicle</td></tr>
+                            <tr><td data-t="spec.feed">Feed</td><td>Belt-fed</td></tr>
+                            <tr><td data-t="spec.role">Role</td><td>Suppression / Area Denial</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 30mm Autocannon -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_100.png" alt="30mm Autocannon System" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Autocannon</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Heavy Ordnance Division</div>
+                        <h3 class="card-title">30mm Autocannon System</h3>
+                        <p class="card-desc" data-t="desc.autocannon">30mm automatic cannon system for integration into IFV turrets, remote weapon stations, and naval close-in weapon systems. High explosive and armor-piercing ammunition capability.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.caliber">Caliber</td><td>30x173mm</td></tr>
+                            <tr><td data-t="spec.type">Type</td><td>Autocannon</td></tr>
+                            <tr><td data-t="spec.feed">Feed</td><td>Dual-feed selectable</td></tr>
+                            <tr><td data-t="spec.integration">Integration</td><td>IFV / RWS / Naval</td></tr>
+                            <tr><td data-t="spec.ammoTypes">Ammo Types</td><td>HEI / APFSDS</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION E: GRENADE LAUNCHERS
+         ================================================================ -->
+    <section class="section grid-bg" id="grenade-launchers">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category E</div>
+                <h2 class="section-title" data-t="cat.launchers">Grenade Launchers</h2>
+                <p class="section-desc" data-t="desc.launchers">40mm multi-shot and automatic grenade launcher systems for infantry and vehicle-mounted applications. Area suppression and precision indirect fire.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- 40mm Multi-shot -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_140.png" alt="40mm Multi-Shot Grenade Launcher" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">40mm</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Launcher Systems</div>
+                        <h3 class="card-title">40mm Multi-Shot Grenade Launcher</h3>
+                        <p class="card-desc" data-t="desc.gl40">Rotary-cylinder multi-shot 40mm grenade launcher for infantry use. Provides rapid-fire indirect fire capability with HE, smoke, illumination, and less-lethal munitions.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.caliber">Caliber</td><td>40x46mm</td></tr>
+                            <tr><td data-t="spec.type">Type</td><td>Multi-Shot Revolver</td></tr>
+                            <tr><td data-t="spec.ammoTypes">Ammo Types</td><td>HE / Smoke / Illum / LTL</td></tr>
+                            <tr><td data-t="spec.deployment">Deployment</td><td>Infantry Portable</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RDS40-AGL -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_150.png" alt="RDS40-AGL Automatic Grenade Launcher" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">AGL Platform</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Launcher Systems</div>
+                        <h3 class="card-title">RDS40-AGL</h3>
+                        <p class="card-desc" data-t="desc.rds40">Automatic grenade launcher with modular mounting platforms. Compatible with APC turret rings, Jeep pintle mounts, and tripod emplacements for versatile deployment.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.caliber">Caliber</td><td>40mm</td></tr>
+                            <tr><td data-t="spec.type">Type</td><td>Automatic Grenade Launcher</td></tr>
+                            <tr><td data-t="spec.feed">Feed</td><td>Belt-fed</td></tr>
+                            <tr><td data-t="spec.mounts">Mounts</td><td>APC / Jeep / Tripod</td></tr>
+                            <tr><td data-t="spec.fireControl">Fire Control</td><td>Optical / Electronic</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION F: AMMUNITION & PROJECTILES
+         ================================================================ -->
+    <section class="section" id="ammunition">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category F</div>
+                <h2 class="section-title" data-t="cat.ammo">Ammunition &amp; Projectiles</h2>
+                <p class="section-desc" data-t="desc.ammo">Complete ammunition portfolio from less-lethal crowd control munitions to high-explosive incendiary rounds. Manufactured by Hedef, Omega, and Narac to military specifications.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- CS Smoke -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_040.png" alt="CS Smoke Projectile" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Less Lethal</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Hedef / Omega</div>
+                        <h3 class="card-title">CS Smoke Projectile 37/38mm</h3>
+                        <p class="card-desc" data-t="desc.cssmoke">Tear gas (CS) smoke delivery projectile for riot control and area denial operations. Available in short and long range variants for flexible engagement distances.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.caliber">Caliber</td><td>37/38mm</td></tr>
+                            <tr><td data-t="spec.agent">Agent</td><td>CS (Tear Gas)</td></tr>
+                            <tr><td data-t="spec.shortRange">Short Range</td><td>100m</td></tr>
+                            <tr><td data-t="spec.longRange">Long Range</td><td>150m</td></tr>
+                            <tr><td data-t="spec.application">Application</td><td>Riot Control / Area Denial</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Rubber Ball -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_050.png" alt="Rubber Ball Projectile" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Less Lethal</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Hedef / Omega</div>
+                        <h3 class="card-title">Rubber Ball Projectile</h3>
+                        <p class="card-desc" data-t="desc.rubberball">Kinetic impact less-lethal projectile available in both 37/38mm and 40mm configurations. Designed for crowd dispersal with controlled energy transfer to minimize permanent injury risk.</p>
+                        <table class="specs-table">
+                            <tr><td data-t="spec.caliber">Calibers</td><td>37/38mm &amp; 40mm</td></tr>
+                            <tr><td data-t="spec.type">Type</td><td>Kinetic Impact</td></tr>
+                            <tr><td data-t="spec.material">Material</td><td>Rubber Composite</td></tr>
+                            <tr><td data-t="spec.application">Application</td><td>Crowd Control</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote" data-t="ui.quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 30mm HEI -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_080.png" alt="30mm HEI Ammunition" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Narac</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Narac</div>
+                        <h3 class="card-title">30mm HEI Ammunition</h3>
+                        <p class="card-desc">30mm High-Explosive Incendiary ammunition for autocannon platforms. Dual-purpose warhead provides fragmentation and incendiary effect against light armored vehicles, structures, and personnel.</p>
+                        <table class="specs-table">
+                            <tr><td>Caliber</td><td>30mm</td></tr>
+                            <tr><td>Type</td><td>High-Explosive Incendiary</td></tr>
+                            <tr><td>Effect</td><td>Fragmentation + Incendiary</td></tr>
+                            <tr><td>Platform</td><td>Autocannon Systems</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Ammunition Boxes -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_060.png" alt="Ammunition Storage Boxes" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Storage</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">Logistics &amp; Storage</div>
+                        <h3 class="card-title">Ammunition Boxes &mdash; M2A2 / M19A1</h3>
+                        <p class="card-desc">Military-specification ammunition storage containers. Waterproof, airtight seal with stackable design for secure long-term storage and field transportation of all caliber ammunition.</p>
+                        <table class="specs-table">
+                            <tr><td>Models</td><td>M2A2, M19A1</td></tr>
+                            <tr><td>Material</td><td>Steel, Sealed</td></tr>
+                            <tr><td>Features</td><td>Waterproof / Airtight</td></tr>
+                            <tr><td>Design</td><td>Stackable, Field-rated</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION G: OPTICS & ACCESSORIES
+         ================================================================ -->
+    <section class="section grid-bg" id="optics">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category G</div>
+                <h2 class="section-title">Optics &amp; Accessories</h2>
+                <p class="section-desc">Precision sighting systems, suppressor technology, and mounting solutions. Enhance weapon capability with battle-tested optical and accessory platforms.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- Optics & Accessories Wide Card -->
+                <div class="product-card product-card-wide">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_110.png" alt="Optics and Accessories" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Mecanix</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="card-manufacturer">Mecanix Optics</div>
+                            <h3 class="card-title">Optics &amp; Accessory Systems</h3>
+                            <p class="card-desc">Comprehensive accessory platform including the M0xL Reflex Sight for rapid target acquisition, Mod 24 and Mod 25 optic mounts for secure zero retention, and the T-SUP tactical suppressor for signature reduction. All components mil-spec rated and combat proven.</p>
+                        </div>
+                        <div class="card-specs-col">
+                            <table class="specs-table">
+                                <tr><td>Reflex Sight</td><td>Mecanix M0xL</td></tr>
+                                <tr><td>Optic Mounts</td><td>Mod 24, Mod 25</td></tr>
+                                <tr><td>Suppressor</td><td>T-SUP Series</td></tr>
+                                <tr><td>Compatibility</td><td>Picatinny / NATO Rail</td></tr>
+                                <tr><td>Rating</td><td>MIL-STD Qualified</td></tr>
+                            </table>
+                            <a href="index.html#contact" class="btn-quote">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION H: ARMORED VEHICLES
+         ================================================================ -->
+    <section class="section" id="armored-vehicles">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category H</div>
+                <h2 class="section-title">Armored Vehicles</h2>
+                <p class="section-desc">INKAS armored personnel carriers, MRAP platforms, and modular vehicle protection systems. From law enforcement transports to military-grade mine-resistant vehicles.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- Hudson APC -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_160.png" alt="INKAS Hudson APC" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">INKAS</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">INKAS Armored</div>
+                        <h3 class="card-title">Hudson APC</h3>
+                        <p class="card-desc">Armored personnel carrier designed for law enforcement and paramilitary operations. Combines tactical mobility with ballistic protection for personnel transport in high-threat environments.</p>
+                        <table class="specs-table">
+                            <tr><td>Type</td><td>Armored Personnel Carrier</td></tr>
+                            <tr><td>Role</td><td>Personnel Transport</td></tr>
+                            <tr><td>Sector</td><td>Law Enforcement / Military</td></tr>
+                            <tr><td>Protection</td><td>Multi-threat Ballistic</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Large APC -->
+                <div class="product-card">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_170.png" alt="INKAS Large APC" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">INKAS</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-manufacturer">INKAS Armored</div>
+                        <h3 class="card-title">Large APC</h3>
+                        <p class="card-desc">Full-size armored personnel carrier with NATO STANAG-rated protection. Designed for high-intensity conflict zones with mine and IED resistance.</p>
+                        <table class="specs-table">
+                            <tr><td>Length</td><td>6,271mm</td></tr>
+                            <tr><td>Top Speed</td><td>105 km/h</td></tr>
+                            <tr><td>Ballistic</td><td>CEN 1063 BR7</td></tr>
+                            <tr><td>Blast</td><td>STANAG 4569 Level 4a/4b</td></tr>
+                            <tr><td>Drivetrain</td><td>4x4 All-Terrain</td></tr>
+                        </table>
+                        <a href="index.html#contact" class="btn-quote">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            Request Quote
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Vehicle Lineup (Full-width) -->
+                <div class="product-card product-card-wide">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_180.png" alt="INKAS Vehicle Lineup" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Full Lineup</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="card-manufacturer">INKAS Armored Vehicle Group</div>
+                            <h3 class="card-title">INKAS Vehicle Lineup</h3>
+                            <p class="card-desc">Complete range of armored transport platforms scaled for every operational requirement. From compact urban patrol APCs to mine-resistant ambush protected (MRAP) vehicles for the most demanding theatres of operation.</p>
+                        </div>
+                        <div class="card-specs-col">
+                            <table class="specs-table">
+                                <tr><td>Small APC</td><td>Urban / Light Patrol</td></tr>
+                                <tr><td>Mid-Size APC</td><td>Multi-role Transport</td></tr>
+                                <tr><td>Large APC</td><td>Heavy Personnel Carrier</td></tr>
+                                <tr><td>Super Sized APC</td><td>Mass Transport</td></tr>
+                                <tr><td>MRAP</td><td>Mine-Resistant Platform</td></tr>
+                            </table>
+                            <a href="index.html#contact" class="btn-quote">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modular Vehicle Protection -->
+                <div class="product-card product-card-wide">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_188.png" alt="Modular Vehicle Protection Platform" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Modular Platform</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="card-manufacturer">INKAS Protection Systems</div>
+                            <h3 class="card-title">Modular Vehicle Protection Platform</h3>
+                            <p class="card-desc">Scalable armoring solution that can be retrofitted to existing commercial and military vehicle platforms. Modular ballistic panels, blast-resistant floor plates, and run-flat tire systems provide configurable protection levels without permanent vehicle modification.</p>
+                        </div>
+                        <div class="card-specs-col">
+                            <table class="specs-table">
+                                <tr><td>Type</td><td>Retrofit Armor Kit</td></tr>
+                                <tr><td>Components</td><td>Ballistic Panels, Floor Plates</td></tr>
+                                <tr><td>Tires</td><td>Run-flat System</td></tr>
+                                <tr><td>Config</td><td>Modular / Scalable</td></tr>
+                                <tr><td>Installation</td><td>Non-permanent Retrofit</td></tr>
+                            </table>
+                            <a href="index.html#contact" class="btn-quote">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-break"><hr></div>
+
+    <!-- ================================================================
+         SECTION I: TRAINING
+         ================================================================ -->
+    <section class="section grid-bg" id="training">
+        <div class="section-container">
+            <header class="section-header">
+                <div class="section-eyebrow">Category I</div>
+                <h2 class="section-title">Training</h2>
+                <p class="section-desc">Professional military and law enforcement training programs by Omega Training. Combat-proven instructors delivering world-class tactical education.</p>
+            </header>
+
+            <div class="product-grid">
+
+                <!-- Training Programs -->
+                <div class="product-card product-card-wide">
+                    <div class="card-img-wrap page-render">
+                        <img src="catalog-assets/main/page_070.png" alt="Omega Training Programs" loading="lazy">
+                        <div class="card-img-overlay"></div>
+                        <span class="card-badge">Omega Training</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-info">
+                            <div class="card-manufacturer">Omega Training Division</div>
+                            <h3 class="card-title">Professional Training Courses</h3>
+                            <p class="card-desc">Omega Training delivers operationally focused courses designed and led by combat-experienced instructors. Programs range from individual marksmanship to full-spectrum small unit tactics, tailored to client operational requirements and threat environments.</p>
+                        </div>
+                        <div class="card-specs-col">
+                            <table class="specs-table">
+                                <tr><td>Sniper Course</td><td>Long-range precision, fieldcraft, observation</td></tr>
+                                <tr><td>Small Unit Tactics</td><td>Team movement, CQB, ambush drills</td></tr>
+                                <tr><td>Instructors</td><td>Combat-experienced operators</td></tr>
+                                <tr><td>Clients</td><td>Military / LE / Private Security</td></tr>
+                                <tr><td>Format</td><td>Custom duration &amp; curriculum</td></tr>
+                            </table>
+                            <a href="index.html#contact" class="btn-quote">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                Request Quote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="footer-brand-title">OMERTA DEFENCE</div>
+                <p class="footer-brand-desc">Precision. Power. Protection. Comprehensive defence solutions spanning small arms, heavy ordnance, unmanned systems, armored vehicles, and professional training.</p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Catalogs</div>
+                <ul class="footer-links">
+                    <li><a href="catalog-weapons.html">Weapons &amp; Ordnance</a></li>
+                    <li><a href="catalog-drones.html">Drones &amp; UAVs</a></li>
+                    <li><a href="index.html">Main Website</a></li>
+                    <li><a href="index.html#products">Products Overview</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-col-title">Contact</div>
+                <ul class="footer-links">
+                    <li><a href="mailto:info@omertadefence.com">info@omertadefence.com</a></li>
+                    <li><a href="index.html#contact">Contact Form</a></li>
+                    <li><span style="color: var(--text-muted); font-size: 0.82rem;">Istanbul, Turkey</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-copy">&copy; 2026 OMERTA DEFENCE. All rights reserved.</div>
+            <div class="footer-location">Istanbul, Turkey</div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+    </button>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <img src="" alt="Full size preview" id="lightboxImg">
+    </div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+    (function() {
+        'use strict';
+
+        /* -----------------------------------------------
+           SCROLL PROGRESS BAR
+           ----------------------------------------------- */
+        const scrollProgress = document.getElementById('scrollProgress');
+        function updateScrollProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            scrollProgress.style.width = progress + '%';
+        }
+
+        /* -----------------------------------------------
+           TOP NAV SCROLL STATE
+           ----------------------------------------------- */
+        const topNav = document.getElementById('topNav');
+        function updateNavState() {
+            topNav.classList.toggle('scrolled', window.scrollY > 80);
+        }
+
+        /* -----------------------------------------------
+           BACK TO TOP
+           ----------------------------------------------- */
+        const backToTop = document.getElementById('backToTop');
+        function updateBackToTop() {
+            backToTop.classList.toggle('visible', window.scrollY > 600);
+        }
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* -----------------------------------------------
+           CATEGORY NAV ACTIVE STATE
+           ----------------------------------------------- */
+        const catLinks = document.querySelectorAll('.cat-nav-link');
+        const sections = [];
+        catLinks.forEach(function(link) {
+            var sectionId = link.getAttribute('data-section');
+            var sectionEl = document.getElementById(sectionId);
+            if (sectionEl) sections.push({ id: sectionId, el: sectionEl, link: link });
+        });
+
+        function updateActiveSection() {
+            var scrollPos = window.scrollY + 200;
+            var currentId = '';
+            for (var i = sections.length - 1; i >= 0; i--) {
+                if (sections[i].el.offsetTop <= scrollPos) {
+                    currentId = sections[i].id;
+                    break;
+                }
+            }
+            catLinks.forEach(function(link) {
+                link.classList.toggle('active', link.getAttribute('data-section') === currentId);
+            });
+
+            // Auto-scroll category nav to show active link
+            var activeLink = document.querySelector('.cat-nav-link.active');
+            if (activeLink) {
+                var nav = document.getElementById('catNav');
+                var linkRect = activeLink.getBoundingClientRect();
+                var navRect = nav.getBoundingClientRect();
+                if (linkRect.left < navRect.left || linkRect.right > navRect.right) {
+                    activeLink.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
+            }
+        }
+
+        /* -----------------------------------------------
+           UNIFIED SCROLL HANDLER (throttled)
+           ----------------------------------------------- */
+        var scrollTicking = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollTicking) {
+                window.requestAnimationFrame(function() {
+                    updateScrollProgress();
+                    updateNavState();
+                    updateBackToTop();
+                    updateActiveSection();
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
+        }, { passive: true });
+
+        // Initial calls
+        updateScrollProgress();
+        updateNavState();
+        updateBackToTop();
+        updateActiveSection();
+
+        /* -----------------------------------------------
+           HERO PARALLAX (subtle)
+           ----------------------------------------------- */
+        var heroContent = document.querySelector('.hero-content');
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!prefersReduced && heroContent) {
+            window.addEventListener('scroll', function() {
+                var scrollY = window.scrollY;
+                if (scrollY < window.innerHeight) {
+                    heroContent.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+                    heroContent.style.opacity = Math.max(0, 1 - scrollY / (window.innerHeight * 0.8));
+                }
+            }, { passive: true });
+        }
+
+        /* -----------------------------------------------
+           INTERSECTION OBSERVER: Card Reveal
+           ----------------------------------------------- */
+        if (!prefersReduced) {
+            var revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        // Stagger animation based on index within parent
+                        var card = entry.target;
+                        var siblings = card.parentElement.children;
+                        var index = Array.prototype.indexOf.call(siblings, card);
+                        var delay = index * 120;
+                        setTimeout(function() {
+                            card.classList.add('revealed');
+                        }, delay);
+                        revealObserver.unobserve(card);
+                    }
+                });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            document.querySelectorAll('.product-card, .page-thumb-card').forEach(function(card) {
+                revealObserver.observe(card);
+            });
+        } else {
+            // If reduced motion, show everything immediately
+            document.querySelectorAll('.product-card, .page-thumb-card').forEach(function(card) {
+                card.classList.add('revealed');
+            });
+        }
+
+        /* -----------------------------------------------
+           LIGHTBOX: Click on product image to enlarge
+           ----------------------------------------------- */
+        var lightbox = document.getElementById('lightbox');
+        var lightboxImg = document.getElementById('lightboxImg');
+
+        document.querySelectorAll('.card-img-wrap img, .page-thumb-card img').forEach(function(img) {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lightboxImg.src = this.src;
+                lightboxImg.alt = this.alt;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightbox.addEventListener('click', function() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        /* -----------------------------------------------
+           SMOOTH SCROLL for cat-nav links
+           ----------------------------------------------- */
+        catLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = this.getAttribute('href').substring(1);
+                var target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+    })();
+
+    // ---------- Full Translation System ----------
+    (function(){var SK='od_lang',D={tr:{'nav.main':'Ana Sayfa','nav.drones':'Drone Kataloğu','nav.contact':'İletişim','hero.title':'Ürün Kataloğu','hero.subtitle':'Hafif Silahlar & Ağır Silahlar','hero.categories':'Kategoriler','hero.products':'Ürünler','hero.brands':'İş Ortakları','cat.assault':'Taarruz Tüfekleri','cat.shotguns':'Taktik Tüfekler','cat.smg':'Makineli Tabancalar','cat.mg':'Makineli Tüfekler','cat.launchers':'Bombaatarlar','cat.ammo':'Mühimmat','cat.optics':'Optik & Aksesuarlar','cat.vehicles':'Zırhlı Araçlar','cat.training':'Eğitim','spec.caliber':'Kalibre','spec.action':'Mekanizma','spec.fireMode':'Ateş Modu','spec.capacity':'Şarjör','spec.barrel':'Namlu Uzunluğu','spec.velocity':'Namlu Hızı','spec.rpm':'Atış Hızı','spec.stock':'Dipçik','spec.rail':'Ray Sistemi','spec.standard':'Standart','spec.gauge':'Çap','spec.chamber':'Hazne','spec.gas':'Gaz Sistemi','spec.weight':'Ağırlık','spec.finish':'Kaplama','spec.feature':'Özellik','spec.application':'Uygulama','spec.class':'Sınıf','spec.mount':'Montaj','spec.feed':'Besleme','spec.role':'Görev','spec.type':'Tip','spec.integration':'Entegrasyon','spec.ammoTypes':'Mermi Tipleri','spec.deployment':'Konuşlanma','spec.mounts':'Montaj Tipleri','spec.fireControl':'Atış Kontrol','spec.agent':'Ajan','spec.shortRange':'Kısa Menzil','spec.longRange':'Uzun Menzil','spec.material':'Malzeme','ui.quote':'Teklif İste','desc.assault':'Hedef Arms ve Dağlıoğlu tarafından üretilen savaşta kanıtlanmış piyade tüfekleri.','desc.ak47':'İkonik 7.62x39mm gaz piston sistemiyle çalışan taarruz tüfeği. Eşsiz güvenilirliği ile tanınır.','desc.ak47v2':'Modernize polimer/katlanır dipçik, geliştirilmiş ergonomi ve Picatinny ray entegrasyonlu AK47 varyantı.','desc.mar556':'NATO standart 5.56x45mm modüler taarruz tüfeği. Beş namlu uzunluğu konfigürasyonunda mevcuttur.','desc.shotguns':'Omega Arms taktik ve muharebe tüfekleri. Yarı otomatik, pompalı ve atalet tahrikli platformlar.','desc.ar12t':'Ayarlanabilir gaz sistemli yarı otomatik taktik tüfek. Güvenlik kuvvetleri için tasarlanmıştır.','desc.p12d':'Pompalı muharebe tüfeği. Siyah ve Marine Krom kaplamalarda mevcuttur.','desc.s12s':'Entegre alev gizleyicili yarı otomatik atalet tahrikli tüfek.','desc.smg':'Kompakt, yüksek atış hızlı kişisel savunma ve yakın muharebe silahları.','desc.msg9':'Özel harekat için tasarlanmış 9mm makineli tabanca. Kompakt form faktörü ile gizli taşıma imkanı sağlar.','desc.mg':'Mürettebatlı ve araç montajlı ağır silah sistemleri.','desc.hmg':'Sürekli baskı ateşi için araç ve üçayak montajlı ağır makineli tüfek sistemi.','desc.autocannon':'IFV kuleleri ve uzaktan kumandalı silah istasyonları için 30mm otomatik top sistemi.','desc.launchers':'40mm çoklu atışlı ve otomatik bombaatar sistemleri.','desc.gl40':'Piyade kullanımı için döner silindir çoklu atışlı 40mm bombaatar.','desc.rds40':'Modüler montaj platformlu otomatik bombaatar. ZMA ve Jeep montajlarıyla uyumlu.','desc.ammo':'Az öldürücü mühimmattan yüksek patlayıcı mermilere kadar tam mühimmat portföyü.','desc.cssmoke':'Ayaklanma kontrolü için göz yaşartıcı gaz (CS) duman mermisi.','desc.rubberball':'37/38mm ve 40mm konfigürasyonlarında kinetik darbe az öldürücü mermi.'},fr:{'nav.main':'Site Principal','nav.drones':'Catalogue Drones','nav.contact':'Contact','hero.title':'Catalogue Produits','hero.subtitle':'Armes Légères & Artillerie Lourde','hero.categories':'Catégories','hero.products':'Produits','hero.brands':'Marques Partenaires','cat.assault':'Fusils d\'Assaut','cat.shotguns':'Fusils Tactiques','cat.smg':'Pistolets-Mitrailleurs','cat.mg':'Mitrailleuses','cat.launchers':'Lance-Grenades','cat.ammo':'Munitions','cat.optics':'Optiques & Accessoires','cat.vehicles':'Véhicules Blindés','cat.training':'Formation','spec.caliber':'Calibre','spec.action':'Action','spec.fireMode':'Modes de Tir','spec.capacity':'Chargeur','spec.barrel':'Longueur Canon','spec.velocity':'Vitesse Initiale','spec.rpm':'Cadence de Tir','spec.stock':'Crosse','spec.rail':'Système Rail','spec.standard':'Standard','spec.gauge':'Calibre','spec.chamber':'Chambre','spec.gas':'Système à Gaz','spec.weight':'Poids','spec.finish':'Finition','spec.feature':'Caractéristique','spec.application':'Application','spec.class':'Classe','spec.mount':'Montage','spec.feed':'Alimentation','spec.role':'Rôle','spec.type':'Type','spec.integration':'Intégration','spec.ammoTypes':'Types de Munitions','spec.deployment':'Déploiement','spec.mounts':'Montages','spec.fireControl':'Contrôle de Tir','spec.agent':'Agent','spec.shortRange':'Courte Portée','spec.longRange':'Longue Portée','spec.material':'Matériau','ui.quote':'Demander un Devis','desc.assault':'Fusils d\'infanterie éprouvés au combat par Hedef Arms et Daglioglu.','desc.shotguns':'Fusils tactiques et de combat Omega Arms.','desc.smg':'Armes de défense personnelle compactes à cadence élevée.','desc.mg':'Systèmes d\'armes lourdes montés sur véhicule.','desc.launchers':'Lance-grenades 40mm multi-coups et automatiques.','desc.ammo':'Portfolio complet de munitions.'},ar:{'nav.main':'الموقع الرئيسي','nav.drones':'كتالوج الطائرات','nav.contact':'اتصل بنا','hero.title':'كتالوج المنتجات','hero.subtitle':'أسلحة خفيفة وثقيلة','hero.categories':'الفئات','hero.products':'المنتجات','hero.brands':'العلامات التجارية','cat.assault':'بنادق هجومية','cat.shotguns':'بنادق تكتيكية','cat.smg':'رشاشات فرعية','cat.mg':'رشاشات','cat.launchers':'قاذفات قنابل','cat.ammo':'ذخيرة','cat.optics':'بصريات وملحقات','cat.vehicles':'مركبات مدرعة','cat.training':'تدريب','spec.caliber':'العيار','spec.action':'الميكانيكية','spec.fireMode':'وضع الإطلاق','spec.capacity':'المخزن','spec.barrel':'طول الماسورة','spec.velocity':'سرعة الفوهة','spec.rpm':'معدل الإطلاق','spec.stock':'الأخمص','spec.rail':'نظام السكة','spec.standard':'المعيار','spec.gauge':'القطر','spec.chamber':'الحجرة','spec.gas':'نظام الغاز','spec.weight':'الوزن','spec.finish':'التشطيب','spec.feature':'الميزة','spec.application':'التطبيق','spec.class':'الفئة','spec.mount':'التثبيت','spec.feed':'التغذية','spec.role':'الدور','spec.type':'النوع','spec.integration':'التكامل','spec.ammoTypes':'أنواع الذخيرة','spec.deployment':'النشر','spec.mounts':'أنواع التثبيت','spec.fireControl':'التحكم بالنار','spec.agent':'العامل','spec.shortRange':'مدى قصير','spec.longRange':'مدى بعيد','spec.material':'المادة','ui.quote':'طلب عرض أسعار','desc.assault':'بنادق مشاة مثبتة في المعارك من هيدف آرمز وداغلي أوغلو.','desc.shotguns':'بنادق أوميغا آرمز التكتيكية والقتالية.','desc.smg':'أسلحة دفاع شخصي مدمجة عالية معدل الإطلاق.','desc.mg':'أنظمة أسلحة ثقيلة مثبتة على مركبات.','desc.launchers':'أنظمة قاذفات قنابل 40 ملم متعددة الطلقات.','desc.ammo':'محفظة ذخيرة كاملة من الذخيرة غير المميتة إلى المتفجرة.'}},orig={},btns=document.querySelectorAll('.lang-btn[data-lang]'),st='en';try{st=localStorage.getItem(SK)||'en';}catch(e){}
+    document.querySelectorAll('[data-t]').forEach(function(el){var k=el.getAttribute('data-t');if(!orig[k])orig[k]=el.textContent;});
+    function apply(lang){var d=D[lang]||{};document.querySelectorAll('[data-t]').forEach(function(el){var k=el.getAttribute('data-t');if(lang==='en'){if(orig[k])el.textContent=orig[k];}else if(d[k])el.textContent=d[k];});btns.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';}
+    btns.forEach(function(b){b.addEventListener('click',function(){var l=b.getAttribute('data-lang');try{localStorage.setItem(SK,l);}catch(e){}apply(l);});});
+    if(st!=='en')apply(st);else btns.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')==='en');});})();
+    </script>
+</body>
+</html>
