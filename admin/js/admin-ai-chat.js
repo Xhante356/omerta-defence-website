@@ -325,6 +325,18 @@ const AdminAIChat = (() => {
         input.value = '';
         input.style.height = 'auto';
 
+        // Pre-check: any API keys configured?
+        const providerStatuses = AIProviderManager.getProviderStatuses();
+        const hasAnyKey = providerStatuses.some(s => s.hasKey);
+        if (!hasAnyKey) {
+            _addMessage('user', text);
+            _addMessage('ai', 'API anahtari yapilandirilmamis. Lutfen Settings sayfasina gidip en az bir AI saglayicisi (Gemini, Groq veya OpenRouter) icin ucretsiz API anahtari girin.\n\n<a href="#/settings" style="color:var(--teal-accent);text-decoration:underline;">Ayarlara Git</a>');
+            _renderMessages();
+            _renderSuggestions();
+            _renderProviderBar();
+            return;
+        }
+
         _addMessage('user', text);
         _renderMessages();
         _renderSuggestions();
@@ -360,7 +372,16 @@ const AdminAIChat = (() => {
             _renderProviderBar();
         } catch (err) {
             _hideTyping();
-            _addMessage('ai', `Hata: ${err.message}`);
+            // Check if no API keys are configured at all
+            const statuses = AIProviderManager.getProviderStatuses();
+            const anyKeyConfigured = statuses.some(s => s.hasKey);
+            if (!anyKeyConfigured) {
+                _addMessage('ai', 'API anahtari yapilandirilmamis. Lutfen Settings sayfasina gidip en az bir AI saglayicisi (Gemini, Groq veya OpenRouter) icin ucretsiz API anahtari girin.\n\n<a href="#/settings" style="color:var(--teal-accent);text-decoration:underline;">Ayarlara Git</a>');
+            } else if (err.message.includes('All AI providers failed')) {
+                _addMessage('ai', 'Tum AI saglayicilari basarisiz oldu. API anahtarlarinizi kontrol edin veya birkaç dakika sonra tekrar deneyin.\n\nDetay: ' + err.message.replace('All AI providers failed: ', ''));
+            } else {
+                _addMessage('ai', `Hata: ${err.message}`);
+            }
             _renderMessages();
             _renderProviderBar();
         }
