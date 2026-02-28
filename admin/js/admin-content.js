@@ -44,7 +44,7 @@ const AdminContent = (() => {
     // ── Translation Engine ──
     const LANG_NAMES = { en: 'English', tr: 'Turkish', fr: 'French', ar: 'Arabic' };
 
-    async function translateToAllLangs(data, activeLang, saveCurrent, draw) {
+    async function translateToAllLangs(data, activeLang, saveCurrent, draw, storeKey) {
         // Check if AI module exists
         if (typeof AIProviderManager === 'undefined') {
             toast('AI Provider module not loaded.', 'error');
@@ -108,10 +108,30 @@ CRITICAL RULES:
             }
         }
 
-        if (btn) { btn.disabled = false; btn.textContent = 'Translate to All Languages'; }
+        if (btn) {
+            btn.disabled = false;
+            if (successCount > 0) {
+                btn.textContent = `Translated ${successCount} language(s)!`;
+                btn.style.background = 'var(--success, #22c55e)';
+                btn.style.color = '#fff';
+                btn.style.borderColor = 'var(--success, #22c55e)';
+                setTimeout(() => {
+                    btn.textContent = 'Translate to All Languages';
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    btn.style.borderColor = '';
+                }, 3000);
+            } else {
+                btn.textContent = 'Translate to All Languages';
+            }
+        }
         if (statusEl) statusEl.textContent = '';
 
         if (successCount > 0) {
+            // Save translated data to localStorage
+            if (storeKey) {
+                AdminStore.setContent(storeKey, data);
+            }
             toast(`Translated to ${successCount} language(s)!`, 'success');
             draw();
         }
@@ -224,7 +244,7 @@ CRITICAL RULES:
             imagePreviewBind('heroBg', 'heroBgPreview');
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
             document.getElementById('translateAllBtn')?.addEventListener('click', () => {
-                translateToAllLangs(data, activeLang, saveCurrent, draw).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); });
+                translateToAllLangs(data, activeLang, saveCurrent, draw, key).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); });
             });
 
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
@@ -297,7 +317,7 @@ CRITICAL RULES:
 
             imagePreviewBind('aboutImg', 'aboutImgPreview');
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
-            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw, key).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('About section saved!', 'success');
             });
@@ -364,7 +384,7 @@ CRITICAL RULES:
             `);
 
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
-            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw, key).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Products overview saved!', 'success');
             });
@@ -427,7 +447,7 @@ CRITICAL RULES:
 
             imagePreviewBind('cyberBg', 'cyberBgPreview');
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
-            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw, key).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Cyber section saved!', 'success');
             });
@@ -486,7 +506,7 @@ CRITICAL RULES:
             `);
 
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
-            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw, key).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Contact section saved!', 'success');
             });
@@ -524,7 +544,7 @@ CRITICAL RULES:
             `);
 
             bindLangTabs(container, (lang) => { saveCurrent(); activeLang = lang; draw(); });
-            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
+            document.getElementById('translateAllBtn')?.addEventListener('click', () => { translateToAllLangs(data, activeLang, saveCurrent, draw, key).catch(e => { console.error('Translate error:', e); toast('Translation failed: ' + e.message, 'error'); }); });
             container.querySelector('#contentEditorForm').addEventListener('submit', (e) => {
                 e.preventDefault(); saveCurrent(); AdminStore.setContent(key, data); toast('Footer saved!', 'success');
             });
