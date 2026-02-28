@@ -82,24 +82,26 @@ const AdminSettings = (() => {
                 </div>
             </div>
 
-            <!-- AI Integration -->
+            <!-- AI Integration - Multi Provider -->
             <div class="form-section">
-                <div class="form-section-title">AI Integration (Groq)</div>
+                <div class="form-section-title">AI Integration</div>
+                <p class="form-hint" style="color:var(--danger);margin-bottom:16px;">Warning: API keys are stored in your browser's localStorage. Do not use on shared or public computers.</p>
+
+                <!-- Preferred Provider -->
                 <div class="form-group">
-                    <label class="form-label">Groq API Key</label>
-                    <input class="form-input" id="aiApiKey" type="password" value="${escHtml(aiSettings.groqApiKey || '')}" placeholder="gsk_...">
-                    <p class="form-hint">Get your API key at <a href="https://console.groq.com" target="_blank" rel="noopener">console.groq.com</a></p>
-                    <p class="form-hint" style="color:var(--danger);margin-top:8px;">Warning: API keys are stored in your browser's localStorage and sent directly to Groq. Do not use on shared or public computers.</p>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Model</label>
-                    <select class="form-select" id="aiModel">
-                        <option value="llama-3.3-70b-versatile" ${aiSettings.model === 'llama-3.3-70b-versatile' ? 'selected' : ''}>Llama 3.3 70B Versatile</option>
-                        <option value="llama-3.1-8b-instant" ${aiSettings.model === 'llama-3.1-8b-instant' ? 'selected' : ''}>Llama 3.1 8B Instant</option>
-                        <option value="mixtral-8x7b-32768" ${aiSettings.model === 'mixtral-8x7b-32768' ? 'selected' : ''}>Mixtral 8x7B</option>
-                        <option value="gemma2-9b-it" ${aiSettings.model === 'gemma2-9b-it' ? 'selected' : ''}>Gemma 2 9B</option>
+                    <label class="form-label">Preferred Provider</label>
+                    <select class="form-select" id="aiPreferredProvider">
+                        <option value="auto" ${(aiSettings.preferredProvider || 'auto') === 'auto' ? 'selected' : ''}>Auto (Gemini &rarr; Groq &rarr; OpenRouter)</option>
+                        <option value="gemini" ${aiSettings.preferredProvider === 'gemini' ? 'selected' : ''}>Google Gemini</option>
+                        <option value="groq" ${aiSettings.preferredProvider === 'groq' ? 'selected' : ''}>Groq</option>
+                        <option value="openrouter" ${aiSettings.preferredProvider === 'openrouter' ? 'selected' : ''}>OpenRouter</option>
                     </select>
                 </div>
+
+                ${_renderProviderSettings('gemini', 'Google Gemini', aiSettings)}
+                ${_renderProviderSettings('groq', 'Groq', aiSettings)}
+                ${_renderProviderSettings('openrouter', 'OpenRouter', aiSettings)}
+
                 <div class="form-group">
                     <label class="form-label">
                         <input type="checkbox" id="aiEnabled" ${aiSettings.enabled ? 'checked' : ''} style="margin-right:8px;vertical-align:middle;">
@@ -108,8 +110,6 @@ const AdminSettings = (() => {
                 </div>
                 <div class="btn-group mt-16">
                     <button class="btn btn-primary" id="saveAI">Save AI Settings</button>
-                    <button class="btn btn-outline" id="testAI">Test Connection</button>
-                    <span id="aiTestResult" style="font-size:0.85rem;margin-left:12px;"></span>
                 </div>
             </div>
 
@@ -134,6 +134,45 @@ const AdminSettings = (() => {
             </div>`;
 
         bindEvents(container);
+    }
+
+    function _renderProviderSettings(providerId, label, aiSettings) {
+        const providers = aiSettings.providers || {};
+        const config = providers[providerId] || {};
+        let providerInfo = null;
+        if (typeof AIProviderManager !== 'undefined') {
+            providerInfo = AIProviderManager.getProviderInfo(providerId);
+        }
+        const models = providerInfo ? providerInfo.models : [];
+        const placeholder = providerInfo ? providerInfo.keyPlaceholder : '';
+        const consoleUrl = providerInfo ? providerInfo.consoleUrl : '#';
+        const limit = providerInfo ? providerInfo.limit : '';
+        const currentModel = config.model || (providerInfo ? providerInfo.defaultModel : '');
+
+        const modelOptions = models.map(m =>
+            `<option value="${m.id}" ${currentModel === m.id ? 'selected' : ''}>${m.name}</option>`
+        ).join('');
+
+        return `
+            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:14px;margin-bottom:12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+                    <strong style="color:#e0e0e0;font-size:0.9rem;">${label}</strong>
+                    <span style="font-size:0.72rem;color:var(--text-muted);">${limit}</span>
+                </div>
+                <div class="form-group" style="margin-bottom:8px;">
+                    <label class="form-label" style="font-size:0.8rem;">API Key</label>
+                    <input class="form-input" id="aiKey_${providerId}" type="password" value="${escHtml(config.apiKey || '')}" placeholder="${placeholder}">
+                    <p class="form-hint">Get your key at <a href="${consoleUrl}" target="_blank" rel="noopener">${consoleUrl.replace('https://', '')}</a></p>
+                </div>
+                <div class="form-group" style="margin-bottom:8px;">
+                    <label class="form-label" style="font-size:0.8rem;">Model</label>
+                    <select class="form-select" id="aiModel_${providerId}">${modelOptions}</select>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-outline btn-sm" id="aiTest_${providerId}">Test Connection</button>
+                    <span id="aiTestResult_${providerId}" style="font-size:0.8rem;margin-left:8px;"></span>
+                </div>
+            </div>`;
     }
 
     function bindEvents(container) {
@@ -186,50 +225,55 @@ const AdminSettings = (() => {
             toast('Branding saved!', 'success');
         });
 
-        // Save AI
+        // Save AI (multi-provider)
         document.getElementById('saveAI')?.addEventListener('click', () => {
-            const apiKey = document.getElementById('aiApiKey')?.value || '';
-            if (apiKey && !apiKey.startsWith('gsk_')) {
-                toast('Invalid API key format. Key must start with "gsk_"', 'error');
-                return;
-            }
+            const providerIds = ['gemini', 'groq', 'openrouter'];
+            const providers = {};
+            providerIds.forEach(pid => {
+                providers[pid] = {
+                    apiKey: document.getElementById(`aiKey_${pid}`)?.value || '',
+                    model: document.getElementById(`aiModel_${pid}`)?.value || ''
+                };
+            });
+
             const settings = {
-                groqApiKey: apiKey,
-                model: document.getElementById('aiModel')?.value || 'llama-3.3-70b-versatile',
-                enabled: document.getElementById('aiEnabled')?.checked || false
+                providers,
+                preferredProvider: document.getElementById('aiPreferredProvider')?.value || 'auto',
+                enabled: document.getElementById('aiEnabled')?.checked || false,
+                // Backward compatibility for admin-ai.js
+                groqApiKey: providers.groq.apiKey,
+                model: providers.groq.model
             };
+
             if (AdminStore.setAISettings) AdminStore.setAISettings(settings);
             toast('AI settings saved!', 'success');
         });
 
-        // Test AI Connection
-        document.getElementById('testAI')?.addEventListener('click', () => {
-            const resultEl = document.getElementById('aiTestResult');
-            resultEl.textContent = 'Testing...';
-            resultEl.style.color = 'var(--text-muted)';
+        // Test AI Connection (per-provider)
+        ['gemini', 'groq', 'openrouter'].forEach(pid => {
+            document.getElementById(`aiTest_${pid}`)?.addEventListener('click', () => {
+                const resultEl = document.getElementById(`aiTestResult_${pid}`);
+                resultEl.textContent = 'Testing...';
+                resultEl.style.color = 'var(--text-muted)';
 
-            // Save current values first
-            const settings = {
-                groqApiKey: document.getElementById('aiApiKey')?.value || '',
-                model: document.getElementById('aiModel')?.value || 'llama-3.3-70b-versatile',
-                enabled: true
-            };
-            if (AdminStore.setAISettings) AdminStore.setAISettings(settings);
+                // Save current values first
+                _saveCurrentAISettings();
 
-            if (typeof AdminAI !== 'undefined' && AdminAI.testConnection) {
-                AdminAI.testConnection()
-                    .then(() => {
-                        resultEl.textContent = 'Connection successful!';
-                        resultEl.style.color = 'var(--success)';
-                    })
-                    .catch((err) => {
-                        resultEl.textContent = 'Failed: ' + (err.message || 'Unknown error');
-                        resultEl.style.color = 'var(--danger)';
-                    });
-            } else {
-                resultEl.textContent = 'AI module not loaded';
-                resultEl.style.color = 'var(--danger)';
-            }
+                if (typeof AIProviderManager !== 'undefined') {
+                    AIProviderManager.testProvider(pid)
+                        .then(() => {
+                            resultEl.textContent = 'Connection successful!';
+                            resultEl.style.color = 'var(--success)';
+                        })
+                        .catch((err) => {
+                            resultEl.textContent = 'Failed: ' + (err.message || 'Unknown error');
+                            resultEl.style.color = 'var(--danger)';
+                        });
+                } else {
+                    resultEl.textContent = 'AI Provider module not loaded';
+                    resultEl.style.color = 'var(--danger)';
+                }
+            });
         });
 
         // Export
@@ -344,6 +388,25 @@ const AdminSettings = (() => {
                 setTimeout(() => AdminRouter.forceRefresh(), 500);
             });
         });
+    }
+
+    function _saveCurrentAISettings() {
+        const providerIds = ['gemini', 'groq', 'openrouter'];
+        const providers = {};
+        providerIds.forEach(pid => {
+            providers[pid] = {
+                apiKey: document.getElementById(`aiKey_${pid}`)?.value || '',
+                model: document.getElementById(`aiModel_${pid}`)?.value || ''
+            };
+        });
+        const settings = {
+            providers,
+            preferredProvider: document.getElementById('aiPreferredProvider')?.value || 'auto',
+            enabled: document.getElementById('aiEnabled')?.checked || false,
+            groqApiKey: providers.groq.apiKey,
+            model: providers.groq.model
+        };
+        if (AdminStore.setAISettings) AdminStore.setAISettings(settings);
     }
 
     return { render };

@@ -29,7 +29,9 @@ const AdminStore = (() => {
         I18N: 'od_i18n',
         SITE_LANG: 'od_site_lang',
         ADMIN_LANG: 'od_admin_lang',
-        PAGES: 'od_pages'
+        PAGES: 'od_pages',
+        AI_CHAT_HISTORY: 'od_ai_chat_history',
+        AI_SNAPSHOTS: 'od_ai_snapshots'
     };
 
     const CATALOG_CATEGORIES = {
@@ -594,6 +596,67 @@ const AdminStore = (() => {
         return total;
     }
 
+    // ── Snapshots (AI Change Undo) ──
+    const SNAPSHOT_MAX = 50;
+
+    function getSnapshots() {
+        return get(KEYS.AI_SNAPSHOTS) || [];
+    }
+
+    function createSnapshot(label, affectedKeys) {
+        const snapshots = getSnapshots();
+        const data = {};
+        (affectedKeys || []).forEach(k => {
+            const val = get(k);
+            if (val !== null) data[k] = JSON.parse(JSON.stringify(val));
+            else data[k] = null;
+        });
+        const snap = {
+            id: generateId('snap'),
+            label: label || 'Snapshot',
+            affectedKeys: affectedKeys || [],
+            data,
+            createdAt: now()
+        };
+        snapshots.unshift(snap);
+        if (snapshots.length > SNAPSHOT_MAX) snapshots.length = SNAPSHOT_MAX;
+        set(KEYS.AI_SNAPSHOTS, snapshots);
+        return snap;
+    }
+
+    function restoreSnapshot(id) {
+        const snapshots = getSnapshots();
+        const snap = snapshots.find(s => s.id === id);
+        if (!snap) return false;
+        Object.keys(snap.data).forEach(k => {
+            if (snap.data[k] === null) remove(k);
+            else set(k, snap.data[k]);
+        });
+        auditLog('snapshot_restore', `Restored snapshot: ${snap.label}`);
+        return true;
+    }
+
+    function deleteSnapshot(id) {
+        const snapshots = getSnapshots();
+        set(KEYS.AI_SNAPSHOTS, snapshots.filter(s => s.id !== id));
+    }
+
+    // ── Chat History ──
+    const CHAT_MAX = 100;
+
+    function getChatHistory() {
+        return get(KEYS.AI_CHAT_HISTORY) || [];
+    }
+
+    function saveChatHistory(messages) {
+        const trimmed = messages.slice(-CHAT_MAX);
+        set(KEYS.AI_CHAT_HISTORY, trimmed);
+    }
+
+    function clearChatHistory() {
+        set(KEYS.AI_CHAT_HISTORY, []);
+    }
+
     // ── Public API ──
     return {
         KEYS, DEFAULTS, CATALOG_CATEGORIES, AVAILABLE_LANGS,
@@ -610,6 +673,8 @@ const AdminStore = (() => {
         auditLog, getAuditLog, clearAuditLog,
         getSEO, setSEO, getBranding, setBranding,
         getAISettings, setAISettings,
+        getSnapshots, createSnapshot, restoreSnapshot, deleteSnapshot,
+        getChatHistory, saveChatHistory, clearChatHistory,
         exportAll, importAll, clearAll, getStorageUsage
     };
 })();

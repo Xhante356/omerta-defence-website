@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OMERTA DEFENCE | Command Center</title>
     <meta name="robots" content="noindex, nofollow">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com https://*.unsplash.com data:; connect-src 'self' https://api.groq.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com https://*.unsplash.com data:; connect-src 'self' https://api.groq.com https://generativelanguage.googleapis.com https://openrouter.ai;">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/admin-components.css">
     <link rel="stylesheet" href="css/page-builder.css">
+    <link rel="stylesheet" href="css/admin-ai-chat.css">
 </head>
 <body>
 
@@ -148,6 +149,14 @@
                 </div>
 
                 <div class="sidebar-group">
+                    <p class="sidebar-group-label">AI ASSISTANT</p>
+                    <a href="#/ai-chat" class="sidebar-link" data-route="ai-chat">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+                        <span>AI Chat</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-group">
                     <p class="sidebar-group-label" data-admin-i18n="sidebar.system">SYSTEM</p>
                     <a href="#/audit" class="sidebar-link" data-route="audit">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="12 8 12 12 14 14"/><circle cx="12" cy="12" r="10"/></svg>
@@ -193,6 +202,8 @@
     <script src="js/admin-settings.js"></script>
     <script src="js/admin-pages.js"></script>
     <script src="js/admin-ai.js"></script>
+    <script src="js/admin-ai-providers.js"></script>
+    <script src="js/admin-ai-chat.js"></script>
     <script src="js/admin-app.js"></script>
 </body>
 </html>

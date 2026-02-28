@@ -151,6 +151,7 @@ const AdminApp = (() => {
         AdminRouter.register('rfq', (c) => AdminRFQ.render(c));
         AdminRouter.register('audit', (c) => AdminAudit.render(c));
         AdminRouter.register('settings', (c) => AdminSettings.render(c));
+        AdminRouter.register('ai-chat', (c) => AdminAIChat.render(c));
     }
 
     // ── Boot (after login) ──
